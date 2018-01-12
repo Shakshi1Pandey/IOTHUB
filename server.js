@@ -9,6 +9,8 @@ import config from './core/config/config.dev';
 import connectToDb from './db/connect';
 import index from './routes/index.router.js';
 
+import cors from 'cors';
+
 
 
 const port = config.serverPort;
@@ -36,7 +38,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 console.log(index)
 app.use(index);
 // app.use('/users', users);
-
+app.use(cors())
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   var err = new Error('Not Found');

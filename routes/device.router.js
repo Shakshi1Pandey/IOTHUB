@@ -15,7 +15,7 @@ router.get('/allDevice', (req, res) => {
     deivceService.getAll(req, res);
 });
 
-router.get('/addDevice', (req, res) => {
+router.post('/addDevice', (req, res) => {
     deivceService.addDevice(req, res);
 });
 

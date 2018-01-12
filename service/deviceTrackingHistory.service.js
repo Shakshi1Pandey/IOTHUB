@@ -6,7 +6,10 @@
  * @lastModifedBy Shakshi
  */
 
-import DeviceTrackingHistory from '../models/deviceTrackingHistory.model'
+import DeviceTrackingHistory from '../models/deviceTrackingHistory.model';
+import DeviceTracking from '../models/deviceTracking.model';
+import Device from '../models/device.model';
+
 import logger from '../core/logger/app.logger'
 
 /**
@@ -39,15 +42,49 @@ service.getAll = async (req,res) =>{
  * @return {[object]}
  */
 service.addDeviceTrackingHistoryData = async (req, res) => {
-    console.log("hii")
+    let dataString = req.query.dataString;
+    dataString = dataString.split("~");
+
     let deviceToAdd = DeviceTrackingHistory({
-        name: req.body.name
+    
+        deviceId: dataString[0] || 1 ,
+        lat: dataString[1] || 1000.0,
+        lng: dataString[2] || 123333.99,
+        date:  dataString[3] || new Date(),
+        temprature: dataString[4] || 0,
+        workingStatus:  1,
+        status: 'Active',
     });
-    console.log("deviceToAdd = ",deviceToAdd)
+
+   
     try {
-        const savedDevice = await DeviceTrackingHistory.addDeviceTrackingHistory(deviceToAdd);
+        let deviceToFind = {
+            deviceId : dataString[0] || "1"
+        }
+        const deviceData = await Device.getOne(deviceToFind);
+        if(deviceData){
+            deviceToAdd.deviceType = deviceData.deviceType;
+            deviceToAdd.clientId = deviceData.clientId;
+        }
+        const savedDeviceHistory = await DeviceTrackingHistory.addDeviceTrackingHistory(deviceToAdd);
+        deviceToAdd = {
+            query: {deviceId :deviceData.deviceId},
+            data : {
+                clientId:deviceData.clientId,
+                deviceType:deviceData.deviceType,
+                deviceId:  dataString[0] || 1 ,
+                lat: dataString[1] || 100288.0,
+                lng: dataString[2] || 1002.00,
+                date:  dataString[3] || new Date(),
+                temprature: dataString[4] || 0,
+                workingStatus:  1,
+                status: 'Active',
+            }
+        }
+        const savedCurrentDeviceData = await DeviceTracking.addDeviceTracker(deviceToAdd);
+
         logger.info('Adding DeviceTrackingHistory...');
-        res.send({success:true,code:200,Msg:"successfully add",data:savedDevice});
+        res.send({success:true,code:200,Msg:"successfully add",data:savedDeviceHistory});
     }
     catch(err) {
         logger.error('Error in getting DeviceTrackingHistory- ' + err);

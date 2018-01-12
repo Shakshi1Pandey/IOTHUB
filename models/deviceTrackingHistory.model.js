@@ -14,7 +14,7 @@ import mongoose from 'mongoose';
  */
 const DeviceTrackerHistorySchema = mongoose.Schema({
     clientId : {type: Number }, 
-    deviceid: {type: String } ,
+    deviceId: {type: String } ,
     lat:{type: Number },
     lng: {type: Number },
     date: {type: Date},
@@ -22,7 +22,7 @@ const DeviceTrackerHistorySchema = mongoose.Schema({
     deviceType: {type: String },
     workingStatus: {type: String },
     status:{type: String },
-    createdAt:{type: Date}
+    createdAt:{type: Date,default:Date.now}
 }, {collection : 'deviceTrackerHistory'});
 
 let DeviceTrackerHistoryModel = mongoose.model('deviceTrackerHistory', DeviceTrackerHistorySchema);

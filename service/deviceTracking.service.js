@@ -23,7 +23,10 @@ const service = {};
  */
 service.getAll = async (req,res) =>{
 	try{
-		const deviceTracker = await DeviceTracker.getAll();
+        let condition = {
+            clientId:req.query.clientId
+        }
+		const deviceTracker = await DeviceTracker.getAll(condition);
         logger.info('sending all DeviceTracker...');
 		res.send(deviceTracker);
 	}catch(err){

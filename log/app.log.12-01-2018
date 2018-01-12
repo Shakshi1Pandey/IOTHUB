@@ -29,3 +29,166 @@
 {"level":"info","message":"server started -  8080","timestamp":"2018-01-12T04:29:46.484Z"}
 {"level":"info","message":"Connected to mongo!!!","timestamp":"2018-01-12T04:29:46.502Z"}
 {"level":"info","message":"Adding DeviceTrackingHistory...","timestamp":"2018-01-12T04:29:50.356Z"}
+{"level":"info","message":"server started -  8080","timestamp":"2018-01-12T05:14:22.481Z"}
+{"level":"info","message":"Connected to mongo!!!","timestamp":"2018-01-12T05:14:22.499Z"}
+{"level":"info","message":"Adding DeviceTrackingHistory...","timestamp":"2018-01-12T05:14:38.174Z"}
+{"level":"info","message":"server started -  8080","timestamp":"2018-01-12T05:17:35.656Z"}
+{"level":"info","message":"Connected to mongo!!!","timestamp":"2018-01-12T05:17:35.673Z"}
+{"level":"info","message":"server started -  8080","timestamp":"2018-01-12T05:17:45.806Z"}
+{"level":"info","message":"Connected to mongo!!!","timestamp":"2018-01-12T05:17:45.823Z"}
+{"level":"info","message":"server started -  8080","timestamp":"2018-01-12T05:18:08.080Z"}
+{"level":"info","message":"Connected to mongo!!!","timestamp":"2018-01-12T05:18:08.098Z"}
+{"level":"info","message":"server started -  8080","timestamp":"2018-01-12T05:18:17.205Z"}
+{"level":"info","message":"Connected to mongo!!!","timestamp":"2018-01-12T05:18:17.223Z"}
+{"level":"info","message":"server started -  8080","timestamp":"2018-01-12T05:20:55.078Z"}
+{"level":"info","message":"Connected to mongo!!!","timestamp":"2018-01-12T05:20:55.098Z"}
+{"level":"info","message":"Adding DeviceTrackingHistory...","timestamp":"2018-01-12T05:21:00.154Z"}
+{"level":"info","message":"server started -  8080","timestamp":"2018-01-12T05:23:28.433Z"}
+{"level":"info","message":"Connected to mongo!!!","timestamp":"2018-01-12T05:23:28.453Z"}
+{"level":"info","message":"Adding DeviceTrackingHistory...","timestamp":"2018-01-12T05:23:39.021Z"}
+{"level":"error","message":"Error in getting DeviceTrackingHistory- ReferenceError: savedDevice1 is not defined","timestamp":"2018-01-12T05:23:39.021Z"}
+{"level":"info","message":"server started -  8080","timestamp":"2018-01-12T05:24:24.836Z"}
+{"level":"info","message":"Connected to mongo!!!","timestamp":"2018-01-12T05:24:24.853Z"}
+{"level":"info","message":"server started -  8080","timestamp":"2018-01-12T05:24:28.211Z"}
+{"level":"info","message":"Connected to mongo!!!","timestamp":"2018-01-12T05:24:28.229Z"}
+{"level":"info","message":"server started -  8080","timestamp":"2018-01-12T05:24:37.864Z"}
+{"level":"info","message":"Connected to mongo!!!","timestamp":"2018-01-12T05:24:37.882Z"}
+{"level":"info","message":"server started -  8080","timestamp":"2018-01-12T05:29:09.533Z"}
+{"level":"info","message":"Connected to mongo!!!","timestamp":"2018-01-12T05:29:09.550Z"}
+{"level":"info","message":"Adding DeviceTrackingHistory...","timestamp":"2018-01-12T05:29:17.950Z"}
+{"level":"info","message":"server started -  8080","timestamp":"2018-01-12T05:30:54.487Z"}
+{"level":"info","message":"Connected to mongo!!!","timestamp":"2018-01-12T05:30:54.504Z"}
+{"level":"info","message":"server started -  8080","timestamp":"2018-01-12T05:32:25.292Z"}
+{"level":"info","message":"Connected to mongo!!!","timestamp":"2018-01-12T05:32:25.316Z"}
+{"level":"info","message":"server started -  8080","timestamp":"2018-01-12T05:33:03.589Z"}
+{"level":"info","message":"Connected to mongo!!!","timestamp":"2018-01-12T05:33:03.606Z"}
+{"level":"info","message":"server started -  8080","timestamp":"2018-01-12T05:33:13.264Z"}
+{"level":"info","message":"Connected to mongo!!!","timestamp":"2018-01-12T05:33:13.282Z"}
+{"level":"info","message":"server started -  8080","timestamp":"2018-01-12T05:33:21.104Z"}
+{"level":"info","message":"Connected to mongo!!!","timestamp":"2018-01-12T05:33:21.123Z"}
+{"level":"info","message":"Adding DeviceTrackingHistory...","timestamp":"2018-01-12T05:33:32.080Z"}
+{"level":"info","message":"Adding DeviceTrackingHistory...","timestamp":"2018-01-12T05:34:08.409Z"}
+{"level":"info","message":"server started -  8080","timestamp":"2018-01-12T05:35:10.590Z"}
+{"level":"info","message":"Connected to mongo!!!","timestamp":"2018-01-12T05:35:10.607Z"}
+{"level":"info","message":"Adding DeviceTrackingHistory...","timestamp":"2018-01-12T05:35:14.095Z"}
+{"level":"info","message":"server started -  8080","timestamp":"2018-01-12T05:35:48.294Z"}
+{"level":"info","message":"Connected to mongo!!!","timestamp":"2018-01-12T05:35:48.315Z"}
+{"level":"info","message":"Adding DeviceTrackingHistory...","timestamp":"2018-01-12T05:35:50.485Z"}
+{"level":"info","message":"server started -  8080","timestamp":"2018-01-12T05:36:03.094Z"}
+{"level":"info","message":"Connected to mongo!!!","timestamp":"2018-01-12T05:36:03.112Z"}
+{"level":"info","message":"server started -  8080","timestamp":"2018-01-12T05:36:08.440Z"}
+{"level":"info","message":"Connected to mongo!!!","timestamp":"2018-01-12T05:36:08.463Z"}
+{"level":"info","message":"server started -  8080","timestamp":"2018-01-12T05:36:15.995Z"}
+{"level":"info","message":"Connected to mongo!!!","timestamp":"2018-01-12T05:36:16.013Z"}
+{"level":"info","message":"server started -  8080","timestamp":"2018-01-12T05:36:22.565Z"}
+{"level":"info","message":"Connected to mongo!!!","timestamp":"2018-01-12T05:36:22.594Z"}
+{"level":"info","message":"Adding DeviceTrackingHistory...","timestamp":"2018-01-12T05:36:32.940Z"}
+{"level":"info","message":"server started -  8080","timestamp":"2018-01-12T05:37:27.296Z"}
+{"level":"info","message":"Connected to mongo!!!","timestamp":"2018-01-12T05:37:27.315Z"}
+{"level":"info","message":"Adding DeviceTrackingHistory...","timestamp":"2018-01-12T05:37:30.821Z"}
+{"level":"info","message":"server started -  8080","timestamp":"2018-01-12T05:38:41.057Z"}
+{"level":"info","message":"Connected to mongo!!!","timestamp":"2018-01-12T05:38:41.075Z"}
+{"level":"info","message":"server started -  8080","timestamp":"2018-01-12T05:38:55.585Z"}
+{"level":"info","message":"Connected to mongo!!!","timestamp":"2018-01-12T05:38:55.608Z"}
+{"level":"info","message":"server started -  8080","timestamp":"2018-01-12T05:39:28.956Z"}
+{"level":"info","message":"Connected to mongo!!!","timestamp":"2018-01-12T05:39:28.974Z"}
+{"level":"info","message":"server started -  8080","timestamp":"2018-01-12T05:40:10.831Z"}
+{"level":"info","message":"Connected to mongo!!!","timestamp":"2018-01-12T05:40:10.848Z"}
+{"level":"info","message":"server started -  8080","timestamp":"2018-01-12T05:40:18.055Z"}
+{"level":"info","message":"Connected to mongo!!!","timestamp":"2018-01-12T05:40:18.074Z"}
+{"level":"info","message":"server started -  8080","timestamp":"2018-01-12T05:42:00.379Z"}
+{"level":"info","message":"Connected to mongo!!!","timestamp":"2018-01-12T05:42:00.396Z"}
+{"level":"info","message":"server started -  8080","timestamp":"2018-01-12T05:44:03.427Z"}
+{"level":"info","message":"Connected to mongo!!!","timestamp":"2018-01-12T05:44:03.444Z"}
+{"level":"info","message":"Adding DeviceTrackingHistory...","timestamp":"2018-01-12T05:44:14.275Z"}
+{"level":"info","message":"server started -  8080","timestamp":"2018-01-12T05:48:33.863Z"}
+{"level":"info","message":"Connected to mongo!!!","timestamp":"2018-01-12T05:48:33.880Z"}
+{"level":"info","message":"server started -  8080","timestamp":"2018-01-12T05:49:03.940Z"}
+{"level":"info","message":"Connected to mongo!!!","timestamp":"2018-01-12T05:49:03.958Z"}
+{"level":"info","message":"server started -  8080","timestamp":"2018-01-12T05:52:09.968Z"}
+{"level":"info","message":"Connected to mongo!!!","timestamp":"2018-01-12T05:52:09.985Z"}
+{"level":"info","message":"server started -  8080","timestamp":"2018-01-12T05:54:21.598Z"}
+{"level":"info","message":"Connected to mongo!!!","timestamp":"2018-01-12T05:54:21.617Z"}
+{"level":"error","message":"Error in getting DeviceTrackingHistory- TypeError: deviceDataToAdd.update is not a function","timestamp":"2018-01-12T05:54:54.445Z"}
+{"level":"info","message":"server started -  8080","timestamp":"2018-01-12T05:55:51.785Z"}
+{"level":"info","message":"Connected to mongo!!!","timestamp":"2018-01-12T05:55:51.801Z"}
+{"level":"error","message":"Error in getting DeviceTrackingHistory- ReferenceError: deviceTracker is not defined","timestamp":"2018-01-12T05:55:55.004Z"}
+{"level":"info","message":"server started -  8080","timestamp":"2018-01-12T05:56:08.024Z"}
+{"level":"info","message":"Connected to mongo!!!","timestamp":"2018-01-12T05:56:08.041Z"}
+{"level":"info","message":"Adding DeviceTrackingHistory...","timestamp":"2018-01-12T05:56:10.716Z"}
+{"level":"error","message":"Error in getting DeviceTrackingHistory- ReferenceError: savedDevice is not defined","timestamp":"2018-01-12T05:56:10.717Z"}
+{"level":"info","message":"server started -  8080","timestamp":"2018-01-12T05:56:38.056Z"}
+{"level":"info","message":"Connected to mongo!!!","timestamp":"2018-01-12T05:56:38.073Z"}
+{"level":"info","message":"Adding DeviceTrackingHistory...","timestamp":"2018-01-12T05:56:40.035Z"}
+{"level":"info","message":"Adding DeviceTrackingHistory...","timestamp":"2018-01-12T05:58:39.062Z"}
+{"level":"info","message":"server started -  8080","timestamp":"2018-01-12T06:00:01.135Z"}
+{"level":"info","message":"Connected to mongo!!!","timestamp":"2018-01-12T06:00:01.152Z"}
+{"level":"error","message":"Error in getting DeviceTrackingHistory- MongoError: Cannot update '__v' and '__v' at the same time","timestamp":"2018-01-12T06:00:07.282Z"}
+{"level":"info","message":"server started -  8080","timestamp":"2018-01-12T06:01:14.293Z"}
+{"level":"info","message":"Connected to mongo!!!","timestamp":"2018-01-12T06:01:14.311Z"}
+{"level":"info","message":"server started -  8080","timestamp":"2018-01-12T06:01:34.589Z"}
+{"level":"info","message":"Connected to mongo!!!","timestamp":"2018-01-12T06:01:34.607Z"}
+{"level":"info","message":"Adding DeviceTrackingHistory...","timestamp":"2018-01-12T06:01:41.413Z"}
+{"level":"error","message":"Error in getting DeviceTrackingHistory- MongoError: After applying the update, the (immutable) field '_id' was found to have been altered to _id: ObjectId('5a584f82992af82651ba9df4')","timestamp":"2018-01-12T06:02:42.996Z"}
+{"level":"info","message":"server started -  8080","timestamp":"2018-01-12T06:03:49.726Z"}
+{"level":"info","message":"Connected to mongo!!!","timestamp":"2018-01-12T06:03:49.745Z"}
+{"level":"error","message":"Error in getting DeviceTrackingHistory- MongoError: After applying the update, the (immutable) field '_id' was found to have been altered to _id: ObjectId('5a584fc95c8a2926dce840cb')","timestamp":"2018-01-12T06:03:53.239Z"}
+{"level":"error","message":"Error in getting DeviceTrackingHistory- MongoError: After applying the update, the (immutable) field '_id' was found to have been altered to _id: ObjectId('5a584fca5c8a2926dce840cc')","timestamp":"2018-01-12T06:03:54.158Z"}
+{"level":"error","message":"Error in getting DeviceTrackingHistory- MongoError: After applying the update, the (immutable) field '_id' was found to have been altered to _id: ObjectId('5a584fca5c8a2926dce840cd')","timestamp":"2018-01-12T06:03:54.397Z"}
+{"level":"info","message":"server started -  8080","timestamp":"2018-01-12T06:05:19.736Z"}
+{"level":"info","message":"Connected to mongo!!!","timestamp":"2018-01-12T06:05:19.756Z"}
+{"level":"error","message":"Error in getting DeviceTrackingHistory- MongoError: After applying the update, the (immutable) field '_id' was found to have been altered to _id: ObjectId('5a585023cb5e55273f403462')","timestamp":"2018-01-12T06:05:23.082Z"}
+{"level":"info","message":"server started -  8080","timestamp":"2018-01-12T06:09:27.014Z"}
+{"level":"info","message":"Connected to mongo!!!","timestamp":"2018-01-12T06:09:27.032Z"}
+{"level":"error","message":"Error in getting DeviceTrackingHistory- MongoError: After applying the update, the (immutable) field '_id' was found to have been altered to _id: ObjectId('5a58511b9ca83c27b6710409')","timestamp":"2018-01-12T06:09:31.108Z"}
+{"level":"info","message":"server started -  8080","timestamp":"2018-01-12T06:09:56.562Z"}
+{"level":"info","message":"Connected to mongo!!!","timestamp":"2018-01-12T06:09:56.579Z"}
+{"level":"info","message":"server started -  8080","timestamp":"2018-01-12T06:10:15.575Z"}
+{"level":"info","message":"Connected to mongo!!!","timestamp":"2018-01-12T06:10:15.593Z"}
+{"level":"info","message":"server started -  8080","timestamp":"2018-01-12T06:11:46.874Z"}
+{"level":"info","message":"Connected to mongo!!!","timestamp":"2018-01-12T06:11:46.891Z"}
+{"level":"error","message":"Error in getting DeviceTrackingHistory- MongoError: After applying the update, the (immutable) field '_id' was found to have been altered to _id: ObjectId('5a5851a6404aec28c4f3a77d')","timestamp":"2018-01-12T06:11:50.950Z"}
+{"level":"info","message":"server started -  8080","timestamp":"2018-01-12T06:15:39.803Z"}
+{"level":"info","message":"Connected to mongo!!!","timestamp":"2018-01-12T06:15:39.823Z"}
+{"level":"error","message":"Error in getting DeviceTrackingHistory- CastError: Cast to number failed for value \"undefined\" at path \"lat\"","timestamp":"2018-01-12T06:15:42.855Z"}
+{"level":"info","message":"server started -  8080","timestamp":"2018-01-12T06:16:06.764Z"}
+{"level":"info","message":"Connected to mongo!!!","timestamp":"2018-01-12T06:16:06.788Z"}
+{"level":"error","message":"Error in getting DeviceTrackingHistory- CastError: Cast to number failed for value \"undefined\" at path \"lat\"","timestamp":"2018-01-12T06:16:09.562Z"}
+{"level":"error","message":"Error in getting DeviceTrackingHistory- CastError: Cast to number failed for value \"undefined\" at path \"lat\"","timestamp":"2018-01-12T06:16:22.910Z"}
+{"level":"info","message":"server started -  8080","timestamp":"2018-01-12T06:16:52.133Z"}
+{"level":"info","message":"Connected to mongo!!!","timestamp":"2018-01-12T06:16:52.156Z"}
+{"level":"info","message":"Adding DeviceTrackingHistory...","timestamp":"2018-01-12T06:16:54.623Z"}
+{"level":"info","message":"server started -  8080","timestamp":"2018-01-12T06:17:14.762Z"}
+{"level":"info","message":"Connected to mongo!!!","timestamp":"2018-01-12T06:17:14.780Z"}
+{"level":"info","message":"Adding DeviceTrackingHistory...","timestamp":"2018-01-12T06:17:16.285Z"}
+{"level":"info","message":"server started -  8080","timestamp":"2018-01-12T06:18:22.084Z"}
+{"level":"info","message":"Connected to mongo!!!","timestamp":"2018-01-12T06:18:22.102Z"}
+{"level":"info","message":"server started -  8080","timestamp":"2018-01-12T06:19:54.440Z"}
+{"level":"info","message":"Connected to mongo!!!","timestamp":"2018-01-12T06:19:54.459Z"}
+{"level":"info","message":"server started -  8080","timestamp":"2018-01-12T06:20:21.592Z"}
+{"level":"info","message":"Connected to mongo!!!","timestamp":"2018-01-12T06:20:21.610Z"}
+{"level":"info","message":"server started -  8080","timestamp":"2018-01-12T06:20:33.660Z"}
+{"level":"info","message":"Connected to mongo!!!","timestamp":"2018-01-12T06:20:33.678Z"}
+{"level":"info","message":"server started -  8080","timestamp":"2018-01-12T06:20:42.320Z"}
+{"level":"info","message":"Connected to mongo!!!","timestamp":"2018-01-12T06:20:42.338Z"}
+{"level":"info","message":"server started -  8080","timestamp":"2018-01-12T06:21:34.814Z"}
+{"level":"info","message":"Connected to mongo!!!","timestamp":"2018-01-12T06:21:34.832Z"}
+{"level":"info","message":"server started -  8080","timestamp":"2018-01-12T06:21:43.521Z"}
+{"level":"info","message":"Connected to mongo!!!","timestamp":"2018-01-12T06:21:43.538Z"}
+{"level":"info","message":"server started -  8080","timestamp":"2018-01-12T06:21:52.754Z"}
+{"level":"info","message":"Connected to mongo!!!","timestamp":"2018-01-12T06:21:52.779Z"}
+{"level":"info","message":"server started -  8080","timestamp":"2018-01-12T06:34:43.443Z"}
+{"level":"info","message":"Connected to mongo!!!","timestamp":"2018-01-12T06:34:43.464Z"}
+{"level":"error","message":"Error in getting DeviceTrackingHistory- ValidationError: date: Cast to Date failed for value \"11:55:29\" at path \"date\"","timestamp":"2018-01-12T06:34:47.495Z"}
+{"level":"error","message":"Error in getting DeviceTrackingHistory- TypeError: Cannot read property 'deviceId' of null","timestamp":"2018-01-12T07:05:56.762Z"}
+{"level":"info","message":"server started -  8080","timestamp":"2018-01-12T07:06:57.800Z"}
+{"level":"info","message":"Connected to mongo!!!","timestamp":"2018-01-12T07:06:57.819Z"}
+{"level":"info","message":"server started -  8080","timestamp":"2018-01-12T07:07:19.984Z"}
+{"level":"info","message":"Connected to mongo!!!","timestamp":"2018-01-12T07:07:20.001Z"}
+{"level":"info","message":"Adding DeviceTrackingHistory...","timestamp":"2018-01-12T07:07:30.255Z"}
+{"level":"info","message":"sending all device...","timestamp":"2018-01-12T07:10:05.530Z"}
+{"level":"info","message":"sending all device...","timestamp":"2018-01-12T07:10:30.491Z"}
+{"level":"info","message":"sending all DeviceTracker...","timestamp":"2018-01-12T07:10:50.331Z"}
+{"level":"info","message":"sending all DeviceTracker...","timestamp":"2018-01-12T07:10:54.103Z"}
+{"level":"info","message":"sending all DeviceTracker...","timestamp":"2018-01-12T07:11:13.527Z"}
+{"level":"info","message":"sending all DeviceTracker...","timestamp":"2018-01-12T07:11:34.570Z"}

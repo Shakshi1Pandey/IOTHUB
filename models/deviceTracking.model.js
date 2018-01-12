@@ -14,7 +14,7 @@ import mongoose from 'mongoose';
  */
 const DeviceTrackerSchema = mongoose.Schema({
     clientId : {type: Number }, 
-    deviceid: {type: String } ,
+    deviceId: {type: String } ,
     lat:{type: Number },
     lng: {type: Number },
     date: {type: Date},
@@ -31,8 +31,12 @@ let DeviceTrackerModel = mongoose.model('deviceTracker', DeviceTrackerSchema);
  *@description [is used for getting all data of devices from db]
  * @return {object}
  */
-DeviceTrackerModel.getAll = () => {
-    return DeviceTrackerModel.find({});
+DeviceTrackerModel.getAll = (condition) => {
+    let query = {};
+    if(condition){
+        query = condition
+    }
+    return DeviceTrackerModel.find(query);
 }
 
 /**
@@ -41,7 +45,8 @@ DeviceTrackerModel.getAll = () => {
  * @return {[object]}
  */
 DeviceTrackerModel.addDeviceTracker = (deviceDataToAdd) => {
-    return deviceDataToAdd.save();
+    
+    return DeviceTrackerModel.update(deviceDataToAdd.query,deviceDataToAdd.data,{upsert:true});
 }
 
 /**

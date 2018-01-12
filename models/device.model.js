@@ -38,6 +38,15 @@ DeviceModel.getAll = () => {
 }
 
 /**
+ *@description [is used for getting one data of devices from db]
+ * @return {object}
+ */
+DeviceModel.getOne = (deviceToFind) => {
+    console.log(deviceToFind," = deviceToFind")
+    return DeviceModel.findOne(deviceToFind);
+}
+
+/**
  * @description [add one device to db]
  * @param  {object}
  * @return {[object]}

@@ -40,7 +40,19 @@ service.getAll = async (req,res) =>{
  */
 service.addDevice = async (req, res) => {
     let deviceToAdd = Device({
-        name: req.body.name
+         name: req.body.name,
+        clientId : req.body.clientId, 
+        branchId: req.body.branchId,
+        brand: req.body.brand,
+        regionId: req.body.regionId,
+        assetId : req.body.assetId,
+        deviceId: req.body.deviceId,
+        deviceType: req.body.deviceType,
+        deviceName: req.body.deviceName,
+        serialNo: req.body.serialNo,
+        simno: req.body.simno,
+        status: req.body.status,
+        createAt: new Date()
     });
     try {
         const savedDevice = await Device.addDevice(deviceToAdd);
@@ -63,7 +75,7 @@ service.deleteDevice = async (req, res) => {
     try{
         const removedDevice = await Device.removeCar(deviceToDelete);
         logger.info('Deleted Device- ' + removedDevice);
-        res.send('Device successfully deleted');
+        res.send({"success":true, "code":"200", "msg":"Device added successfully","data":savedDevice});
     }
     catch(err) {
         logger.error('Failed to delete Device- ' + err);

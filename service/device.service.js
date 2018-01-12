@@ -57,7 +57,7 @@ service.addDevice = async (req, res) => {
     try {
         const savedDevice = await Device.addDevice(deviceToAdd);
         logger.info('Adding device...');
-        res.send('added: ' + savedDevice);
+        res.send({"success":true, "code":"200", "msg":"Device added successfully","data":savedDevice});
     }
     catch(err) {
         logger.error('Error in getting Device- ' + err);

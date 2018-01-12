@@ -31,8 +31,8 @@ let DeviceTrackerHistoryModel = mongoose.model('deviceTrackerHistory', DeviceTra
  *@description [is used for getting all data of devices from db]
  * @return {object}
  */
-DeviceTrackerHistoryModel.getAll = () => {
-    return DeviceTrackerHistoryModel.find({});
+DeviceTrackerHistoryModel.getAll = (condition) => {
+    return DeviceTrackerHistoryModel.find(condition);
 }
 
 /**

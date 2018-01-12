@@ -26,9 +26,12 @@ const service = {};
  */
 service.getAll = async (req,res) =>{
 	try{
-		const deviceTrackingHistory = await DeviceTrackingHistory.getAll();
+        let condition = {
+            deviceId:req.query.deviceId
+        }
+		const deviceTrackingHistory = await DeviceTrackingHistory.getAll(condition);
         logger.info('sending all DeviceTrackingHistory...');
-		res.send(deviceTrackingHistory);
+		res.send({success:true, code:200, msg:"sending all DeviceTrackingHistory", data:deviceTrackingHistory});
 	}catch(err){
 		logger.error('Error in getting DeviceTrackingHistory- ' + err);
 		res.send('Got error in getAll');

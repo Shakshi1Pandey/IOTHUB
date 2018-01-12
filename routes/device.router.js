@@ -32,5 +32,9 @@ router.get('/addDeviceData', (req, res) => {
     deivceTrackerHistoryService.addDeviceTrackingHistoryData(req, res);
 });
 
+router.get('/allDeviceHistoryData', (req, res) => {
+    deivceTrackerHistoryService.getAll(req, res);
+});
+
 
 export default router;

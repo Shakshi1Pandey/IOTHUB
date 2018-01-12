@@ -1,0 +1,31 @@
+{"level":"info","message":"server started -  8080","timestamp":"2018-01-12T04:13:17.196Z"}
+{"level":"info","message":"Connected to mongo!!!","timestamp":"2018-01-12T04:13:17.339Z"}
+{"level":"error","message":"Error in getting DeviceTrackingHistory- ReferenceError: deviceToAdd is not defined","timestamp":"2018-01-12T04:22:16.762Z"}
+{"level":"info","message":"server started -  8080","timestamp":"2018-01-12T04:22:59.719Z"}
+{"level":"info","message":"Connected to mongo!!!","timestamp":"2018-01-12T04:22:59.736Z"}
+{"level":"error","message":"Error in getting DeviceTrackingHistory- ReferenceError: deviceToAdd is not defined","timestamp":"2018-01-12T04:23:03.431Z"}
+{"level":"info","message":"server started -  8080","timestamp":"2018-01-12T04:24:26.968Z"}
+{"level":"info","message":"Connected to mongo!!!","timestamp":"2018-01-12T04:24:26.986Z"}
+{"level":"info","message":"server started -  8080","timestamp":"2018-01-12T04:24:41.812Z"}
+{"level":"info","message":"Connected to mongo!!!","timestamp":"2018-01-12T04:24:41.829Z"}
+{"level":"info","message":"server started -  8080","timestamp":"2018-01-12T04:24:48.581Z"}
+{"level":"info","message":"Connected to mongo!!!","timestamp":"2018-01-12T04:24:48.598Z"}
+{"level":"info","message":"server started -  8080","timestamp":"2018-01-12T04:24:50.099Z"}
+{"level":"info","message":"Connected to mongo!!!","timestamp":"2018-01-12T04:24:50.117Z"}
+{"level":"info","message":"Adding DeviceTrackingHistory...","timestamp":"2018-01-12T04:24:57.774Z"}
+{"level":"info","message":"server started -  8080","timestamp":"2018-01-12T04:26:28.229Z"}
+{"level":"info","message":"Connected to mongo!!!","timestamp":"2018-01-12T04:26:28.245Z"}
+{"level":"info","message":"Adding DeviceTrackingHistory...","timestamp":"2018-01-12T04:26:29.656Z"}
+{"level":"info","message":"server started -  8080","timestamp":"2018-01-12T04:27:18.604Z"}
+{"level":"info","message":"Connected to mongo!!!","timestamp":"2018-01-12T04:27:18.622Z"}
+{"level":"info","message":"server started -  8080","timestamp":"2018-01-12T04:27:21.849Z"}
+{"level":"info","message":"Connected to mongo!!!","timestamp":"2018-01-12T04:27:21.867Z"}
+{"level":"error","message":"Error in getting DeviceTrackingHistory- ReferenceError: deviceToAdd is not defined","timestamp":"2018-01-12T04:27:26.172Z"}
+{"level":"info","message":"server started -  8080","timestamp":"2018-01-12T04:27:52.343Z"}
+{"level":"info","message":"Connected to mongo!!!","timestamp":"2018-01-12T04:27:52.361Z"}
+{"level":"info","message":"server started -  8080","timestamp":"2018-01-12T04:27:54.323Z"}
+{"level":"info","message":"Connected to mongo!!!","timestamp":"2018-01-12T04:27:54.340Z"}
+{"level":"error","message":"Error in getting DeviceTrackingHistory- TypeError: _deviceTrackingHistory2.default.addDeviceTrackingHistory is not a function","timestamp":"2018-01-12T04:29:14.986Z"}
+{"level":"info","message":"server started -  8080","timestamp":"2018-01-12T04:29:46.484Z"}
+{"level":"info","message":"Connected to mongo!!!","timestamp":"2018-01-12T04:29:46.502Z"}
+{"level":"info","message":"Adding DeviceTrackingHistory...","timestamp":"2018-01-12T04:29:50.356Z"}

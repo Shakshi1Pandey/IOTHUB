@@ -7,7 +7,9 @@ import bodyParser from 'body-parser';
 import logger from './core/logger/app.logger';
 import config from './core/config/config.dev';
 import connectToDb from './db/connect';
-import index from './routes/index.router.js';
+import asset from './routes/asset.router.js';
+import device from './routes/device.router.js';
+
 
 import cors from 'cors';
 
@@ -47,7 +49,9 @@ res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Ty
 next();
 })
 
-app.use(index);
+app.use(device);
+app.use(asset);
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

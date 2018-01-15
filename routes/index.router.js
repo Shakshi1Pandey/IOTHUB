@@ -7,5 +7,7 @@
  */
 
 import device from './device.router.js';
+import asset from './asset.router.js';
 
-export default device;
+
+export default {device,asset};

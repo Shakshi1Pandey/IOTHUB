@@ -1,0 +1,3 @@
+{"level":"info","message":"server started -  8080","timestamp":"2018-01-16T04:20:54.212Z"}
+{"level":"info","message":"Connected to mongo!!!","timestamp":"2018-01-16T04:20:54.234Z"}
+{"level":"info","message":"sending all DeviceTracker...","timestamp":"2018-01-16T04:23:47.980Z"}

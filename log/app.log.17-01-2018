@@ -1,0 +1,22 @@
+{"level":"info","message":"server started -  8080","timestamp":"2018-01-17T06:11:24.386Z"}
+{"level":"info","message":"Connected to mongo!!!","timestamp":"2018-01-17T06:11:24.413Z"}
+{"level":"info","message":"server started -  8080","timestamp":"2018-01-17T06:11:40.645Z"}
+{"level":"info","message":"Connected to mongo!!!","timestamp":"2018-01-17T06:11:40.664Z"}
+{"level":"info","message":"server started -  8080","timestamp":"2018-01-17T06:15:55.936Z"}
+{"level":"info","message":"Connected to mongo!!!","timestamp":"2018-01-17T06:15:55.956Z"}
+{"level":"info","message":"server started -  8080","timestamp":"2018-01-17T06:16:12.191Z"}
+{"level":"info","message":"Connected to mongo!!!","timestamp":"2018-01-17T06:16:12.214Z"}
+{"level":"info","message":"sending all DeviceTrackingHistory...","timestamp":"2018-01-17T06:16:40.490Z"}
+{"level":"info","message":"Adding DeviceTrackingHistory...","timestamp":"2018-01-17T06:17:44.737Z"}
+{"level":"info","message":"Adding DeviceTrackingHistory...","timestamp":"2018-01-17T06:17:47.341Z"}
+{"level":"info","message":"sending all DeviceTrackingHistory...","timestamp":"2018-01-17T06:18:16.591Z"}
+{"level":"info","message":"sending all DeviceTrackingHistory...","timestamp":"2018-01-17T06:18:18.839Z"}
+{"level":"info","message":"server started -  8080","timestamp":"2018-01-17T06:43:14.025Z"}
+{"level":"info","message":"Connected to mongo!!!","timestamp":"2018-01-17T06:43:14.048Z"}
+{"level":"error","message":"Error in getting DeviceTrackingHistory- ReferenceError: ISODate is not defined","timestamp":"2018-01-17T06:43:30.013Z"}
+{"level":"info","message":"server started -  8080","timestamp":"2018-01-17T06:44:33.017Z"}
+{"level":"info","message":"Connected to mongo!!!","timestamp":"2018-01-17T06:44:33.037Z"}
+{"level":"info","message":"sending all DeviceTrackingHistory...","timestamp":"2018-01-17T06:44:39.213Z"}
+{"level":"info","message":"server started -  8080","timestamp":"2018-01-17T07:14:31.377Z"}
+{"level":"info","message":"Connected to mongo!!!","timestamp":"2018-01-17T07:14:31.400Z"}
+{"level":"info","message":"sending all DeviceTrackingHistory...","timestamp":"2018-01-17T07:14:40.921Z"}

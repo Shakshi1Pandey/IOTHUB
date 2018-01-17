@@ -26,9 +26,19 @@ const service = {};
  */
 service.getAll = async (req,res) =>{
 	try{
+        var start = new Date();
+        start.setHours(0,0,0,0);
+
+        var end = new Date();
+        end.setHours(23,59,59,999);
+
         let condition = {
-            deviceId:req.query.deviceId
+            deviceId:req.query.deviceId,
+            createdAt: { 
+                $gte: start
+              }  
         }
+        console.log(condition)
 		const deviceTrackingHistory = await DeviceTrackingHistory.getAll(condition);
         logger.info('sending all DeviceTrackingHistory...');
 		res.send({success:true, code:200, msg:"sending all DeviceTrackingHistory", data:deviceTrackingHistory});

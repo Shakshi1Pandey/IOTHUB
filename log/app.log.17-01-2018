@@ -20,3 +20,11 @@
 {"level":"info","message":"server started -  8080","timestamp":"2018-01-17T07:14:31.377Z"}
 {"level":"info","message":"Connected to mongo!!!","timestamp":"2018-01-17T07:14:31.400Z"}
 {"level":"info","message":"sending all DeviceTrackingHistory...","timestamp":"2018-01-17T07:14:40.921Z"}
+{"level":"info","message":"server started -  8080","timestamp":"2018-01-17T07:23:27.138Z"}
+{"level":"info","message":"Connected to mongo!!!","timestamp":"2018-01-17T07:23:27.157Z"}
+{"level":"info","message":"sending all DeviceTrackingHistory...","timestamp":"2018-01-17T07:23:34.912Z"}
+{"level":"info","message":"Adding DeviceTrackingHistory...","timestamp":"2018-01-17T08:35:44.300Z"}
+{"level":"info","message":"Adding DeviceTrackingHistory...","timestamp":"2018-01-17T08:35:45.468Z"}
+{"level":"info","message":"Adding DeviceTrackingHistory...","timestamp":"2018-01-17T08:35:46.572Z"}
+{"level":"info","message":"Adding DeviceTrackingHistory...","timestamp":"2018-01-17T08:35:48.098Z"}
+{"level":"info","message":"sending all DeviceTrackingHistory...","timestamp":"2018-01-17T08:36:11.744Z"}

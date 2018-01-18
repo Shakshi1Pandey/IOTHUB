@@ -31,12 +31,16 @@ service.getAll = async (req,res) =>{
 
         var end = new Date();
         end.setHours(23,59,59,999);
-
+        let isodate = new Date().toISOString().split(/T/);
+        //isodate[0]+' 00:00:00', '$lte' : isodate[0]+' 23:59:59'
+        //// gaus:8ec160ccbedf6ced chetan : 203d4784826ac3f6 rasmi: 6a82d3d91b48a947
+        console.log(isodate,' - ',start)
         let condition = {
             deviceId:req.query.deviceId,
             date: { 
-                $gte: start
-              }  
+                //'$gte': isodate[0]+' 00:00:00', '$lte' : isodate[0]+' 23:59:59'
+                '$gte': start, '$lte' : end
+            }  
         }
         console.log(condition)
 		const deviceTrackingHistory = await DeviceTrackingHistory.getAll(condition);
@@ -69,7 +73,7 @@ service.addDeviceTrackingHistoryData = async (req, res) => {
         status: 'Active',
     });
 
-   
+  
     try {
         let deviceToFind = {
             deviceId : dataString[0] || "1"
@@ -79,6 +83,12 @@ service.addDeviceTrackingHistoryData = async (req, res) => {
             deviceToAdd.deviceType = deviceData.deviceType;
             deviceToAdd.clientId = deviceData.clientId;
         }
+        else
+        {
+            logger.info('Adding DeviceTrackingHistory...');
+            res.send({success:false,code:500,Msg:"Device not registered",data:dataString});
+        }
+       
         const savedDeviceHistory = await DeviceTrackingHistory.addDeviceTrackingHistory(deviceToAdd);
         deviceToAdd = {
             query: {deviceId :deviceData.deviceId},
@@ -94,7 +104,8 @@ service.addDeviceTrackingHistoryData = async (req, res) => {
                 status: 'Active',
             }
         }
-        const savedCurrentDeviceData = await DeviceTracking.addDeviceTracker(deviceToAdd);
+        console.log(deviceToAdd,' F 2');
+        //const savedCurrentDeviceData = await DeviceTracking.addDeviceTracker(deviceToAdd);
 
         logger.info('Adding DeviceTrackingHistory...');
         res.send({success:true,code:200,Msg:"successfully add",data:savedDeviceHistory});

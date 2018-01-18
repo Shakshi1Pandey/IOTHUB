@@ -34,7 +34,7 @@ service.getAll = async (req,res) =>{
 
         let condition = {
             deviceId:req.query.deviceId,
-            createdAt: { 
+            date: { 
                 $gte: start
               }  
         }

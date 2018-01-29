@@ -9,11 +9,10 @@ import config from './core/config/config.dev';
 import connectToDb from './db/connect';
 import asset from './routes/asset.router.js';
 import device from './routes/device.router.js';
+import usertype from './routes/usertype.router.js';
 
 
 import cors from 'cors';
-
-
 
 const port = config.serverPort;
 logger.stream = {
@@ -51,6 +50,7 @@ next();
 
 app.use(device);
 app.use(asset);
+app.use(usertype);
 
 
 // catch 404 and forward to error handler

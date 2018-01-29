@@ -10,7 +10,9 @@ import connectToDb from './db/connect';
 import asset from './routes/asset.router.js';
 import device from './routes/device.router.js';
 import usertype from './routes/usertype.router.js';
-
+import region from './routes/region.router.js';
+import zone from './routes/zone.router.js';
+import branch from './routes/branch.router.js';
 
 import cors from 'cors';
 
@@ -38,7 +40,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 // app.use('/users', users);
-// 
+//
 app.use(cors())
 
 app.use(function(req, res, next) {
@@ -51,6 +53,9 @@ next();
 app.use(device);
 app.use(asset);
 app.use(usertype);
+app.use(region);
+app.use(zone);
+app.use(branch);
 
 
 // catch 404 and forward to error handler

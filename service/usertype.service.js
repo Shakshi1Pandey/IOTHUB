@@ -1,5 +1,5 @@
 /**
- * @file(usertype.service.js) All service realted to asset    
+ * @file(usertype.service.js) All service realted to asset
  * @author Shakshi Pandey <shakshi.kumari@limitlessmobile.com>
  * @version 1.0.0
  * @lastModifed 15-Jan-2018
@@ -34,9 +34,9 @@ service.getAll = async (req,res) =>{
 		};
 
 		if(req.query.clientId){
-			/*dataToFind.projection = {
+			dataToFind.projection = {
 				userType:1,status:1,_id:0
-			}*/
+			}
             dataToFind.query = {
                 clientId:req.query.clientId
             }
@@ -64,7 +64,7 @@ service.addUsertype = async (req, res) => {
         res.send({"success":false, "code":"500", "msg":"Usertype or clientId missing"});
     }
     let userTypeToAdd = userTypeConfig({
-        clientId : req.body.clientId, 
+        clientId : req.body.clientId,
         userType: req.body.userType,
         status: "Active",
         createAt: new Date()

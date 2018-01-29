@@ -13,7 +13,7 @@ const BranchSchema = mongoose.Schema({
     updatedAt:{type: Date}
 }, {collection : 'branch'});
 
-let BranchModel = mongoose.model('branches',ZoneSchema);
+let BranchModel = mongoose.model('branches',BranchSchema);
 
 BranchModel.getAll = (dataToFind) => {
 	console.log(dataToFind,"dataToFind")

@@ -8,6 +8,7 @@
 
 import device from './device.router.js';
 import asset from './asset.router.js';
+import usertype from './usertype.router.js';
 
 
-export default {device,asset};
+export default {device,asset,usertype};

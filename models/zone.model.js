@@ -1,6 +1,7 @@
 import mongoose from 'mongoose';
 
 const ZoneSchema = mongoose.Schema({
+    clientId: {type: String },
     zoneId: {type: String },
     regionId: {type: String },
     zoneName:{type: String },

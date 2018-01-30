@@ -26,17 +26,19 @@ service.getAll = async (req,res) =>{
 
 service.addZone = async (req, res) => {
     let zoneToAdd = Zone({
+        clientId: req.body.clientId,
         zoneId: req.body.zoneId,
         regionId: req.body.regionId,
         zoneName: req.body.zoneName,
-        status:"Active",
+        status: req.body.status,
         createAt: new Date(),
         updatedAt: new Date()
     });
     try {
         const savedZone = await Zone.addZone(zoneToAdd);
         logger.info('Adding zone...');
-        res.send({"success":true, "code":"200", "msg":"Zone added successfully","data":savedzone});
+        console.log('Adding zone...');
+        res.send({"success":true, "code":"200", "msg":"Zone added successfully","data":savedZone});
     }
     catch(err) {
         logger.error('Error in getting Zone- ' + err);

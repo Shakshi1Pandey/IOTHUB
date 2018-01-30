@@ -25,7 +25,7 @@ service.getAll = async (req,res) =>{
 }
 
 service.addBranch = async (req, res) => {
-    let zoneToAdd = Branch({
+    let branchToAdd = Branch({
         clientId: req.body.clientId,
         branchId: req.body.branchId,
         zoneId: req.body.zoneId,

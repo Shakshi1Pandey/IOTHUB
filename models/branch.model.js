@@ -7,7 +7,7 @@ const BranchSchema = mongoose.Schema({
     regionId: {type: String },
     branchName:{type: String },
     pinCode:{type: String },
-    Address:{ type: Number  },
+    Address:{ type: String  },
     status:{type: String },
     createAt:{type: Date},
     updatedAt:{type: Date}

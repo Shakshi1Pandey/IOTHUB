@@ -30,7 +30,7 @@ service.addBranch = async (req, res) => {
         branchId: req.body.branchId,
         zoneId: req.body.zoneId,
         regionId: req.body.regionId,
-        zoneName: req.body.zoneName,
+        branchName: req.body.branchName,
         pinCode: req.body.pinCode,
         Address: req.body.Address,
         status:"Active",

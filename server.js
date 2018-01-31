@@ -13,6 +13,7 @@ import usertype from './routes/usertype.router.js';
 import region from './routes/region.router.js';
 import zone from './routes/zone.router.js';
 import branch from './routes/branch.router.js';
+import user from './routes/user.router.js';
 
 import cors from 'cors';
 
@@ -56,7 +57,7 @@ app.use(usertype);
 app.use(region);
 app.use(zone);
 app.use(branch);
-
+app.use(user);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

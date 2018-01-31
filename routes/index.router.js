@@ -11,6 +11,7 @@ import asset from './asset.router.js';
 import region from './branch.router.js';
 import zone from './zone.router.js';
 import branch from './branch.router.js';
+import user from './user.router.js';
 import usertype from './usertype.router.js';
 
-export default {device, asset, region, zone, branch, usertype};
+export default {device, asset, region, zone, branch, user, usertype};

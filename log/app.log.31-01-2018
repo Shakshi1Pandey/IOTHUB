@@ -1,0 +1,8 @@
+{"level":"info","message":"server started -  8080","timestamp":"2018-01-31T05:37:16.817Z"}
+{"level":"info","message":"Connected to mongo!!!","timestamp":"2018-01-31T05:37:16.846Z"}
+{"level":"info","message":"sending all user...","timestamp":"2018-01-31T05:48:15.301Z"}
+{"level":"info","message":"server started -  8080","timestamp":"2018-01-31T05:53:35.287Z"}
+{"level":"info","message":"Connected to mongo!!!","timestamp":"2018-01-31T05:53:35.313Z"}
+{"level":"info","message":"Adding user...","timestamp":"2018-01-31T05:53:39.286Z"}
+{"level":"info","message":"Deleted user-{\"n\":1,\"ok\":1}","timestamp":"2018-01-31T05:54:27.332Z"}
+{"level":"info","message":"sending all user...","timestamp":"2018-01-31T05:54:41.173Z"}

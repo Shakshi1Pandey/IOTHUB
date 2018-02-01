@@ -7,8 +7,16 @@ router.get('/allZone', (req, res) => {
     zoneService.getAll(req, res);
 });
 
+router.get('/oneZone', (req, res) => {
+    zoneService.getOne(req, res);
+});
+
 router.post('/addZone', (req, res) => {
     zoneService.addZone(req, res);
+});
+
+router.post('/editZone', (req, res) => {
+    zoneService.editZone(req, res);
 });
 
 router.post('/deleteZone', (req, res) => {

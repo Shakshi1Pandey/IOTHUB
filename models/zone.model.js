@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 
 const ZoneSchema = mongoose.Schema({
-    clientId: {type: String },
+    clientId: {type: Number },
     zoneId: {type: String },
     regionId: {type: String },
     zoneName:{type: String },
@@ -24,6 +24,10 @@ ZoneModel.getOne = (zoneToFind) => {
 
 ZoneModel.addZone = (zoneToAdd) => {
     return zoneToAdd.save();
+}
+
+ZoneModel.editZone = (zoneedit) => {
+    return ZoneModel.update(zoneedit.query,zoneedit.data);
 }
 
 ZoneModel.removeZone = (zoneId) => {

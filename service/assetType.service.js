@@ -25,7 +25,7 @@ service.getAll = async (req,res) =>{
 }
 
 service.addAssetType = async (req, res) => {
-    let assetTypeToAdd = assetType({
+    let assetTypeToAdd = AssetType({
         clientId: req.body.clientId,
         assetTypeId: req.body.assetTypeId,
         assetTypeName: req.body.assetTypeName,
@@ -35,8 +35,6 @@ service.addAssetType = async (req, res) => {
     });
     try {
         const savedAssetType = await AssetType.addAssetType(assetTypeToAdd);
-        logger.info('Adding assetType...');
-        console.log('Adding assetType...');
         res.send({"success":true, "code":"200", "msg":"AssetType added successfully","data":savedAssetType});
     }
     catch(err) {
@@ -56,6 +54,16 @@ service.deleteAssetType = async (req, res) => {
         logger.error('Failed to delete AssetType- ' + err);
         res.send({"success":false, "code":"500", "msg":"Failed to delete AssetType","err":err});
     }
+}
+
+service.updateAssetType = async (req, res) => {
+		let query = req.body;
+		try {
+			const modifiedAssetType =	await AssetType.modifyAssetType(query);
+			res.send({"success":true, "code":"200", "msg":"AssetType updated successfully","data":modifiedAssetType});
+		} catch (e) {
+			res.send({"success":false, "code":"500", "msg":"Failed to update AssetType","err":e});
+		}
 }
 
 export default service;

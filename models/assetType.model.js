@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 
 const assetTypeSchema = mongoose.Schema({
-    clientId: {type: String },
+    clientId: {type: Number },
     assetTypeId: {type: String },
     assetTypeName: {type: String },
     status:{type: String },
@@ -9,7 +9,7 @@ const assetTypeSchema = mongoose.Schema({
     updatedAt:{type: Date}
   }, {collection : 'assettype'});
 
-let AssetTypeModel = mongoose.model('assettypes',assetTypeSchema);
+let AssetTypeModel = mongoose.model('assettype',assetTypeSchema);
 
 AssetTypeModel.getAll = (dataToFind) => {
 	console.log(dataToFind,"dataToFind")
@@ -27,6 +27,10 @@ AssetTypeModel.addAssetType = (assetTypeToAdd) => {
 
 AssetTypeModel.removeAssetType = (assetTypeId) => {
     return AssetTypeModel.remove({assetTypeId: assetTypeId});
+}
+
+AssetTypeModel.modifyAssetType = (dataToUpdate) => {
+  return AssetTypeModel.update({},dataToUpdate);
 }
 
 export default AssetTypeModel;

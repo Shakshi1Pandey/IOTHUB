@@ -15,5 +15,8 @@ router.post('/deleteAssetType', (req, res) => {
     assetTypeService.deleteAssetType(req, res);
 });
 
+router.post('/updateAssetType', (req,res)=>{
+    assetTypeService.updateAssetType(req,res);
+})
 
 export default router;

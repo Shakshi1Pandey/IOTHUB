@@ -6,6 +6,9 @@ const router = express.Router()
 router.get('/allRegion', (req, res) => {
     regionService.getAll(req, res);
 });
+router.get('/oneRegion', (req, res) => {
+    regionService.getAll(req, res);
+});
 
 router.post('/addRegion', (req, res) => {
     regionService.addRegion(req, res);

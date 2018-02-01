@@ -7,6 +7,10 @@ router.get('/allUser', (req, res) => {
     userService.getAll(req, res);
 });
 
+router.get('/oneUser', (req, res) => {
+    userService.getAll(req, res);
+});
+
 router.post('/addUser', (req, res) => {
     userService.addUser(req, res);
 });

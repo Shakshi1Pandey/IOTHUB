@@ -14,7 +14,13 @@ const router = express.Router()
 router.get('/allDevice', (req, res) => {
     deivceService.getAll(req, res);
 });
-
+router.get('/oneDevice',(req,res)=>{
+    deivceService.getOne(req, res);
+})
+ 
+router.post('/editDevice',(req,res)=>{
+    deivceService.editDevice(req,res);
+});
 router.post('/addDevice', (req, res) => {
     deivceService.addDevice(req, res);
 });

@@ -49,6 +49,15 @@ UserTypeModel.addUsertype = (userTypeToAdd) => {
 }
 
 /**
+ * @description [update one device to db]
+ * @param  {object}
+ * @return {[object]}
+ */
+UserTypeModel.editUsertype = (userTypeToEdit) =>{
+    return UserTypeModel.update(userTypeToEdit.query,userTypeToEdit.data)
+}
+
+/**
  * @description [responsible for remove devices from db based on condition]
  * @param  {object}
  * @return {[object]}

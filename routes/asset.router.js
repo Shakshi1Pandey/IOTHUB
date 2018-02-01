@@ -14,6 +14,10 @@ router.get('/allAsset', (req, res) => {
     assetService.getAll(req, res);
 });
 
+router.get('/oneAsset', (req, res) => {
+    assetService.getOne(req, res);
+});
+
 router.post('/addAsset', (req, res) => {
     assetService.addAsset(req, res);
 });

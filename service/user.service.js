@@ -24,6 +24,23 @@ service.getAll = async (req,res) =>{
 	}
 }
 
+service.getOne=async(req,res)=>{
+    let userToFind=req.params.userId;
+ 
+ try{
+     const getOneUser=await User.getOne(userToFind);
+     logger.info('get one user-' +getOneUser);
+     res.send({"success":true,"code":"200","msg":"get user","data":getOneUser});
+ }
+ catch(err){
+     logger.error('Failed to get user- ' + err);
+     res.send({"success":false, "code":"500", "msg":"Failed to get user","err":err});
+
+ }
+
+}
+
+
 service.addUser = async (req, res) => {
     let userToAdd = User({
 				clientId: req.body.clientId,

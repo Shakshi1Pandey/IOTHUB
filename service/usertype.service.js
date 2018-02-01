@@ -51,6 +51,39 @@ service.getAll = async (req,res) =>{
 
 	}
 }
+/**
+ * @description [calculation before update Device to db ]
+ * @param  {[object]}
+ * @param  {[object]}
+ * @return {[object]}
+ */
+
+service.editUsertype = async (req, res) => {
+    if(!req.body.clientId || !req.body._id || !req.body.userType)
+    {
+        res.send({"success":false, "code":"500", "msg":"Usertype or clientId, _id missing"});
+    }
+    let userTypeToUpdate = {
+        query:{_id:req.body._id},
+
+        data:{
+            $set:{
+                userType: req.body.userType,
+                status: req.body.status || "Active",
+                updatedAt: new Date()
+            }
+        }
+    };
+    try {
+        const savedUsertype = await userTypeConfig.editUsertype(userTypeToUpdate);
+        logger.info('Updating user type ...');
+        res.send({"success":true, "code":"200", "msg":"Usertype updated successfully","data":savedUsertype});
+    }
+    catch(err) {
+        logger.error('Error in updating Usertype- ' + err);
+        res.send({"success":false, "code":"500", "msg":"Error in Usertype","err":err});
+    }
+}
 
 /**
  * @description [calculation before add Device to db and after adding asset ]
@@ -58,6 +91,7 @@ service.getAll = async (req,res) =>{
  * @param  {[object]}
  * @return {[object]}
  */
+
 service.addUsertype = async (req, res) => {
     if(req.body.clientId=='' || req.body.userType=='')
     {

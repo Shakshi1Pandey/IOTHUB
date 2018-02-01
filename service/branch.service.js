@@ -53,7 +53,7 @@ service.addBranch = async (req, res) => {
         updatedAt: new Date()
     });
     try {
-        if(!req.query.clientId ||!req.query.branchName||!req.query.zoneId){
+        if(!req.body.clientId ||!req.body.branchName||!req.body.zoneId){
             res.send({success:false, code:500, msg:"Expected params are missing", data:req.query});
         }
       
@@ -64,6 +64,29 @@ service.addBranch = async (req, res) => {
     catch(err) {
         logger.error('Error in getting Branch- ' + err);
         res.send({"success":false, "code":"500", "msg":"Error in Branch","err":err});
+    }
+}
+service.editBranch = async (req,res) =>{
+    let branchToEdit = {
+        branchName: req.body.branchName,
+        pinCode: req.body.pinCode,
+        Address: req.body.Address,
+        status:req.body.status,
+        updatedAt: new Date()
+    };
+    let branchedit = {
+        query:{"_id":req.body._id},
+        data:{"$set":branchToEdit}
+        
+    };
+    try {
+        const editedBranch = await Branch.editBranch(branchedit);
+        logger.info('Adding branch...');
+        console.log('Adding branch...');
+        res.send({"success":true, "code":"200", "msg":"Branch updated successfully","data":editedBranch});
+    }catch(err) {
+        logger.error('Error in getting Branch- ' + err);
+        res.send({"success":false, "code":"500", "msg":"Error in Branch edit","err":err});
     }
 }
 

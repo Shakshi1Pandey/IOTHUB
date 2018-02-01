@@ -66,6 +66,15 @@ AssetModel.removeAsset = (assetId) => {
 }
 
 /**
+ * @description [responsible for edit asset from db based on condition]
+ * @param  {object}
+ * @return {[object]}
+ */
+AssetModel.editAsset = (assetedit) => {
+    return AssetModel.update(assetedit.query,assetedit.data);
+}
+
+/**
  * @description [make used by other module]
  */
 export default AssetModel;

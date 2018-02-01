@@ -12,7 +12,7 @@ service.getAll = async (req,res) =>{
 
 		if(req.query.region){
 			dataToFind.projection = {
-				branchId:1,_id:0
+				branchId:1
 			}
 		}
 		const branch = await Branch.getAll(dataToFind);

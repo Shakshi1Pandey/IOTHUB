@@ -21,6 +21,10 @@ RegionModel.getOne = (regionToFind) => {
     return RegionModel.findOne(regionToFind);
 }
 
+RegionModel.editRegion = (regionToUpdate) =>{
+    return RegionModel.update(regionToUpdate.query,regionToUpdate.data)
+}
+
 RegionModel.addRegion = (regionToAdd) => {
     return regionToAdd.save();
 }

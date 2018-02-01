@@ -13,7 +13,7 @@ import mongoose from 'mongoose';
  * @type {[type]}
  */
 const AssetSchema = mongoose.Schema({
-    clientId : {type: Number }, 
+    clientId : {type: Number },
     branchId: {type: String },
     regionId: {type: String },
     zoneId : {type: String},

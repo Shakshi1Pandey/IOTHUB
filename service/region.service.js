@@ -24,6 +24,22 @@ service.getAll = async (req,res) =>{
 	}
 }
 
+service.getOne=async(req,res)=>{
+    let regionToFind=req.params.regionId;
+ 
+ try{
+     const getOneRegion=await Region.getOne(regionToFind);
+     logger.info('get one region-' +getOneRegion);
+     res.send({"success":true,"code":"200","msg":"get region","data":getOneRegion});
+ }
+ catch(err){
+     logger.error('Failed to get region- ' + err);
+     res.send({"success":false, "code":"500", "msg":"Failed to get region","err":err});
+
+ }
+
+}
+
 service.addRegion = async (req, res) => {
     let regionToAdd = Region({
         regionId: req.body.regionId,

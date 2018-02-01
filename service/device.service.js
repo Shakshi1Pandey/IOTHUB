@@ -31,6 +31,21 @@ service.getAll = async (req,res) =>{
 		res.send('Got error in getAll');
 	}
 }
+service.getOne=async(req,res)=>{
+    let deviceToFind=req.params.deviceId;
+ 
+ try{
+     const getOneDevice=await Device.getOne(deviceToFind);
+     logger.info('get one device-' +getOneDevice);
+     res.send({"success":true,"code":"200","msg":"get device","data":getOneDevice});
+ }
+ catch(err){
+     logger.error('Failed to get branch- ' + err);
+     res.send({"success":false, "code":"500", "msg":"Failed to get device","err":err});
+
+ }
+
+}
 
 /**
  * @description [calculation before add Device to db and after adding Device ]

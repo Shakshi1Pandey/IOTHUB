@@ -65,6 +65,7 @@ service.addAsset = async (req, res) => {
         status: "Active",
         createAt: new Date()
     });
+    
     try {
         const savedAsset = await Asset.addAsset(assetToAdd);
         logger.info('Adding asset...');
@@ -93,6 +94,20 @@ service.deleteAsset = async (req, res) => {
     catch(err) {
         logger.error('Failed to delete Asset- ' + err);
         res.send({"success":false, "code":"500", "msg":"Failed to delete asset","err":err});
+    }
+}
+service.getOne= async(req,res)=>{
+
+    let assetToFind=req.params.assetId;
+    try{
+        const getOneAsset=await Asset.getOne(assetToFind);
+        logger.info('get one asset-' +getOneAsset);
+        res.send({"success":true,"code":"200","msg":"get asset","data":getOneAsset});
+    }
+    catch(err){
+        logger.error('Failed to get Asset- ' + err);
+        res.send({"success":false, "code":"500", "msg":"Failed to get asset","err":err});
+
     }
 }
 

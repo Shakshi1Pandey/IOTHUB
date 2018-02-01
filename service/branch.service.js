@@ -10,7 +10,7 @@ service.getAll = async (req,res) =>{
 			projection:{}
 		};
 
-		if(req.query.branchId){
+		if(req.query.region){
 			dataToFind.projection = {
 				branchId:1,_id:0
 			}
@@ -24,6 +24,21 @@ service.getAll = async (req,res) =>{
 	}
 }
 
+service.getOne=async(req,res)=>{
+       let branchToFind=req.params.branchId;
+    
+    try{
+        const getOneBranch=await Branch.getOne(branchToFind);
+        logger.info('get one branch-' +getOneBranch);
+        res.send({"success":true,"code":"200","msg":"get branch","data":getOneBranch});
+    }
+    catch(err){
+        logger.error('Failed to get branch- ' + err);
+        res.send({"success":false, "code":"500", "msg":"Failed to get branch","err":err});
+
+    }
+
+}
 service.addBranch = async (req, res) => {
     let branchToAdd = Branch({
         clientId: req.body.clientId,
@@ -38,6 +53,10 @@ service.addBranch = async (req, res) => {
         updatedAt: new Date()
     });
     try {
+        if(!req.query.clientId ||!req.query.branchName||!req.query.zoneId){
+            res.send({success:false, code:500, msg:"Expected params are missing", data:req.query});
+        }
+      
         const savedBranch = await Branch.addBranch(branchToAdd);
         logger.info('Adding branch...');
         res.send({"success":true, "code":"200", "msg":"Branch added successfully","data":savedBranch});

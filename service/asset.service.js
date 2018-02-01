@@ -79,6 +79,41 @@ service.addAsset = async (req, res) => {
 
 
 /**
+ * @description [calculation before edit Device to db and after edit Device]
+ * @param  {[type]}
+ * @param  {[type]}
+ * @return {[type]}
+ */
+service.editAsset = async (req,res) => {
+    let assetToEdit = {
+        branchId: req.body.branchId,
+        regionId: req.body.regionId,
+        zoneId : req.body.zoneId,
+        assetId : req.body.assetId,
+        assetType: req.body.assetType,
+        assetName: req.body.assetName,
+        serialNo: req.body.serialNo,
+        status: req.body.status
+    };
+    let assetedit = {
+        query:{"_id":req.body._id},
+        data:{"$set":assetToEdit}
+        
+    };
+    try {
+        const editedAsset = await Asset.editAsset(assetedit);
+        logger.info('Adding asset...');
+        console.log('Adding asset...');
+        res.send({"success":true, "code":"200", "msg":"Asset updated successfully","data":editedAsset});
+    }catch(err) {
+        logger.error('Error in getting Asset- ' + err);
+        res.send({"success":false, "code":"500", "msg":"Error in Asset edit","err":err});
+    }
+}
+
+
+
+/**
  * @description [calculation before delete Device to db and after delete Device]
  * @param  {[type]}
  * @param  {[type]}

@@ -26,5 +26,8 @@ router.post('/deleteAsset', (req, res) => {
     assetService.deleteAsset(req, res);
 });
 
+router.post('/editAsset', (req, res) => {
+    assetService.editAsset(req, res);
+});
 
 export default router;

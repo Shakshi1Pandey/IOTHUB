@@ -12,7 +12,7 @@ service.getAll = async (req,res) =>{
 
 		if(req.query.assetTypeId){
 			dataToFind.projection = {
-				assetTypeId:1,_id:0
+				assetTypeId:1
 			}
 		}
 		const assetType = await AssetType.getAll(dataToFind);

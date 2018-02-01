@@ -35,7 +35,7 @@ service.getAll = async (req,res) =>{
 
 		if(req.query.clientId){
 			dataToFind.projection = {
-				userType:1,status:1,_id:0
+				userType:1,status:1
 			}
             dataToFind.query = {
                 clientId:req.query.clientId

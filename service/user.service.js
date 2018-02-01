@@ -12,7 +12,7 @@ service.getAll = async (req,res) =>{
 
 		if(req.query.userId){
 			dataToFind.projection = {
-				userId:1,_id:0
+				userId:1
 			}
 		}
 		const user = await User.getAll(dataToFind);

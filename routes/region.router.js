@@ -18,5 +18,9 @@ router.post('/deleteRegion', (req, res) => {
     regionService.deleteRegion(req, res);
 });
 
+router.post('/editRegion', (req, res) => {
+    regionService.editRegion(req, res);
+});
+
 
 export default router;

@@ -4,17 +4,14 @@ import logger from '../core/logger/app.logger'
 const service = {};
 
 service.getAll = async (req,res) =>{
+    if(!req.query.clientId){
+        res.send({success:false, code:500, msg:"clientId missing", data:req.query});
+    }
 	try{
 		let dataToFind = {
-			query:{},
+			query:{'clientId':req.query.clientId},
 			projection:{}
 		};
-
-		if(req.query.zoneId){
-			dataToFind.projection = {
-				zoneId:1,_id:0
-			}
-		}
 		const zone = await Zone.getAll(dataToFind);
         logger.info('sending all zone...');
 		res.send({success:true, code:200, msg:"Found successfully", data:zone});
@@ -23,9 +20,40 @@ service.getAll = async (req,res) =>{
 		res.send({success:false, code:500, msg:"Error in Zone", err:err});
 	}
 }
-
+service.getOne = async (req,res) =>{
+    try{
+        if(!req.query.zoneId){
+            res.send({success:false, code:500, msg:"zoneId missing", data:req.query});
+        }
+        let zoneToFind = {
+            zoneToFind:req.params.zoneId
+        };
+        const zone = await Zone.getOne(zoneToFind);
+        logger.info('sending a zone...');
+        res.send({success:true, code:200, msg:"Found successfully", data:zone});
+  
+    }catch(err){
+        logger.error('Error in getting zone- ' + err);
+		res.send({success:false, code:500, msg:"Error in Zone", err:err});
+    }
+}
 service.addZone = async (req, res) => {
-    console.log(req.body,'+++')
+  
+    if(!req.body.clientId){
+        res.send({success:false, code:500, msg:"clientId missing"});
+    }
+    if(!req.body.zoneId){
+        res.send({success:false, code:500, msg:"zoneId missing"});
+    }
+    if(!req.body.regionId){
+        res.send({success:false, code:500, msg:"regionId missing"});
+    }
+    if(!req.body.zoneName){
+        res.send({success:false, code:500, msg:"zoneName missing"});
+    }
+    // if(!req.body.status){
+    //     res.send({success:false, code:500, msg:"status missing"});
+    // }
     let zoneToAdd = Zone({
         clientId: req.body.clientId,
         zoneId: req.body.zoneId,
@@ -77,6 +105,9 @@ service.editZone = async (req, res) => {
 }
 
 service.deleteZone = async (req, res) => {
+    if(!req.body.zoneId){
+        res.send({success:false, code:500, msg:"zoneId missing"});
+    }
     let zoneToDelete = req.body.zoneId;
     try{
         const removedZone = await Zone.removeZone(zoneToDelete);

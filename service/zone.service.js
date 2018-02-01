@@ -25,6 +25,7 @@ service.getAll = async (req,res) =>{
 }
 
 service.addZone = async (req, res) => {
+    console.log(req.body,'+++')
     let zoneToAdd = Zone({
         clientId: req.body.clientId,
         zoneId: req.body.zoneId,
@@ -43,6 +44,35 @@ service.addZone = async (req, res) => {
     catch(err) {
         logger.error('Error in getting Zone- ' + err);
         res.send({"success":false, "code":"500", "msg":"Error in Zone","err":err});
+    }
+}
+
+service.editZone = async (req, res) => {
+    if(!req.body._id){
+        res.send({"success":false, "code":"500", "msg":"Zone id is missing","err":req.body});
+    }
+    let zoneToEdit = {
+        zoneId: req.body.zoneId,
+        regionId: req.body.regionId,
+        zoneName: req.body.zoneName,
+        status: req.body.status,
+        updatedAt: new Date()
+    };
+
+    let zoneedit = {
+        query:{"_id":req.body._id},
+        data:{"$set":zoneToEdit}
+    };
+
+    try {
+        const editedZone = await Zone.editZone(zoneedit);
+        logger.info('Adding zone...');
+        console.log('Adding zone...');
+        res.send({"success":true, "code":"200", "msg":"Zone updated successfully","data":editedZone});
+    }
+    catch(err) {
+        logger.error('Error in getting Zone- ' + err);
+        res.send({"success":false, "code":"500", "msg":"Error in Zone edit","err":err});
     }
 }
 

@@ -26,6 +26,10 @@ ZoneModel.addZone = (zoneToAdd) => {
     return zoneToAdd.save();
 }
 
+ZoneModel.editZone = (zoneedit) => {
+    return ZoneModel.update(zoneedit.query,zoneedit.data);
+}
+
 ZoneModel.removeZone = (zoneId) => {
     return ZoneModel.remove({zoneId: zoneId});
 }

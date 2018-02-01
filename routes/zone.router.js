@@ -11,6 +11,10 @@ router.post('/addZone', (req, res) => {
     zoneService.addZone(req, res);
 });
 
+router.post('/editZone', (req, res) => {
+    zoneService.editZone(req, res);
+});
+
 router.post('/deleteZone', (req, res) => {
     zoneService.deleteZone(req, res);
 });

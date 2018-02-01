@@ -65,6 +65,9 @@ DeviceModel.removeDevice = (carName) => {
     return DeviceModel.remove({name: carName});
 }
 
+DeviceModel.editDevice=(deviceToEdit)=>{
+    return DeviceModel.update(deviceToEdit.query,deviceToEdit.data);
+}
 /**
  * @description [make used by other module]
  */

@@ -98,4 +98,32 @@ service.deleteDevice = async (req, res) => {
     }
 }
 
+service.editDevice = async(req,res)=>{
+    if(!req.body._id){
+        res.send({"success":false,"code":500,"msg":"device_id is missing", data:req.query})
+    }
+    let deviceEdit={
+        status: req.body.status,
+        createAt: new Date()
+
+    }
+    let deviceToEdit = {
+        query:{"_id":req.body._id},
+        data:{"$set":deviceEdit}
+    };
+    try{
+
+    const editDevice= await Device.editDevice(deviceToEdit);
+    logger.info("update device");
+    console.log("update device");
+    res.send({"success":true,"code":200,"msg":"update device","data":editDevice});
+    }
+    catch(err){
+        logger.error('Error in getting device- ' + err);
+        res.send({"success":false, "code":"500", "msg":"Error in device edit","err":err});
+
+    }
+
+}
+
 export default service;

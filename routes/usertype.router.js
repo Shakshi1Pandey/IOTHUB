@@ -22,5 +22,9 @@ router.post('/deleteUsertype', (req, res) => {
     userTypeService.deleteUsertype(req, res);
 });
 
+router.post('/editUsertype', (req, res) => {
+    userTypeService.editUsertype(req, res);
+});
+
 
 export default router;

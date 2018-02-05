@@ -32,4 +32,13 @@ UserModel.removeUser = (userId) => {
     return UserModel.remove({userId: userId});
 }
 
+/**
+ * [Service is responsible for getting selected detail of user or client or admin]
+ * @param  {[type]} user [user object contains username and password]
+ * @return {[type]}      [object]
+ */
+UserModel.login = (user) =>{
+    return UserModel.findOne({emailId:user.emailId,password:user.password},{clientId:1, userId:1, name:1, userType:1, status:1 });
+}
+
 export default UserModel;

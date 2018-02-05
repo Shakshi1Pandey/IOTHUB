@@ -18,5 +18,8 @@ router.post('/deleteBranch', (req, res) => {
     branchService.deleteBranch(req, res);
 });
 
+router.post('/editBranch', (req, res) => {
+    branchService.editBranch(req, res);
+});
 
 export default router;

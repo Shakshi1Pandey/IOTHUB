@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 
 const BranchSchema = mongoose.Schema({
-    clientId: {type: String },
+    clientId: {type: Number },
     branchId: {type: String },
     zoneId: {type: String },
     regionId: {type: String },
@@ -33,4 +33,7 @@ BranchModel.removeBranch = (branchId) => {
     return BranchModel.remove({branchId: branchId});
 }
 
+BranchModel.editBranch = (branchedit) => {
+    return BranchModel.update(branchedit.query,branchedit.data);
+}
 export default BranchModel;

@@ -4,6 +4,7 @@ import logger from '../core/logger/app.logger'
 const service = {};
 
 service.getAll = async (req,res) =>{
+    console.log(req.query.clientId,"req.query.clientId")
     if(!req.query.clientId){
         res.send({success:false, code:500, msg:"clientId missing", data:req.query});
     }

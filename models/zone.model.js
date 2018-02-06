@@ -17,7 +17,32 @@ let ZoneModel = mongoose.model('zones',ZoneSchema);
 
 ZoneModel.getAll = (dataToFind) => {
 	console.log(dataToFind,"dataToFind")
-    return ZoneModel.find(dataToFind.query,dataToFind.projection);
+   return ZoneModel.aggregate([
+   {
+     $lookup:
+       {
+         from: "region",
+         localField: "regionId",
+         foreignField: "regionId",
+         as: "region_docs"
+       }
+    },
+    {
+        $unwind: "$region_docs"
+    },
+    {$project:{
+        zoneId:1,
+        zoneName:1,
+        status:1,
+        clientId:1,
+        regionId:1,
+        regionId:1,
+        regionName:"$region_docs.regionName"
+
+    }}
+])
+
+    //return ZoneModel.find(dataToFind.query,dataToFind.projection);
 }
 
 ZoneModel.getOne = (zoneToFind) => {

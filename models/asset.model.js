@@ -22,7 +22,7 @@ const AssetSchema = mongoose.Schema({
     regionId:{ type :Number},
     zoneId : {type: Number},
     assetId : {type: Number },
-    assetType:{type: String },
+    assetTypeId:{type: Number },
     assetName:{type: String },
     serialNo: {type: Number },
     status:{type: String },
@@ -45,7 +45,73 @@ let AssetModel = mongoose.model('asset', AssetSchema);
  */
 AssetModel.getAll = (dataToFind) => {
 	console.log(dataToFind,"dataToFind")
-    return AssetModel.find({});
+    return AssetModel.aggregate([
+        {
+          $lookup:{
+            from:"assettype",
+            localField:"assetTypeId",
+            foreignField:"assetTypeId",
+            as:"assetType_docs"
+          }
+
+        },
+        {
+          $unwind:"$assetType_docs"
+        },
+        {
+            $lookup:{
+                from:"region",
+                localField:"regionId",
+                foreignField:"regionId",
+                as:"region_docs"
+            }
+        },
+        {
+          $unwind:"$region_docs"
+        },
+        {
+            $lookup:{
+                from:"zone",
+                localField:"zoneId",
+                foreignField:"zoneId",
+                as:"zone_docs"
+            }
+        },
+        {
+          $unwind:"$zone_docs"
+        },
+        {
+            $lookup:{
+                from:"branch",
+                localField:"zone_docs.zoneId",
+                foreignField:"zoneId",
+                as:"branch_docs"
+            }
+        },
+        {
+          $unwind:"$branch_docs"
+        },
+        {
+            $project:{
+                clientId:1,
+                assetId:1,
+                branchId: 1,
+                branchName:"$branch_docs.branchName",
+                regionId:1,
+                regionName:"$region_docs.regionName",
+                zoneId : 1,
+                zoneName:"$zone_docs.zoneName",
+                assetId : 1,
+                assetTypeId:1,
+                assetTypeName:"$assetType_docs.assetTypeName",
+                assetName:1,
+                serialNo: 1,
+                status:1
+
+            }
+        }
+    ])
+    //return AssetModel.find({});
     // populate({path:'region',selected:'regionName'}).exec(function (err,res) {
     //     if (err){ return err;}
     //     // res.region=region;

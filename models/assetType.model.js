@@ -17,8 +17,9 @@ const assetTypeSchema = mongoose.Schema({
 let AssetTypeModel = mongoose.model('assettype',assetTypeSchema);
 
 AssetTypeModel.getAll = (dataToFind) => {
-	console.log(dataToFind,"dataToFind")
-    return AssetTypeModel.find(dataToFind.query,dataToFind.projection);
+	console.log(dataToFind,"dataToFind");
+ 
+  return AssetTypeModel.find(dataToFind.query,dataToFind.projection);
 }
 
 AssetTypeModel.getOne = (assetTypeToFind) => {

@@ -63,7 +63,7 @@ service.addAsset = async (req, res) => {
         regionId: req.body.regionId,
         zoneId : req.body.zoneId,
         assetId : req.body.assetId,
-        assetType: req.body.assetType,
+        assetTypeId: req.body.assetTypeId,
         assetName: req.body.assetName,
         serialNo: req.body.serialNo,
         status: "Active",

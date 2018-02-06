@@ -1,7 +1,27 @@
+/**
+ * @file(user.service.js) All service realted to user  
+ * @author Shakshi Pandey <shakshi.kumari@limitlessmobile.com>
+ * @version 1.0.0
+ * @lastModifed 5-Feb-2018
+ * @lastModifedBy Shakshi
+ */
 import User from '../models/user.model'
 import logger from '../core/logger/app.logger'
 
+
+/**
+ * [service is a object ]
+ * @type {Object}
+ */
+
 const service = {};
+
+/**
+ * @description [with all the calculation before getAll function of model and after getAll]
+ * @param  {[object]}
+ * @param  {[object]}
+ * @return {[object]}
+ */
 
 service.getAll = async (req,res) =>{
     // if(!req.query.clientId){
@@ -27,6 +47,12 @@ service.getAll = async (req,res) =>{
 	}
 }
 
+/**
+ * @description  [Get one user details from db]
+ * @param  {[type]} req [description]
+ * @param  {[type]} res [description]
+ * @return {[type]}     [description]
+ */
 service.getOne=async(req,res)=>{
     let userToFind={
         userId:req.query.userId}
@@ -46,15 +72,21 @@ service.getOne=async(req,res)=>{
 
 }
 
-
+/**
+ * @description [calculation before add user to db and after adding users ]
+ * @param  {[object]}
+ * @param  {[object]}
+ * @return {[object]}
+ */
 service.addUser = async (req, res) => {
     let userToAdd = User({
-			clientId: req.body.clientId,
-		    userId: req.body.userId,
-		    emailId: req.body.emailId,
-		    password: req.body.password,
-		    name: req.body.name,
-		    userType: req.body.userType,
+
+		clientId: req.body.clientId,
+	    userId: req.body.userId,
+	    emailId: req.body.emailId,
+	    password: req.body.password,
+	    name: req.body.name,
+	    userType: req.body.userType,
         status:"Active",
         createAt: new Date(),
         updatedAt: new Date()
@@ -120,4 +152,31 @@ service.deleteUser = async (req, res) => {
     }
 }
 
+/**
+ * @description [App login functionality]
+ * @param  {[type]} req [description]
+ * @param  {[type]} res [description]
+ * @return {[type]}     [description]
+ */
+
+service.login = async (req, res) =>{
+
+    try{
+        if(!req.body.emailId){
+            res.send({success:false, code:500, msg:"EmailId is missing"});
+        }
+        if(!req.body.password){
+            res.send({success:false, code:500, msg:"password is missing"})
+        }
+        const loggedUser = await User.login(req.body);
+        console.log(loggedUser, "loggedUser")
+        if(loggedUser && loggedUser.name ){
+            res.send({success:true, code:200, msg:"successfully login", data:loggedUser })
+        }else{
+            res.send({success:false, code:500, msg:"EmailId or password does not match"})
+        }
+    }catch(error){
+        res.send({success:false, code:500, msg:"Unable to process request", err:error})
+    }
+}
 export default service;

@@ -30,7 +30,6 @@ service.getAll = async (req,res) =>{
 service.addAssetType = async (req, res) => {
     let assetTypeToAdd = AssetType({
         clientId: req.body.clientId,
-        assetTypeId: req.body.assetTypeId,
         assetTypeName: req.body.assetTypeName,
         status: req.body.status,
         createAt: new Date(),

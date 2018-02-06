@@ -42,7 +42,6 @@ service.getOne=async(req,res)=>{
 service.addBranch = async (req, res) => {
     let branchToAdd = Branch({
         clientId: req.body.clientId,
-        branchId: req.body.branchId,
         zoneId: req.body.zoneId,
         regionId: req.body.regionId,
         branchName: req.body.branchName,

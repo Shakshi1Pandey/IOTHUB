@@ -123,6 +123,7 @@ service.addUsertype = async (req, res) => {
  */
 service.deleteUsertype = async (req, res) => {
     let usertypeToDelete = req.body._id;
+    
     console.log(usertypeToDelete);
     try{
         const removedUsertype = await userTypeConfig.removedUsertype(usertypeToDelete);

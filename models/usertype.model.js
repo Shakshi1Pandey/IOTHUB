@@ -7,6 +7,8 @@
  */
 
 import mongoose from 'mongoose';
+import AutoIncrement from "mongoose-auto-increment";
+AutoIncrement.initialize(mongoose);
 
 /**
  * [DeviceSchema is used for device data validating aginst schema]
@@ -14,11 +16,14 @@ import mongoose from 'mongoose';
  */
 const UserTypeSchema = mongoose.Schema({
     clientId : {type: Number }, 
+    userTypeId:{type:Number},
     userType: {type: String },
     status:{type: String },
     createAt:{type: Date},
     updatedAt:{type: Date}
 }, {collection : 'usertype'});
+
+UserTypeSchema.plugin(AutoIncrement.plugin,{model:'usertype',field:'userTypeId',startAt:1,incrementBy:1});
 
 let UserTypeModel = mongoose.model('usertype', UserTypeSchema);
 

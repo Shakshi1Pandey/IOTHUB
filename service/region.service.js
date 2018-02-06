@@ -25,7 +25,7 @@ service.getAll = async (req,res) =>{
 }
 
 service.getOne=async(req,res)=>{
-    let regionToFind=req.params.regionId;
+    let regionToFind={regionId:req.params.regionId}
  
  try{
      const getOneRegion=await Region.getOne(regionToFind);

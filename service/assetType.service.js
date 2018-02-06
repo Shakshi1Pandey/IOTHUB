@@ -4,6 +4,9 @@ import logger from '../core/logger/app.logger'
 const service = {};
 
 service.getAll = async (req,res) =>{
+    // if(!req.query.clientId){
+    //     res.send({"success":false,"code":"500","msg":"clientId is missing","data":req.query});
+    // }
 	try{
 		let dataToFind = {
 			query:{},
@@ -34,6 +37,9 @@ service.addAssetType = async (req, res) => {
         updatedAt: new Date()
     });
     try {
+        if(!req.body.clientId ||!req.body.assetTypeName){
+            res.send({"success":false,"code":"500","msg":"Expected params are missing","data":req.body});
+        }
         const savedAssetType = await AssetType.addAssetType(assetTypeToAdd);
         res.send({"success":true, "code":"200", "msg":"AssetType added successfully","data":savedAssetType});
     }
@@ -45,6 +51,10 @@ service.addAssetType = async (req, res) => {
 
 service.deleteAssetType = async (req, res) => {
     let assetTypeToDelete = req.body.assetTypeId;
+    if(!req.body.assetTypeId){
+        res.send({"success":false, "code":"500", "msg":"AssetType id is missing","err":err});
+
+    }
     try{
         const removedAssetType = await AssetType.removeAssetType(assetTypeToDelete);
         logger.info('Deleted assetType-' + removedAssetType);

@@ -1,14 +1,17 @@
 import mongoose from 'mongoose';
+import AutoIncrement from 'mongoose-auto-increment';
+AutoIncrement.initialize(mongoose);
 
 const ZoneSchema = mongoose.Schema({
     clientId: {type: Number },
-    zoneId: {type: String },
-    regionId: {type: String },
+    zoneId: {type: Number },
+    regionId: {type:Number },
     zoneName:{type: String },
     status:{type: String },
     createAt:{type: Date},
     updatedAt:{type: Date}
   }, {collection : 'zone'});
+  ZoneSchema.plugin(AutoIncrement.plugin,{model:'zone',field:'zoneId',startAt:1,incrementBy:1});
 
 let ZoneModel = mongoose.model('zones',ZoneSchema);
 

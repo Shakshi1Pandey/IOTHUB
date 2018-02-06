@@ -1,15 +1,18 @@
 import mongoose from 'mongoose';
+import AutoIncrement from 'mongoose-auto-increment';
+AutoIncrement.initialize(mongoose);
 
 const RegionSchema = mongoose.Schema({
-    regionId: {type: String },
+    regionId: {type:Number },
     regionName:{type: String },
     status:{type: String },
     createAt:{type: Date},
     updatedAt:{type: Date}
     }, {collection : 'region'}
   );
+  RegionSchema.plugin(AutoIncrement.plugin,{model:'region',field:'regionId',startAt:1 ,incrementBy:1 })
 
-let RegionModel = mongoose.model('regiones',RegionSchema);
+let RegionModel = mongoose.model('region',RegionSchema);
 
 RegionModel.getAll = (dataToFind) => {
 	console.log(dataToFind,"dataToFind")

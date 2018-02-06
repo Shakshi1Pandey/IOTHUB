@@ -1,13 +1,18 @@
 import mongoose from 'mongoose';
+import AutoIncrement from "mongoose-auto-increment";
+AutoIncrement.initialize(mongoose);
+
 
 const assetTypeSchema = mongoose.Schema({
     clientId: {type: Number },
-    assetTypeId: {type: String },
+    assetTypeId: {type: Number },
     assetTypeName: {type: String },
     status:{type: String },
     createAt:{type: Date},
     updatedAt:{type: Date}
   }, {collection : 'assettype'});
+   
+  assetTypeSchema.plugin(AutoIncrement.plugin,{model:'assettype',field:'assetTypeId',startAt:1,incrementBy:1});
 
 let AssetTypeModel = mongoose.model('assettype',assetTypeSchema);
 

@@ -24,6 +24,9 @@ const service = {};
  */
 
 service.getAll = async (req,res) =>{
+    // if(!req.query.clientId){
+    //     res.send({"success":false,"code":"500","msg":"clientId is missing","data":req.query});
+    // }
 	try{
 		let dataToFind = {
 			query:{},
@@ -51,9 +54,12 @@ service.getAll = async (req,res) =>{
  * @return {[type]}     [description]
  */
 service.getOne=async(req,res)=>{
-    let userToFind=req.params.userId;
+    let userToFind={
+        userId:req.query.userId}
+    console.log(req.query.userId);
  
  try{
+    
      const getOneUser=await User.getOne(userToFind);
      logger.info('get one user-' +getOneUser);
      res.send({"success":true,"code":"200","msg":"get user","data":getOneUser});
@@ -74,6 +80,7 @@ service.getOne=async(req,res)=>{
  */
 service.addUser = async (req, res) => {
     let userToAdd = User({
+
 		clientId: req.body.clientId,
 	    userId: req.body.userId,
 	    emailId: req.body.emailId,
@@ -85,6 +92,9 @@ service.addUser = async (req, res) => {
         updatedAt: new Date()
     });
     try {
+        if(!req.body.clientId || !req.body.userType|| !req.body.name || !req.body.password || !req.body.emailId){
+            res.send({"success":false, "code":"500","msg":"Expected params are missing","data":req.body});
+        }
         const savedUser = await User.addUser(userToAdd);
         logger.info('Adding user...');
         res.send({"success":true, "code":"200", "msg":"User added successfully","data":savedUser});
@@ -95,14 +105,42 @@ service.addUser = async (req, res) => {
     }
 }
 
-/**
- * @description [Remove user from database]
- * @param  {[type]} req [description]
- * @param  {[type]} res [description]
- * @return {[type]}     [description]
- */
+service.editUser = async(req,res)=>{
+    if(!req.body._id){
+        res.send({"success":false,"code":500,"msg":"user_id is missing", data:req.query})
+    }
+    let userEdit={
+        emailId: req.body.emailId,
+        password: req.body.password,
+        name: req.body.name,
+        userType: req.body.userType,
+        status:req.body.status,
+        createAt: new Date(),
+
+
+    }
+    let userToEdit={
+        query:{"_id":req.body._id},
+        data:{"$set":userEdit}
+    };
+    try{
+    const editUser= await User.editUser(userToEdit);
+    logger.info("update user");
+    console.log("update user");
+    res.send({"success":true,"code":200,"msg":"update user","data":editUser});
+
+    }
+    catch(err){
+        logger.error('Error in getting user- ' + err);
+        res.send({"success":false, "code":"500", "msg":"Error in user edit","err":err});
+    }
+}
+
 service.deleteUser = async (req, res) => {
     let userToDelete = req.body.userId;
+    if(!req.body.userId){
+        ({"success":false,"code":"500","msg":"user id is missing "});
+    }
     try{
         const removedUser = await User.removeUser(userToDelete);
         logger.info('Deleted user-' + removedUser);

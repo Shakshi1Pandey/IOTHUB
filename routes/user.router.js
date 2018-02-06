@@ -16,11 +16,15 @@ router.get('/allUser', (req, res) => {
 });
 
 router.get('/oneUser', (req, res) => {
-    userService.getAll(req, res);
+    userService.getOne(req, res);
 });
 
 router.post('/addUser', (req, res) => {
     userService.addUser(req, res);
+});
+
+router.post('/editUser', (req, res) => {
+    userService.editUser(req, res);
 });
 
 router.post('/deleteUser', (req, res) => {

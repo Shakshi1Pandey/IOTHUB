@@ -66,7 +66,6 @@ service.addDevice = async (req, res) => {
         brand: req.body.brand,
         regionId: req.body.regionId,
         assetId : req.body.assetId,
-        deviceId: req.body.deviceId,
         deviceType: req.body.deviceType,
         deviceName: req.body.deviceName,
         serialNo: req.body.serialNo,

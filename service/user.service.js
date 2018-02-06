@@ -82,7 +82,6 @@ service.addUser = async (req, res) => {
     let userToAdd = User({
 
 		clientId: req.body.clientId,
-	    userId: req.body.userId,
 	    emailId: req.body.emailId,
 	    password: req.body.password,
 	    name: req.body.name,

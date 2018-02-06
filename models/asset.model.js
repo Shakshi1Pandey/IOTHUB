@@ -6,27 +6,37 @@
  * @lastModifedBy Shakshi
  */
 
-import mongoose from 'mongoose';
+import mongoose from 'mongoose'
+import AutoIncrement from "mongoose-auto-increment";
+AutoIncrement.initialize(mongoose);
 
 /**
  * [AssetSchema is used for device data validating aginst schema]
  * @type {[type]}
  */
+
+
 const AssetSchema = mongoose.Schema({
     clientId : {type: Number },
-    branchId: {type: String },
-    regionId: {type: String },
-    zoneId : {type: String},
-    assetId : {type: String },
+    branchId: {type: Number },
+    regionId:{ type :Number},
+    zoneId : {type: Number},
+    assetId : {type: Number },
     assetType:{type: String },
     assetName:{type: String },
-    serialNo: {type: String },
+    serialNo: {type: Number },
     status:{type: String },
     createAt:{type: Date},
     updatedAt:{type: Date}
 }, {collection : 'asset'});
+AssetSchema.plugin(AutoIncrement.plugin, { model: 'asset',
+field: 'assetId',
+startAt: 10,
+incrementBy: 1
+});
 
 let AssetModel = mongoose.model('asset', AssetSchema);
+
 
  
 /**
@@ -35,7 +45,13 @@ let AssetModel = mongoose.model('asset', AssetSchema);
  */
 AssetModel.getAll = (dataToFind) => {
 	console.log(dataToFind,"dataToFind")
-    return AssetModel.find(dataToFind.query,dataToFind.projection);
+    return AssetModel.find({});
+    // populate({path:'region',selected:'regionName'}).exec(function (err,res) {
+    //     if (err){ return err;}
+    //     // res.region=region;
+    //     // console.log('The region is %s', res.regiones);
+
+
 }
 
 /**

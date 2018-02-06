@@ -1,8 +1,10 @@
 import mongoose from 'mongoose';
+import AutoIncrement from "mongoose-auto-increment";
+AutoIncrement.initialize(mongoose);
 
 const UserSchema = mongoose.Schema({
-    clientId:{ type: String },
-    userId: {type: String },
+    clientId:{ type: Number },
+    userId: {type: Number },
     emailId: {type: String },
     password: {type: String },
     name:{type: String },
@@ -11,6 +13,8 @@ const UserSchema = mongoose.Schema({
     createAt:{type: Date},
     updatedAt:{type: Date}
   }, {collection : 'user'});
+
+  UserSchema.plugin(AutoIncrement.plugin,{model:'user',field:'userId',startAt:1,incrementBy:1});
 
 let UserModel = mongoose.model('users',UserSchema);
 
@@ -27,6 +31,11 @@ UserModel.getOne = (userToFind) => {
 UserModel.addUser = (userToAdd) => {
     return userToAdd.save();
 }
+
+UserModel.editUser = (userToEdit) => {
+    return UserModel.update(userToEdit.query,userToEdit.data);
+}
+
 
 UserModel.removeUser = (userId) => {
     return UserModel.remove({userId: userId});

@@ -22,7 +22,11 @@ const service = {};
  * @return {[object]}
  */
 service.getAll = async (req,res) =>{
+    // if(!req.query.clientId){
+    //     res.send({"success":false,"code":"500","msg":"clientId is missing","data":req.query});
+    // }
 	try{
+        
 		const device = await Device.getAll();
         logger.info('sending all device...');
 		res.send(device);
@@ -32,7 +36,8 @@ service.getAll = async (req,res) =>{
 	}
 }
 service.getOne=async(req,res)=>{
-    let deviceToFind=req.params.deviceId;
+    let deviceToFind={
+        deviceId:req.params.deviceId}
  
  try{
      const getOneDevice=await Device.getOne(deviceToFind);
@@ -70,6 +75,9 @@ service.addDevice = async (req, res) => {
         createAt: new Date()
     });
     try {
+        if(!req.body.name || !req.body.clientId || !req.body.deviceType){
+            res.send({"success":false,"code":"500","msg":"Expected params are missing","data":req.body});
+        }
         const savedDevice = await Device.addDevice(deviceToAdd);
         logger.info('Adding device...');
         res.send({"success":true, "code":"200", "msg":"Device added successfully","data":savedDevice});
@@ -87,6 +95,9 @@ service.addDevice = async (req, res) => {
  */
 service.deleteDevice = async (req, res) => {
     let deviceToDelete = req.body.name;
+    if(!req.body.name){
+        res.send({"success":false,"code":"500","msg":"device name is missing"});
+    }
     try{
         const removedDevice = await Device.removeCar(deviceToDelete);
         logger.info('Deleted Device- ' + removedDevice);

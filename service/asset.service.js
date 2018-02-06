@@ -24,6 +24,10 @@ const service = {};
  * @return {[object]}
  */
 service.getAll = async (req,res) =>{
+    // if(!req.query.clientId){
+    //     res.send({"success":false,"code":"500","msg":"clientId is missing","data":req.query});
+    // }
+
 	try{
 
 		let dataToFind = {
@@ -67,6 +71,9 @@ service.addAsset = async (req, res) => {
     });
     
     try {
+        if(!req.body.clientId || !req.body.assetName){
+            res.send({"success":false,"code":"500","msg":"Expected params are missing", "data":req.body});
+        }
         const savedAsset = await Asset.addAsset(assetToAdd);
         logger.info('Adding asset...');
         res.send({"success":true, "code":"200", "msg":"Asset added successfully","data":savedAsset});
@@ -95,13 +102,13 @@ service.editAsset = async (req,res) => {
         serialNo: req.body.serialNo,
         status: req.body.status
     };
-    let assetedit = {
+    let assetEdit = {
         query:{"_id":req.body._id},
         data:{"$set":assetToEdit}
         
     };
     try {
-        const editedAsset = await Asset.editAsset(assetedit);
+        const editedAsset = await Asset.editAsset(assetEdit);
         logger.info('Adding asset...');
         console.log('Adding asset...');
         res.send({"success":true, "code":"200", "msg":"Asset updated successfully","data":editedAsset});
@@ -121,6 +128,9 @@ service.editAsset = async (req,res) => {
  */
 service.deleteAsset = async (req, res) => {
     let assetToDelete = req.body.assetId;
+    if(!req.body.assetId){
+        res.send({"success":false, "code":"500", "msg":"asset id is missing","err":err});
+    }
     try{
         const removedAsset = await Asset.removeAsset(assetToDelete);
         logger.info('Deleted asset- ' + removedAsset);
@@ -133,7 +143,9 @@ service.deleteAsset = async (req, res) => {
 }
 service.getOne= async(req,res)=>{
 
-    let assetToFind=req.params.assetId;
+    let assetToFind={
+        assetId:req.query.assetId
+    }
     try{
         const getOneAsset=await Asset.getOne(assetToFind);
         logger.info('get one asset-' +getOneAsset);

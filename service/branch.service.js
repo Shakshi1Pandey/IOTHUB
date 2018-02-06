@@ -25,7 +25,7 @@ service.getAll = async (req,res) =>{
 }
 
 service.getOne=async(req,res)=>{
-       let branchToFind=req.params.branchId;
+       let branchToFind={branchId:req.params.branchId}
     
     try{
         const getOneBranch=await Branch.getOne(branchToFind);

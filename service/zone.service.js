@@ -42,18 +42,14 @@ service.addZone = async (req, res) => {
     if(!req.body.clientId){
         res.send({success:false, code:500, msg:"clientId missing"});
     }
-    if(!req.body.zoneId){
-        res.send({success:false, code:500, msg:"zoneId missing"});
-    }
+  
     if(!req.body.regionId){
         res.send({success:false, code:500, msg:"regionId missing"});
     }
     if(!req.body.zoneName){
         res.send({success:false, code:500, msg:"zoneName missing"});
     }
-    // if(!req.body.status){
-    //     res.send({success:false, code:500, msg:"status missing"});
-    // }
+  
     let zoneToAdd = Zone({
         clientId: req.body.clientId,
         zoneId: req.body.zoneId,

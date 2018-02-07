@@ -109,14 +109,8 @@ service.editUser = async(req,res)=>{
         res.send({"success":false,"code":500,"msg":"user_id is missing", data:req.query})
     }
     let userEdit={
-        emailId: req.body.emailId,
-        password: req.body.password,
-        name: req.body.name,
-        userTypeId: req.body.userTypeId,
         status:req.body.status,
-        createAt: new Date(),
-
-
+        updatedAt: new Date()
     }
     let userToEdit={
         query:{"_id":req.body._id},

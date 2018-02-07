@@ -5,6 +5,7 @@ AutoIncrement.initialize(mongoose);
 const RegionSchema = mongoose.Schema({
     regionId: {type:Number },
     regionName:{type: String },
+    clientId: {type: Number},
     status:{type: String }, 
     createAt:{type: Date},
     updatedAt:{type: Date}

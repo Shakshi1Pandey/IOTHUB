@@ -12,9 +12,9 @@ import AutoIncrement from "mongoose-auto-increment";
 /**
  * [DeviceSchema is used for device data validating aginst schema]
  * @type {[type]}
- */
+ */ 
 const DeviceSchema = mongoose.Schema({
-    clientId : {type: Number }, 
+    clientId : {type: Number },
     branchId: {type: Number },
     brand:{type: String },
     regionId: {type: Number },

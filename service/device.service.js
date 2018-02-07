@@ -8,7 +8,8 @@
 
 import Device from '../models/device.model'
 import logger from '../core/logger/app.logger'
-import msg from '../core/message/error.msg.js'
+import successMsg from '../core/message/success.msg'
+
 
 /**
  * [service is a object ]
@@ -30,7 +31,8 @@ service.getAll = async (req,res) =>{
         
 		const device = await Device.getAll();
         logger.info('sending all device...');
-		res.send({"success":true,"code":"200","msg":"get device","data":device});
+		res.send({"success":true,"code":"200","msg":successMsg.allDevice,"data":device});
+
 	}catch(err){
 		logger.error('Error in getting device- ' + err);
 		res.send({"success":false, "code":"500", "msg":"Failed to get device","err":err});
@@ -43,7 +45,7 @@ service.getOne=async(req,res)=>{
  try{
      const getOneDevice=await Device.getOne(deviceToFind);
      logger.info('get one device-' +getOneDevice);
-     res.send({"success":true,"code":"200","msg":"get device","data":getOneDevice});
+     res.send({"success":true,"code":"200","msg":successMsg.getOneDevice,"data":getOneDevice});
  }
  catch(err){
      logger.error('Failed to get branch- ' + err);
@@ -81,7 +83,7 @@ service.addDevice = async (req, res) => {
         }
         const savedDevice = await Device.addDevice(deviceToAdd);
         logger.info('Adding device...');
-        res.send({"success":true, "code":"200", "msg":"Device added successfully","data":savedDevice});
+        res.send({"success":true, "code":"200", "msg":successMsg.addDevice,"data":savedDevice});
     }
     catch(err) {
         logger.error('Error in getting Device- ' + err);
@@ -104,7 +106,8 @@ service.deleteDevice = async (req, res) => {
     try{
         const removedDevice = await Device.removeCar(deviceToDelete);
         logger.info('Deleted Device- ' + removedDevice);
-        res.send({"success":true, "code":"200", "msg":"Device added successfully","data":removedDevice});
+        res.send({"success":true, "code":"200", "msg":successMsg.deleteDevice,"data":removedDevice});
+
     }
     catch(err) {
         logger.error('Failed to delete Device- ' + err);
@@ -130,7 +133,7 @@ service.editDevice = async(req,res)=>{
     const editDevice= await Device.editDevice(deviceToEdit);
     logger.info("update device");
     console.log("update device");
-    res.send({"success":true,"code":200,"msg":"update device","data":editDevice});
+    res.send({"success":true,"code":200,"msg":successMsg.editDevice,"data":editDevice});
     }
     catch(err){
         logger.error('Error in getting device- ' + err);

@@ -55,7 +55,7 @@ AssetModel.getAll = (dataToFind) => {
           }
 
         },
-        {
+        { 
           $unwind:"$assetType_docs"
         },
         {
@@ -110,13 +110,7 @@ AssetModel.getAll = (dataToFind) => {
 
             }
         }
-    ])
-    //return AssetModel.find({});
-    // populate({path:'region',selected:'regionName'}).exec(function (err,res) {
-    //     if (err){ return err;}
-    //     // res.region=region;
-    //     // console.log('The region is %s', res.regiones);
-
+    ]);
 
 }
 

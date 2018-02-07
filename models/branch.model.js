@@ -17,7 +17,7 @@ const BranchSchema = mongoose.Schema({
 
 BranchSchema.plugin(AutoIncrement.plugin,{model:'branch',field:'branchId',startAt:1 ,incrementBy:1 })
 
-let BranchModel = mongoose.model('branches',BranchSchema);
+let BranchModel = mongoose.model('branch',BranchSchema);
 
 BranchModel.getAll = (dataToFind) => {
 	console.log(dataToFind,"dataToFind")

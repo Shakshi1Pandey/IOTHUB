@@ -1,5 +1,6 @@
 import Region from '../models/region.model'
 import logger from '../core/logger/app.logger'
+import successMsg from '../core/message/success.msg'
 
 const service = {};
 
@@ -17,7 +18,7 @@ service.getAll = async (req,res) =>{
 		}
 		const region = await Region.getAll(dataToFind);
         logger.info('sending all region...');
-		res.send({success:true, code:200, msg:"Found successfully", data:region});
+		res.send({success:true, code:200, msg:successMsg.allRegion, data:region});
 	}catch(err){
 		logger.error('Error in getting region- ' + err);
 		res.send({success:false, code:500, msg:"Error in Region", err:err});
@@ -30,7 +31,7 @@ service.getOne=async(req,res)=>{
  try{
      const getOneRegion=await Region.getOne(regionToFind);
      logger.info('get one region-' +getOneRegion);
-     res.send({"success":true,"code":"200","msg":"get region","data":getOneRegion});
+     res.send({"success":true,"code":"200","msg":successMsg.getOneRegion,"data":getOneRegion});
  }
  catch(err){
      logger.error('Failed to get region- ' + err);
@@ -50,7 +51,7 @@ service.addRegion = async (req, res) => {
     try {
         const savedRegion = await Region.addRegion(regionToAdd);
         logger.info('Adding region...');
-        res.send({"success":true, "code":"200", "msg":"Region added successfully","data":savedRegion});
+        res.send({"success":true, "code":"200", "msg":successMsg.addRegion,"data":savedRegion});
     }
     catch(err) {
         logger.error('Error in getting Region- ' + err);
@@ -79,7 +80,7 @@ service.editRegion = async (req, res) => {
     try {
         const savedRegion = await Region.editRegion(regionToUpdate);
         logger.info('Adding region...');
-        res.send({"success":true, "code":"200", "msg":"Region updated successfully","data":savedRegion});
+        res.send({"success":true, "code":"200", "msg":successMsg.editRegion,"data":savedRegion});
     }
     catch(err) {
         logger.error('Error in getting Region- ' + err);
@@ -92,7 +93,7 @@ service.deleteRegion = async (req, res) => {
     try{
         const removedRegion = await Region.removeRegion(regionToDelete);
         logger.info('Deleted region-' + removedRegion);
-        res.send({"success":true, "code":"200", "msg":"Region deleted successfully","data":removedRegion});
+        res.send({"success":true, "code":"200", "msg":successMsg.deleteRegion,"data":removedRegion});
     }
     catch(err) {
         logger.error('Failed to delete Region- ' + err);

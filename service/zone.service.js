@@ -6,14 +6,15 @@ const service = {};
 
 service.getAll = async (req,res) =>{
     console.log(req.query.clientId,"req.query.clientId")
-    // if(!req.query.clientId){
-    //     res.send({success:false, code:500, msg:"clientId missing", data:req.query});
-    // }
+    if(!req.query.clientId){
+        res.send({success:false, code:500, msg:"clientId missing", data:req.query});
+    }
 	try{
 		let dataToFind = {
-			query:{'clientId':req.query.clientId},
+			query:{clientId:Number(req.query.clientId)},
 			projection:{}
-		};
+        };
+        // console.log(dataToFind);
 		const zone = await Zone.getAll(dataToFind);
         logger.info('sending all zone...');
 		res.send({success:true, code:200, msg:successMsg.allZone, data:zone});

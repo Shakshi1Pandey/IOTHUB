@@ -25,14 +25,14 @@ const service = {};
  * @return {[object]}
  */
 service.getAll = async (req,res) =>{
-    // if(!req.query.clientId){
-    //     res.send({"success":false,"code":"500","msg":"clientId is missing","data":req.query});
-    // }
+    if(!req.query.clientId){
+        res.send({"success":false,"code":"500","msg":"clientId is missing","data":req.query});
+    }
 
 	try{
 
 		let dataToFind = {
-			query:{},
+			query:{clientId:Number(req.query.clientId)},
 			projection:{}
 		};
 
@@ -40,7 +40,8 @@ service.getAll = async (req,res) =>{
 			dataToFind.projection = {
 				assetType:1,assetId:1
 			}
-		}
+        }
+        // console.log(dataToFind);
 		const asset = await Asset.getAll(dataToFind);
         logger.info('sending all asset...');
 		res.send({success:true, code:200, msg:successMsg.allAsset, data:asset});
@@ -59,7 +60,7 @@ service.getAll = async (req,res) =>{
  */
 service.addAsset = async (req, res) => {
     let assetToAdd = Asset({
-        clientId : req.body.clientId, 
+        clientId : req.body.clientId,
         branchId: req.body.branchId,
         regionId: req.body.regionId,
         zoneId : req.body.zoneId,
@@ -69,7 +70,7 @@ service.addAsset = async (req, res) => {
         status: "Active",
         createAt: new Date()
     });
-    
+
     try {
         if(!req.body.clientId || !req.body.assetName){
             res.send({"success":false,"code":"500","msg":"Expected params are missing", "data":req.body});
@@ -105,7 +106,7 @@ service.editAsset = async (req,res) => {
     let assetEdit = {
         query:{"_id":req.body._id},
         data:{"$set":assetToEdit}
-        
+
     };
     try {
         const editedAsset = await Asset.editAsset(assetEdit);
@@ -141,6 +142,13 @@ service.deleteAsset = async (req, res) => {
         res.send({"success":false, "code":"500", "msg":"Failed to delete asset","err":err});
     }
 }
+
+/** 
+* @description [with all the calculation before getOne function of model and after getAll]
+* @param  {[type]}
+* @param  {[type]}
+* @return {[type]}
+*/
 service.getOne= async(req,res)=>{
 
     let assetToFind={

@@ -18,7 +18,7 @@ let ZoneModel = mongoose.model('zones',ZoneSchema);
 ZoneModel.getAll = (dataToFind) => {
 	console.log(dataToFind,"dataToFind")
    return ZoneModel.aggregate([
-   {
+   { $match : dataToFind.query},{
      $lookup:
        {
          from: "region",

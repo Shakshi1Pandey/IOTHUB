@@ -46,6 +46,7 @@ let AssetModel = mongoose.model('asset', AssetSchema);
 AssetModel.getAll = (dataToFind) => {
 	console.log(dataToFind,"dataToFind")
     return AssetModel.aggregate([
+        { $match: dataToFind.query},
         {
           $lookup:{
             from:"assettype",

@@ -2,12 +2,23 @@ import AssetType from '../models/assetType.model'
 import logger from '../core/logger/app.logger'
 import successMsg from '../core/message/success.msg'
 
+/**
+ * [service is a object ]
+ * @type {Object}
+ */
+
 const service = {};
 
+/**
+ * @description [with all the calculation before getAll function of model and after getAll]
+ * @param  {[object]}
+ * @param  {[object]}
+ * @return {[object]}
+ */
 service.getAll = async (req,res) =>{
-    // if(!req.query.clientId){
-    //     res.send({"success":false,"code":"500","msg":"clientId is missing","data":req.query});
-    // }
+    if(!req.query.clientId){
+        res.send({"success":false,"code":"500","msg":"clientId is missing","data":req.query});
+    }
 	try{
 		let dataToFind = {
 			query:{},
@@ -28,6 +39,12 @@ service.getAll = async (req,res) =>{
 	}
 }
 
+/**
+ * @description [calculation before add Asset to db and after adding assetType ]
+ * @param  {[object]}
+ * @param  {[object]}
+ * @return {[object]}
+ */
 service.addAssetType = async (req, res) => {
     let assetTypeToAdd = AssetType({
         clientId: req.body.clientId,
@@ -49,6 +66,13 @@ service.addAssetType = async (req, res) => {
     }
 }
 
+/**
+ * @description [delete asset type]
+ * @param  {[object]}
+ * @param  {[object]}
+ * @return {[object]}
+ */
+
 service.deleteAssetType = async (req, res) => {
     let assetTypeToDelete = req.body.assetTypeId;
     if(!req.body.assetTypeId){
@@ -65,6 +89,13 @@ service.deleteAssetType = async (req, res) => {
         res.send({"success":false, "code":"500", "msg":"Failed to delete AssetType","err":err});
     }
 }
+
+/**
+ * @description [update asset type]
+ * @param  {[object]}
+ * @param  {[object]}
+ * @return {[object]}
+ */
 
 service.updateAssetType = async (req, res) => {
 		let query = req.body;

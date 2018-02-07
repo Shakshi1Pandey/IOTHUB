@@ -22,7 +22,7 @@ let BranchModel = mongoose.model('branch',BranchSchema);
 BranchModel.getAll = (dataToFind) => {
 	console.log(dataToFind,"dataToFind")
     return BranchModel.aggregate([
-       {
+       { $match:dataToFind.query},{
          $lookup:
            {
              from: "zone",

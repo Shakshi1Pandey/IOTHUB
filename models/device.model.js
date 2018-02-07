@@ -13,9 +13,9 @@ AutoIncrement.initialize(mongoose);
 /**
  * [DeviceSchema is used for device data validating aginst schema]
  * @type {[type]}
- */
+ */ 
 const DeviceSchema = mongoose.Schema({
-    clientId : {type: Number }, 
+    clientId : {type: Number },
     branchId: {type: Number },
     brand:{type: String },
     regionId: {type: Number },
@@ -37,9 +37,44 @@ let DeviceModel = mongoose.model('device', DeviceSchema);
  *@description [is used for getting all data of devices from db]
  * @return {object}
  */
-DeviceModel.getAll = () => {
-    return DeviceModel.find({});
-}
+// DeviceModel.getAll = () => {
+//     return DeviceModel.aggregate([
+//         {
+//             $lookup:{
+//                 from:"branch",
+//                 localField:"branchId",
+//                 foreignField:"branchId",
+//                 as:"branch_doc"
+                
+//             }
+//         },{
+//             $unwind:"$branch_doc"
+//         }
+//         ,
+//         {
+//             $lookup:{
+//                 from:"zone",
+//                 localField:"branch_doc.zonId",
+//                 foreignField:"zonId",
+//                 as:"zone_doc"
+
+//             }
+//         },{
+//             $unwind:"$zone_doc"
+//         },
+//         // {
+//         //     $lookup:{
+//         //         from:"asset",
+//         //         localField:"assetId",
+//         //         foreignField:"assetId",
+//         //         as:"asset_doc"
+
+//         //     }
+//         // },{
+//         //     $unwind:"$asset_doc"
+//         // }
+//     ])
+// }
 
 /**
  *@description [is used for getting one data of devices from db]

@@ -53,7 +53,6 @@ service.addZone = async (req, res) => {
   
     let zoneToAdd = Zone({
         clientId: req.body.clientId,
-        zoneId: req.body.zoneId,
         regionId: req.body.regionId,
         zoneName: req.body.zoneName,
         status: req.body.status,

@@ -55,7 +55,7 @@ AssetModel.getAll = (dataToFind) => {
           }
 
         },
-        {
+        { 
           $unwind:"$assetType_docs"
         },
         {

@@ -44,6 +44,7 @@ service.getOne=async(req,res)=>{
 service.addRegion = async (req, res) => {
     let regionToAdd = Region({
         regionName:req.body.regionName,
+        clientId:req.body.clientId,
         status:"Active",
         createAt: new Date(),
         updatedAt: new Date()

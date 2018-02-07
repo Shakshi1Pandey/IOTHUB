@@ -87,7 +87,7 @@ service.addUser = async (req, res) => {
 	    password: req.body.password,
 	    name: req.body.name,
 	    userTypeId: req.body.userTypeId,
-        status:"Active",
+        status:req.body.status || "Active",
         createAt: new Date(),
         updatedAt: new Date()
     });

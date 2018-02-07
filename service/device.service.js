@@ -8,6 +8,7 @@
 
 import Device from '../models/device.model'
 import logger from '../core/logger/app.logger'
+import msg from '../core/message/error.msg.js'
 
 /**
  * [service is a object ]
@@ -63,6 +64,7 @@ service.addDevice = async (req, res) => {
          name: req.body.name,
         clientId : req.body.clientId, 
         branchId: req.body.branchId,
+        deviceId: req.body.deviceId,
         brand: req.body.brand,
         regionId: req.body.regionId,
         assetId : req.body.assetId,
@@ -74,7 +76,7 @@ service.addDevice = async (req, res) => {
         createAt: new Date()
     });
     try {
-        if(!req.body.name || !req.body.clientId || !req.body.deviceType){
+        if(!req.body.deviceId || !req.body.name || !req.body.clientId || !req.body.deviceType){
             res.send({"success":false,"code":"500","msg":"Expected params are missing","data":req.body});
         }
         const savedDevice = await Device.addDevice(deviceToAdd);

@@ -77,7 +77,6 @@ service.editZone = async (req, res) => {
         res.send({"success":false, "code":"500", "msg":"Zone id is missing","err":req.body});
     }
     let zoneToEdit = {
-        zoneId: req.body.zoneId,
         regionId: req.body.regionId,
         zoneName: req.body.zoneName,
         status: req.body.status,

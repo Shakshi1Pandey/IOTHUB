@@ -10,19 +10,19 @@ import userTypeService from "../service/usertype.service";
 
 const router = express.Router()
 
-router.get('/allUsertype', (req, res) => {
+router.get('/allUserType', (req, res) => {
     userTypeService.getAll(req, res);
 });
 
-router.post('/addUsertype', (req, res) => {
+router.post('/addUserType', (req, res) => {
     userTypeService.addUsertype(req, res);
 });
 
-router.post('/deleteUsertype', (req, res) => {
+router.post('/deleteUserType', (req, res) => {
     userTypeService.deleteUsertype(req, res);
 });
 
-router.post('/editUsertype', (req, res) => {
+router.post('/editUserType', (req, res) => {
     userTypeService.editUsertype(req, res);
 });
 

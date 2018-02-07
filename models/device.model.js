@@ -8,7 +8,6 @@
 
 import mongoose from 'mongoose';
 import AutoIncrement from "mongoose-auto-increment";
-AutoIncrement.initialize(mongoose);
 
 /**
  * [DeviceSchema is used for device data validating aginst schema]
@@ -20,7 +19,7 @@ const DeviceSchema = mongoose.Schema({
     brand:{type: String },
     regionId: {type: Number },
     assetId : {type: Number },
-    deviceId:{type: Number },
+    deviceId:{type: String },
     deviceType:{type: String },
     deviceName:{type: String },
     serialNo: {type: Number },
@@ -29,7 +28,6 @@ const DeviceSchema = mongoose.Schema({
     createAt:{type: Date},
     updatedAt:{type: Date}
 }, {collection : 'device'});
-DeviceSchema.plugin(AutoIncrement.plugin,{model:'device',field:'deviceId',startAt:1,incrementBy:1});
 
 let DeviceModel = mongoose.model('device', DeviceSchema);
 

@@ -48,7 +48,7 @@ service.getAll = async (req,res) =>{
 		res.send({success:true, code:200, msg:"sending all DeviceTrackingHistory", data:deviceTrackingHistory});
 	}catch(err){
 		logger.error('Error in getting DeviceTrackingHistory- ' + err);
-		res.send('Got error in getAll');
+		res.send({success:false, code:500, msg:'Got error in getAll', err:err});
 	}
 }
 

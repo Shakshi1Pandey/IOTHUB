@@ -8,7 +8,11 @@
 
 import Device from '../models/device.model'
 import logger from '../core/logger/app.logger'
+<<<<<<< HEAD
 import successMsg from '../core/message/success.msg'
+=======
+import msg from '../core/message/error.msg.js'
+>>>>>>> 1fe6ba4ad61461e9e78552c6e809d667a682fd20
 
 /**
  * [service is a object ]
@@ -31,9 +35,10 @@ service.getAll = async (req,res) =>{
 		const device = await Device.getAll();
         logger.info('sending all device...');
 		res.send({"success":true,"code":"200","msg":successMsg.allDevice,"data":device});
+
 	}catch(err){
 		logger.error('Error in getting device- ' + err);
-		res.send('Got error in getAll');
+		res.send({"success":false, "code":"500", "msg":"Failed to get device","err":err});
 	}
 }
 service.getOne=async(req,res)=>{
@@ -64,6 +69,7 @@ service.addDevice = async (req, res) => {
          name: req.body.name,
         clientId : req.body.clientId, 
         branchId: req.body.branchId,
+        deviceId: req.body.deviceId,
         brand: req.body.brand,
         regionId: req.body.regionId,
         assetId : req.body.assetId,
@@ -75,7 +81,7 @@ service.addDevice = async (req, res) => {
         createAt: new Date()
     });
     try {
-        if(!req.body.name || !req.body.clientId || !req.body.deviceType){
+        if(!req.body.deviceId || !req.body.name || !req.body.clientId || !req.body.deviceType){
             res.send({"success":false,"code":"500","msg":"Expected params are missing","data":req.body});
         }
         const savedDevice = await Device.addDevice(deviceToAdd);
@@ -84,7 +90,9 @@ service.addDevice = async (req, res) => {
     }
     catch(err) {
         logger.error('Error in getting Device- ' + err);
-        res.send('Got error in getAll');
+        res.send({"success":false, "code":"500", "msg":"Failed to add device","err":err});
+
+        //res.send('Got error in getAll');
     }
 }
 /**
@@ -101,11 +109,12 @@ service.deleteDevice = async (req, res) => {
     try{
         const removedDevice = await Device.removeCar(deviceToDelete);
         logger.info('Deleted Device- ' + removedDevice);
-        res.send({"success":true, "code":"200", "msg":successMsg.deleteDevice,"data":savedDevice});
+        res.send({"success":true, "code":"200", "msg":successMsg.deleteDevice,"data":removedDevice});
+
     }
     catch(err) {
         logger.error('Failed to delete Device- ' + err);
-        res.send('Delete failed..!');
+        res.send({success:false, code:500, msg:"Failed to delete Device", err:err});
     }
 }
 

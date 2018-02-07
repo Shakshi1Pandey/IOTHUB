@@ -63,7 +63,7 @@ service.addAsset = async (req, res) => {
         branchId: req.body.branchId,
         regionId: req.body.regionId,
         zoneId : req.body.zoneId,
-        assetType: req.body.assetType,
+        assetTypeId: req.body.assetTypeId,
         assetName: req.body.assetName,
         serialNo: req.body.serialNo,
         status: "Active",
@@ -71,7 +71,7 @@ service.addAsset = async (req, res) => {
     });
     
     try {
-        if(!req.body.clientId || !req.body.assetName){
+        if(!req.body.zoneId ||!req.body.regionId || !req.body.branchId ||   !req.body.clientId || !req.body.assetName || !req.body.assetTypeId || !req.body.serialNo){
             res.send({"success":false,"code":"500","msg":"Expected params are missing", "data":req.body});
         }
         const savedAsset = await Asset.addAsset(assetToAdd);

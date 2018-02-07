@@ -1,5 +1,6 @@
 import Branch from '../models/branch.model'
 import logger from '../core/logger/app.logger'
+import successMsg from '../core/message/success.msg'
 
 const service = {};
 
@@ -17,7 +18,7 @@ service.getAll = async (req,res) =>{
 		}
 		const branch = await Branch.getAll(dataToFind);
         logger.info('sending all branch...');
-		res.send({success:true, code:200, msg:"Found successfully", data:branch});
+		res.send({success:true, code:200, msg:successMsg.allBranch, data:branch});
 	}catch(err){
 		logger.error('Error in getting branch- ' + err);
 		res.send({success:false, code:500, msg:"Error in Branch", err:err});
@@ -30,7 +31,7 @@ service.getOne=async(req,res)=>{
     try{
         const getOneBranch=await Branch.getOne(branchToFind);
         logger.info('get one branch-' +getOneBranch);
-        res.send({"success":true,"code":"200","msg":"get branch","data":getOneBranch});
+        res.send({"success":true,"code":"200","msg":successMsg.getOneBranch,"data":getOneBranch});
     }
     catch(err){
         logger.error('Failed to get branch- ' + err);
@@ -58,7 +59,7 @@ service.addBranch = async (req, res) => {
       
         const savedBranch = await Branch.addBranch(branchToAdd);
         logger.info('Adding branch...');
-        res.send({"success":true, "code":"200", "msg":"Branch added successfully","data":savedBranch});
+        res.send({"success":true, "code":"200", "msg":successMsg.addBranch,"data":savedBranch});
     }
     catch(err) {
         logger.error('Error in getting Branch- ' + err);
@@ -82,7 +83,7 @@ service.editBranch = async (req,res) =>{
         const editedBranch = await Branch.editBranch(branchedit);
         logger.info('Adding branch...');
         console.log('Adding branch...');
-        res.send({"success":true, "code":"200", "msg":"Branch updated successfully","data":editedBranch});
+        res.send({"success":true, "code":"200", "msg":successMsg.editBranch,"data":editedBranch});
     }catch(err) {
         logger.error('Error in getting Branch- ' + err);
         res.send({"success":false, "code":"500", "msg":"Error in Branch edit","err":err});

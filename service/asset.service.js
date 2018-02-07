@@ -9,6 +9,7 @@
 
 import Asset from '../models/asset.model'
 import logger from '../core/logger/app.logger'
+import successMsg from '../core/message/success.msg'
 
 
 /**
@@ -42,7 +43,7 @@ service.getAll = async (req,res) =>{
 		}
 		const asset = await Asset.getAll(dataToFind);
         logger.info('sending all asset...');
-		res.send({success:true, code:200, msg:"Found successfully", data:asset});
+		res.send({success:true, code:200, msg:successMsg.allAsset, data:asset});
 	}catch(err){
 		logger.error('Error in getting asset- ' + err);
 		res.send({success:false, code:500, msg:"Error in Asset", err:err});
@@ -75,7 +76,7 @@ service.addAsset = async (req, res) => {
         }
         const savedAsset = await Asset.addAsset(assetToAdd);
         logger.info('Adding asset...');
-        res.send({"success":true, "code":"200", "msg":"Asset added successfully","data":savedAsset});
+        res.send({"success":true, "code":"200", "msg":successMsg.addAsset,"data":savedAsset});
     }
     catch(err) {
         logger.error('Error in getting Asset- ' + err);
@@ -110,7 +111,7 @@ service.editAsset = async (req,res) => {
         const editedAsset = await Asset.editAsset(assetEdit);
         logger.info('Adding asset...');
         console.log('Adding asset...');
-        res.send({"success":true, "code":"200", "msg":"Asset updated successfully","data":editedAsset});
+        res.send({"success":true, "code":"200", "msg":successMsg.editAsset,"data":editedAsset});
     }catch(err) {
         logger.error('Error in getting Asset- ' + err);
         res.send({"success":false, "code":"500", "msg":"Error in Asset edit","err":err});
@@ -133,7 +134,7 @@ service.deleteAsset = async (req, res) => {
     try{
         const removedAsset = await Asset.removeAsset(assetToDelete);
         logger.info('Deleted asset- ' + removedAsset);
-        res.send({"success":true, "code":"200", "msg":"Asset deleted successfully","data":removedAsset});
+        res.send({"success":true, "code":"200", "msg":successMsg.deleteAsset,"data":removedAsset});
     }
     catch(err) {
         logger.error('Failed to delete Asset- ' + err);

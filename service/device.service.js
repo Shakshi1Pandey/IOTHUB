@@ -30,10 +30,10 @@ service.getAll = async (req,res) =>{
         
 		const device = await Device.getAll();
         logger.info('sending all device...');
-		res.send(device);
+		res.send({"success":true,"code":"200","msg":"get device","data":device});
 	}catch(err){
 		logger.error('Error in getting device- ' + err);
-		res.send('Got error in getAll');
+		res.send({"success":false, "code":"500", "msg":"Failed to get device","err":err});
 	}
 }
 service.getOne=async(req,res)=>{
@@ -85,7 +85,9 @@ service.addDevice = async (req, res) => {
     }
     catch(err) {
         logger.error('Error in getting Device- ' + err);
-        res.send('Got error in getAll');
+        res.send({"success":false, "code":"500", "msg":"Failed to add device","err":err});
+
+        //res.send('Got error in getAll');
     }
 }
 /**
@@ -102,11 +104,11 @@ service.deleteDevice = async (req, res) => {
     try{
         const removedDevice = await Device.removeCar(deviceToDelete);
         logger.info('Deleted Device- ' + removedDevice);
-        res.send({"success":true, "code":"200", "msg":"Device added successfully","data":savedDevice});
+        res.send({"success":true, "code":"200", "msg":"Device added successfully","data":removedDevice});
     }
     catch(err) {
         logger.error('Failed to delete Device- ' + err);
-        res.send('Delete failed..!');
+        res.send({success:false, code:500, msg:"Failed to delete Device", err:err});
     }
 }
 

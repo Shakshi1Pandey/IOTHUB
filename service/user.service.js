@@ -85,13 +85,13 @@ service.addUser = async (req, res) => {
 	    emailId: req.body.emailId,
 	    password: req.body.password,
 	    name: req.body.name,
-	    userType: req.body.userType,
+	    userTypeId: req.body.userTypeId,
         status:"Active",
         createAt: new Date(),
         updatedAt: new Date()
     });
     try {
-        if(!req.body.clientId || !req.body.userType|| !req.body.name || !req.body.password || !req.body.emailId){
+        if(!req.body.clientId || !req.body.userTypeId|| !req.body.name || !req.body.password || !req.body.emailId){
             res.send({"success":false, "code":"500","msg":"Expected params are missing","data":req.body});
         }
         const savedUser = await User.addUser(userToAdd);
@@ -112,7 +112,7 @@ service.editUser = async(req,res)=>{
         emailId: req.body.emailId,
         password: req.body.password,
         name: req.body.name,
-        userType: req.body.userType,
+        userTypeId: req.body.userTypeId,
         status:req.body.status,
         createAt: new Date(),
 

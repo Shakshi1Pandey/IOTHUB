@@ -5,9 +5,12 @@ import successMsg from '../core/message/success.msg'
 const service = {};
 
 service.getAll = async (req,res) =>{
+    if(!req.query.clientId){
+        return res.send({success:false, code:500, msg:"clientId missing"})
+    }
 	try{
 		let dataToFind = {
-			query:{clientId:req.query.clientId},
+			query:{clientId:Number(req.query.clientId)},
 			projection:{}
 		};
 
@@ -49,6 +52,9 @@ service.addRegion = async (req, res) => {
         createAt: new Date(),
         updatedAt: new Date()
     });
+     if(!req.body.clientId){
+        return res.send({success:false, code:500, msg:"clientId missing"})
+    }
     try {
         const savedRegion = await Region.addRegion(regionToAdd);
         logger.info('Adding region...');

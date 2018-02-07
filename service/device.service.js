@@ -8,11 +8,8 @@
 
 import Device from '../models/device.model'
 import logger from '../core/logger/app.logger'
-<<<<<<< HEAD
 import successMsg from '../core/message/success.msg'
-=======
-import msg from '../core/message/error.msg.js'
->>>>>>> 1fe6ba4ad61461e9e78552c6e809d667a682fd20
+
 
 /**
  * [service is a object ]

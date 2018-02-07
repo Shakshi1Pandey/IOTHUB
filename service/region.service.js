@@ -7,7 +7,7 @@ const service = {};
 service.getAll = async (req,res) =>{
 	try{
 		let dataToFind = {
-			query:{clientId:req.body.clientId},
+			query:{clientId:req.query.clientId},
 			projection:{}
 		};
 

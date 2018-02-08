@@ -10,9 +10,9 @@ import DeviceTrackingHistory from '../models/deviceTrackingHistory.model';
 import DeviceTracking from '../models/deviceTracking.model';
 import Device from '../models/device.model';
 import utility from '../core/utility.js'
+import msg from '../core/message/error.msg.js'
 
-
-import logger from '../core/logger/app.logger'
+import logger from '../core/logger/app.logger' 
 
 /**
  * [service is a object ]
@@ -50,7 +50,7 @@ service.getAll = async (req,res) =>{
 		res.send({success:true, code:200, msg:"sending all DeviceTrackingHistory", data:deviceTrackingHistory});
 	}catch(err){
 		logger.error('Error in getting DeviceTrackingHistory- ' + err);
-		res.send({success:false, code:500, msg:'Got error in getAll', err:err});
+		res.send({success:false, code:500, msg:msg.getDeviceTrackingHistory, err:err});
 	}
 }
 
@@ -88,7 +88,7 @@ service.addDeviceTrackingHistoryData = async (req, res) => {
         else
         {
             logger.info('Adding DeviceTrackingHistory...');
-            res.send({success:false,code:500,Msg:"Device not registered",data:dataString});
+            res.send({success:false,code:500,Msg:msg.registerDevice});
         }
        
         const savedDeviceHistory = await DeviceTrackingHistory.addDeviceTrackingHistory(deviceToAdd);
@@ -114,8 +114,8 @@ service.addDeviceTrackingHistoryData = async (req, res) => {
     }
     catch(err) {
         logger.error('Error in getting DeviceTrackingHistory- ' + err);
-        res.send({success:false,code:500,Msg:"Got error",err:err});
-        //res.send('Got error in getAll');
+        res.send({success:false,code:500,Msg:msg.addDeviceTrackingHistory,err:err});
+        
     }
 }
 

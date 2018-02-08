@@ -10,7 +10,6 @@
 import Asset from '../models/asset.model'
 import logger from '../core/logger/app.logger' 
 import msg from '../core/message/error.msg.js'
-//import logger from '../core/logger/app.logger'
 import successMsg from '../core/message/success.msg'
 import utility from '../core/utility.js'
 
@@ -161,10 +160,10 @@ service.getOne= async(req,res)=>{
     let assetToFind={
         assetId:req.query.assetId
     }
-    try{
+    try{ 
         const getOneAsset=await Asset.getOne(assetToFind);
         logger.info('get one asset-' +getOneAsset);
-        res.send({"success":true,"code":"200","msg":"get asset","data":getOneAsset});
+        res.send({"success":true,"code":"200","msg":successMsg.allAsset,"data":getOneAsset});
     }
     catch(err){
         logger.error('Failed to get Asset- ' + err);

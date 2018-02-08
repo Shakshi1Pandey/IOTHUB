@@ -32,8 +32,8 @@ RegionModel.addRegion = (regionToAdd) => {
     return regionToAdd.save();
 }
 
-RegionModel.removeRegion = (regionId) => {
-    return RegionModel.remove({regionId: regionId});
+RegionModel.removeRegion = (_id) => {
+    return RegionModel.remove({_id: _id});
 }
 
 export default RegionModel;

@@ -58,8 +58,8 @@ ZoneModel.editZone = (zoneedit) => {
     return ZoneModel.update(zoneedit.query,zoneedit.data);
 }
 
-ZoneModel.removeZone = (zoneId) => {
-    return ZoneModel.remove({zoneId: zoneId});
+ZoneModel.removeZone = (_id) => {
+    return ZoneModel.remove({_id: _id});
 }
 
 export default ZoneModel;

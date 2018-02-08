@@ -8,7 +8,8 @@
 
 
 import Asset from '../models/asset.model'
-import logger from '../core/logger/app.logger'
+import logger from '../core/logger/app.logger' 
+import msg from '../core/message/error.msg.js'
 
 
 /**
@@ -24,9 +25,9 @@ const service = {};
  * @return {[object]}
  */
 service.getAll = async (req,res) =>{
-    // if(!req.query.clientId){
-    //     res.send({"success":false,"code":"500","msg":"clientId is missing","data":req.query});
-    // }
+    if(!req.query.clientId){
+        res.send({"success":false,"code":"500","msg":msg.clientId});
+    }
 
 	try{
 
@@ -45,7 +46,7 @@ service.getAll = async (req,res) =>{
 		res.send({success:true, code:200, msg:"Found successfully", data:asset});
 	}catch(err){
 		logger.error('Error in getting asset- ' + err);
-		res.send({success:false, code:500, msg:"Error in Asset", err:err});
+		res.send({success:false, code:500, msg:msg.getAsset, err:err});
 
 	}
 }
@@ -71,7 +72,7 @@ service.addAsset = async (req, res) => {
     
     try {
         if(!req.body.clientId || !req.body.assetName){
-            res.send({"success":false,"code":"500","msg":"Expected params are missing", "data":req.body});
+            res.send({"success":false,"code":"500","msg":msg.param});
         }
         const savedAsset = await Asset.addAsset(assetToAdd);
         logger.info('Adding asset...');
@@ -79,7 +80,7 @@ service.addAsset = async (req, res) => {
     }
     catch(err) {
         logger.error('Error in getting Asset- ' + err);
-        res.send({"success":false, "code":"500", "msg":"Error in Asset","err":err});
+        res.send({"success":false, "code":"500", "msg":msg.addAsset,"err":err});
     }
 }
 
@@ -113,7 +114,7 @@ service.editAsset = async (req,res) => {
         res.send({"success":true, "code":"200", "msg":"Asset updated successfully","data":editedAsset});
     }catch(err) {
         logger.error('Error in getting Asset- ' + err);
-        res.send({"success":false, "code":"500", "msg":"Error in Asset edit","err":err});
+        res.send({"success":false, "code":"500", "msg":msg.editAsset,"err":err});
     }
 }
 
@@ -128,16 +129,16 @@ service.editAsset = async (req,res) => {
 service.deleteAsset = async (req, res) => {
     let assetToDelete = req.body.assetId;
     if(!req.body.assetId){
-        res.send({"success":false, "code":"500", "msg":"asset id is missing","err":err});
+        res.send({"success":false, "code":"500", "msg":msg.assetId});
     }
-    try{
+    try{ 
         const removedAsset = await Asset.removeAsset(assetToDelete);
         logger.info('Deleted asset- ' + removedAsset);
         res.send({"success":true, "code":"200", "msg":"Asset deleted successfully","data":removedAsset});
     }
     catch(err) {
         logger.error('Failed to delete Asset- ' + err);
-        res.send({"success":false, "code":"500", "msg":"Failed to delete asset","err":err});
+        res.send({"success":false, "code":"500", "msg":msg.deleteAsset,"err":err});
     }
 }
 service.getOne= async(req,res)=>{
@@ -152,7 +153,7 @@ service.getOne= async(req,res)=>{
     }
     catch(err){
         logger.error('Failed to get Asset- ' + err);
-        res.send({"success":false, "code":"500", "msg":"Failed to get asset","err":err});
+        res.send({"success":false, "code":"500", "msg":msg.getAsset,"err":err});
 
     }
 }

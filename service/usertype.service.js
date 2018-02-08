@@ -24,10 +24,13 @@ const service = {};
  * @return {[object]}
  */
 service.getAll = async (req,res) =>{
+
+    if(!req.query.clientId){
+        res.send({success:false, code:500, msg:"clientId missing"});
+    }
+
 	try{
-        if(!req.query.clientId){
-            res.send({success:false, code:500, msg:"clientId missing", data:req.query});
-        }
+        
 		let dataToFind = {
 			query:{},
 			projection:{}
@@ -59,9 +62,18 @@ service.getAll = async (req,res) =>{
  */
 
 service.editUsertype = async (req, res) => {
-    if(!req.body.clientId || !req.body._id || !req.body.userType)
+    if(req.body.clientId=='')
     {
-        res.send({"success":false, "code":"500", "msg":"Usertype or clientId, _id missing"});
+        res.send({"success":false, "code":"500", "msg":"clientId missing"});
+    }
+    if(req.body.userType=='')
+    {
+        res.send({"success":false, "code":"500", "msg":"userType missing"});
+    }
+
+    if(!req.body._id)
+    {
+        res.send({"success":false, "code":"500", "msg":" _id missing"});
     }
     let userTypeToUpdate = {
         query:{_id:req.body._id},
@@ -93,9 +105,13 @@ service.editUsertype = async (req, res) => {
  */
 
 service.addUsertype = async (req, res) => {
-    if(req.body.clientId=='' || req.body.userType=='')
+    if(!req.body.clientId)
     {
-        res.send({"success":false, "code":"500", "msg":"Usertype or clientId missing"});
+        res.send({"success":false, "code":"500", "msg":"clientId missing"});
+    }
+    if(!req.body.userType)
+    {
+        res.send({"success":false, "code":"500", "msg":"userType missing"});
     }
     let userTypeToAdd = userTypeConfig({
         clientId : req.body.clientId,
@@ -122,6 +138,11 @@ service.addUsertype = async (req, res) => {
  * @return {[type]}
  */
 service.deleteUsertype = async (req, res) => {
+
+    if(!req.body._id)
+    {
+        res.send({"success":false, "code":"500", "msg":"_id missing"});
+    }
     let usertypeToDelete = req.body._id;
     
     console.log(usertypeToDelete);

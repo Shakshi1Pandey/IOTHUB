@@ -1,9 +1,31 @@
+/**
+ * @file(region.service.js) All service related to region    
+ * @author Purti Singh <purti.singh20@gmail.com>
+ * @version 1.0.0
+ * @lastModifed 07-Feb-2018
+ * @lastModifedBy Purti
+ */
+
 import Region from '../models/region.model'
 import logger from '../core/logger/app.logger'
 
+/**
+ * [service is a object ]
+ * @type {Object}
+ */
 const service = {};
 
+/**
+ * @description [calculation for getting all the regions ]
+ * @param  {[object]}
+ * @param  {[object]}
+ * @return {[object]}
+ */
+
 service.getAll = async (req,res) =>{
+    if(!req.query.clientId){
+        res.send({success:false, code:500, msg:"clientId missing"});
+    }
 	try{
 		let dataToFind = {
 			query:{},
@@ -24,6 +46,13 @@ service.getAll = async (req,res) =>{
 	}
 }
 
+/**
+ * @description [calculation for getting one zone ]
+ * @param  {[object]}
+ * @param  {[object]}
+ * @return {[object]}
+ */
+
 service.getOne=async(req,res)=>{
     let regionToFind={regionId:req.params.regionId}
  
@@ -40,7 +69,20 @@ service.getOne=async(req,res)=>{
 
 }
 
+/**
+ * @description [calculation for adding all the zones ]
+ * @param  {[object]}
+ * @param  {[object]}
+ * @return {[object]}
+ */
+
 service.addRegion = async (req, res) => {
+    if(!req.body.clientId){
+        res.send({success:false, code:500, msg:"clientId missing"});
+    }
+    if(!req.body.regionName){
+        res.send({success:false, code:500, msg:"regionName missing"});
+    }
     let regionToAdd = Region({
         regionName:req.body.regionName,
         status:"Active",
@@ -58,6 +100,12 @@ service.addRegion = async (req, res) => {
     }
 }
 
+/**
+ * @description [calculation for editing the zones ]
+ * @param  {[object]}
+ * @param  {[object]}
+ * @return {[object]}
+ */
 service.editRegion = async (req, res) => {
 
     if(!req.body._id || !req.body.regionName || !req.body.status){
@@ -87,8 +135,18 @@ service.editRegion = async (req, res) => {
     }
 }
 
+/**
+ * @description [calculation for deleting the zones ]
+ * @param  {[object]}
+ * @param  {[object]}
+ * @return {[object]}
+ */
+
 service.deleteRegion = async (req, res) => {
-    let regionToDelete = req.body.regionId;
+    if(!req.body._id){
+        res.send({success:false, code:500, msg:"_id missing"});
+    }
+    let regionToDelete = req.body._id;
     try{
         const removedRegion = await Region.removeRegion(regionToDelete);
         logger.info('Deleted region-' + removedRegion);

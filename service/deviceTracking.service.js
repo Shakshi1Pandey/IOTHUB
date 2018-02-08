@@ -7,7 +7,8 @@
  */
 
 import DeviceTracker from '../models/deviceTracking.model'
-import logger from '../core/logger/app.logger'
+import logger from '../core/logger/app.logger' 
+import msg from '../core/message/error.msg.js'
 
 /**
  * [service is a object ]

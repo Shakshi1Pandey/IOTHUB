@@ -61,8 +61,10 @@ service.getAll = async (req,res) =>{
  * @return {[object]}
  */
 service.addAsset = async (req, res) => {
+
+    let clientId = utility.removeQuotationMarks(req.body.clientId);
     let assetToAdd = Asset({
-        clientId : req.body.clientId,
+        clientId : clientId,
         branchId: req.body.branchId,
         regionId: req.body.regionId,
         zoneId : req.body.zoneId,

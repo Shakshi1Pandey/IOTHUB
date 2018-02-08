@@ -49,16 +49,19 @@ service.getOne=async(req,res)=>{
 }
 
 service.addRegion = async (req, res) => {
+
+     if(!req.body.clientId){
+        return res.send({success:false, code:500, msg:"clientId missing"})
+    }
+    let clientId = utility.removeQuotationMarks(req.body.clientId);
+    
     let regionToAdd = Region({
         regionName:req.body.regionName,
-        clientId:req.body.clientId,
+        clientId:clientId,
         status:"Active",
         createAt: new Date(),
         updatedAt: new Date()
     });
-     if(!req.body.clientId){
-        return res.send({success:false, code:500, msg:"clientId missing"})
-    }
     try {
         const savedRegion = await Region.addRegion(regionToAdd);
         logger.info('Adding region...');

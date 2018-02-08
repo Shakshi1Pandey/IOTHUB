@@ -55,9 +55,9 @@ service.addZone = async (req, res) => {
     if(!req.body.zoneName){
         res.send({success:false, code:500, msg:"zoneName missing"});
     }
-  
+    let clientId = utility.removeQuotationMarks(req.body.clientId);
     let zoneToAdd = Zone({
-        clientId: req.body.clientId,
+        clientId: clientId,
         regionId: req.body.regionId,
         zoneName: req.body.zoneName,
         status: req.body.status,

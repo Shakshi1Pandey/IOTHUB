@@ -9,6 +9,8 @@
 import DeviceTrackingHistory from '../models/deviceTrackingHistory.model';
 import DeviceTracking from '../models/deviceTracking.model';
 import Device from '../models/device.model';
+import utility from '../core/utility.js'
+
 
 import logger from '../core/logger/app.logger'
 

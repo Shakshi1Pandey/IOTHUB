@@ -49,8 +49,10 @@ service.getAll = async (req,res) =>{
  * @return {[object]}
  */
 service.addAssetType = async (req, res) => {
+    let clientId = utility.removeQuotationMarks(req.body.clientId);
+
     let assetTypeToAdd = AssetType({
-        clientId: req.body.clientId,
+        clientId: clientId,
         assetTypeName: req.body.assetTypeName,
         status: req.body.status,
         createAt: new Date(),

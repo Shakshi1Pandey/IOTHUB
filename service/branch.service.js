@@ -47,8 +47,10 @@ service.getOne=async(req,res)=>{
 
 }
 service.addBranch = async (req, res) => {
+    let clientId = utility.removeQuotationMarks(req.body.clientId);
+
     let branchToAdd = Branch({
-        clientId: req.body.clientId,
+        clientId: clientId,
         zoneId: req.body.zoneId,
         regionId: req.body.regionId,
         branchName: req.body.branchName,

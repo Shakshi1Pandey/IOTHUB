@@ -66,9 +66,11 @@ service.getOne=async(req,res)=>{
  * @return {[object]}
  */
 service.addDevice = async (req, res) => {
+    let clientId = utility.removeQuotationMarks(req.body.clientId);
+
     let deviceToAdd = Device({
          name: req.body.name,
-        clientId : req.body.clientId, 
+        clientId : clientId, 
         branchId: req.body.branchId,
         deviceId: req.body.deviceId,
         brand: req.body.brand,

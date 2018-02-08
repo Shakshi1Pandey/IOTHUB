@@ -8,6 +8,8 @@
 
 import DeviceTracker from '../models/deviceTracking.model'
 import logger from '../core/logger/app.logger'
+import utility from '../core/utility.js'
+
 
 /**
  * [service is a object ]
@@ -22,9 +24,11 @@ const service = {};
  * @return {[object]}
  */
 service.getAll = async (req,res) =>{
+    let clientId = utility.removeQuotationMarks(req.query.clientId);
+
 	try{
         let condition = {
-            clientId:req.query.clientId
+            clientId:clientId
         }
 		const deviceTracker = await DeviceTracker.getAll(condition);
         logger.info('sending all DeviceTracker...');

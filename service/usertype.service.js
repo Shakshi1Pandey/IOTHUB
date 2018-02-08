@@ -102,8 +102,10 @@ service.addUsertype = async (req, res) => {
     {
         res.send({"success":false, "code":"500", "msg":"Usertype or clientId missing"});
     }
+    let clientId = utility.removeQuotationMarks(req.body.clientId);
+
     let userTypeToAdd = userTypeConfig({
-        clientId : req.body.clientId,
+        clientId : clientId,
         userType: req.body.userType,
         status: "Active",
         createAt: new Date()

@@ -72,13 +72,13 @@ service.getOne=async(req,res)=>{
 
 service.addDevice = async (req, res) => {
 console.log(req.body);
-    if(!req.body.name || !req.body.clientId || !req.body.deviceType){
+    if(!req.body.deviceName || !req.body.clientId || !req.body.deviceType || !req.body.branchId || !req.body.deviceId || !req.body.brand || !req.body.regionId || !req.body.assetId || !req.body.serialNo || !req.body.simno ){
       return res.send({"success":false,"code":"500","msg":msg.param});
     }
     let clientId = utility.removeQuotationMarks(req.body.clientId);
 
     let deviceToAdd = Device({
-         name: req.body.name,
+       
         clientId : clientId, 
         branchId: req.body.branchId,
         deviceId: req.body.deviceId,
@@ -89,7 +89,7 @@ console.log(req.body);
         deviceName: req.body.deviceName,
         serialNo: req.body.serialNo,
         simno: req.body.simno,
-        status: req.body.status,
+        status: req.body.status || "Active",
         createAt: new Date()
     });
     try {

@@ -80,9 +80,11 @@ service.getOne=async(req,res)=>{
  * @return {[object]}
  */
 service.addUser = async (req, res) => {
+    let clientId = utility.removeQuotationMarks(req.body.clientId);
+
     let userToAdd = User({
 
-		clientId: req.body.clientId,
+		clientId: clientId,
 	    emailId: req.body.emailId,
 	    password: req.body.password,
 	    name: req.body.name,

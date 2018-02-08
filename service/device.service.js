@@ -8,6 +8,7 @@
 
 import Device from '../models/device.model'
 import logger from '../core/logger/app.logger'
+import msg from '../core/message/error.msg.js'
 import successMsg from '../core/message/success.msg'
 import utility from '../core/utility.js'
 
@@ -26,6 +27,9 @@ const service = {};
  * @return {[object]}
  */
 service.getAll = async (req,res) =>{
+    if(!req.query.clientId){
+        res.send({"success":false,"code":"500","msg":msg.clientId});
+    }
     // if(!req.query.clientId){
     //     res.send({"success":false,"code":"500","msg":"clientId is missing","data":req.query});
     // }
@@ -39,7 +43,7 @@ service.getAll = async (req,res) =>{
 
 	}catch(err){
 		logger.error('Error in getting device- ' + err);
-		res.send({"success":false, "code":"500", "msg":"Failed to get device","err":err});
+        res.send({"success":false, "code":"500", "msg":msg.getDevice,"err":err});
 	}
 }
 service.getOne=async(req,res)=>{
@@ -53,7 +57,7 @@ service.getOne=async(req,res)=>{
  }
  catch(err){
      logger.error('Failed to get branch- ' + err);
-     res.send({"success":false, "code":"500", "msg":"Failed to get device","err":err});
+     res.send({"success":false, "code":"500", "msg":msg.getDevice,"err":err});
 
  }
 
@@ -65,10 +69,17 @@ service.getOne=async(req,res)=>{
  * @param  {[object]}
  * @return {[object]}
  */
+
 service.addDevice = async (req, res) => {
+console.log(req.body);
+    if(!req.body.name || !req.body.clientId || !req.body.deviceType){
+      return res.send({"success":false,"code":"500","msg":msg.param});
+    }
+    let clientId = utility.removeQuotationMarks(req.body.clientId);
+
     let deviceToAdd = Device({
          name: req.body.name,
-        clientId : req.body.clientId, 
+        clientId : clientId, 
         branchId: req.body.branchId,
         deviceId: req.body.deviceId,
         brand: req.body.brand,
@@ -82,18 +93,15 @@ service.addDevice = async (req, res) => {
         createAt: new Date()
     });
     try {
-        if(!req.body.deviceId || !req.body.name || !req.body.clientId || !req.body.deviceType){
-            res.send({"success":false,"code":"500","msg":"Expected params are missing","data":req.body});
-        }
+        
         const savedDevice = await Device.addDevice(deviceToAdd);
         logger.info('Adding device...');
         res.send({"success":true, "code":"200", "msg":successMsg.addDevice,"data":savedDevice});
     }
     catch(err) {
         logger.error('Error in getting Device- ' + err);
-        res.send({"success":false, "code":"500", "msg":"Failed to add device","err":err});
-
-        //res.send('Got error in getAll');
+        res.send({"success":false, "code":"500", "msg":msg.addDevice , err:err});
+       
     }
 }
 /**
@@ -105,7 +113,7 @@ service.addDevice = async (req, res) => {
 service.deleteDevice = async (req, res) => {
     let deviceToDelete = req.body.name;
     if(!req.body.name){
-        res.send({"success":false,"code":"500","msg":"device name is missing"});
+        res.send({"success":false,"code":"500","msg":msg.deviceName});
     }
     try{
         const removedDevice = await Device.removeCar(deviceToDelete);
@@ -115,13 +123,20 @@ service.deleteDevice = async (req, res) => {
     }
     catch(err) {
         logger.error('Failed to delete Device- ' + err);
-        res.send({success:false, code:500, msg:"Failed to delete Device", err:err});
+        res.send({"success":false, "code":"500", "msg":msg.deleteDevice , err:err});
     }
 }
 
+/**
+ * @description [calculation before edit Device to db and after edit Device]
+ * @param  {[type]}
+ * @param  {[type]}
+ * @return {[type]}
+ */
+
 service.editDevice = async(req,res)=>{
     if(!req.body._id){
-        res.send({"success":false,"code":500,"msg":"device_id is missing", data:req.query})
+        res.send({"success":false,"code":500,"msg":msg.deviceId})
     }
     let deviceEdit={
         status: req.body.status,
@@ -141,7 +156,7 @@ service.editDevice = async(req,res)=>{
     }
     catch(err){
         logger.error('Error in getting device- ' + err);
-        res.send({"success":false, "code":"500", "msg":"Error in device edit","err":err});
+        res.send({"success":false, "code":"500", "msg":msg.editDevice,"err":err});
 
     }
 

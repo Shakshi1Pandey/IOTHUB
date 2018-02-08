@@ -1,13 +1,33 @@
+/**
+ * @file(zone.service.js) All service related to zone    
+ * @author Purti Singh <purti.singh20@gmail.com>
+ * @version 1.0.0
+ * @lastModifed 07-Feb-2018
+ * @lastModifedBy Purti
+ */
+
 import Zone from '../models/zone.model'
 import logger from '../core/logger/app.logger'
 import successMsg from '../core/message/success.msg'
 import utility from '../core/utility.js'
 
 
+/**
+ * [service is a object ]
+ * @type {Object}
+ */
+
 const service = {};
 
+/**
+ * @description [calculation for getting all the zones ]
+ * @param  {[object]}
+ * @param  {[object]}
+ * @return {[object]}
+ */
+
 service.getAll = async (req,res) =>{
-    console.log(req.query.clientId,"req.query.clientId")
+
     if(!req.query.clientId){
         res.send({success:false, code:500, msg:"clientId missing"});
     }
@@ -26,11 +46,21 @@ service.getAll = async (req,res) =>{
 		res.send({success:false, code:500, msg:"Error in Zone", err:err});
 	}
 }
+
+/**
+ * @description [calculation for getting one zone ]
+ * @param  {[object]}
+ * @param  {[object]}
+ * @return {[object]}
+ */
+
 service.getOne = async (req,res) =>{
-    try{
-        if(!req.query.zoneId){
-            res.send({success:false, code:500, msg:"zoneId missing", data:req.query});
-        }
+    
+    if(!req.query.clientId){
+        res.send({success:false, code:500, msg:"clientId missing"});
+    }
+
+    try{        
         let zoneToFind = {
             zoneToFind:req.params.zoneId
         };
@@ -43,6 +73,14 @@ service.getOne = async (req,res) =>{
 		res.send({success:false, code:500, msg:"Error in Zone", err:err});
     }
 }
+
+/**
+ * @description [calculation for adding the zones ]
+ * @param  {[object]}
+ * @param  {[object]}
+ * @return {[object]}
+ */
+
 service.addZone = async (req, res) => {
     
     if(!req.body.clientId){
@@ -55,9 +93,9 @@ service.addZone = async (req, res) => {
     if(!req.body.zoneName){
         res.send({success:false, code:500, msg:"zoneName missing"});
     }
-  
+    let clientId = utility.removeQuotationMarks(req.body.clientId);
     let zoneToAdd = Zone({
-        clientId: req.body.clientId,
+        clientId: clientId,
         regionId: req.body.regionId,
         zoneName: req.body.zoneName,
         status: req.body.status,
@@ -76,10 +114,24 @@ service.addZone = async (req, res) => {
     }
 }
 
+/**
+ * @description [calculation for editing the zones ]
+ * @param  {[object]}
+ * @param  {[object]}
+ * @return {[object]}
+ */
+
 service.editZone = async (req, res) => {
     if(!req.body._id){
-        res.send({"success":false, "code":"500", "msg":"Zone id is missing","err":req.body});
+        res.send({"success":false, "code":"500", "msg":"_id is missing"});
     }
+    if(!req.body.status){
+        res.send({"success":false, "code":"500", "msg":"status is missing"});
+    }
+    if(!req.body.zoneName){
+        res.send({"success":false, "code":"500", "msg":"zoneName is missing"});
+    }
+
     let zoneToEdit = {
         regionId: req.body.regionId,
         zoneName: req.body.zoneName,
@@ -104,11 +156,20 @@ service.editZone = async (req, res) => {
     }
 }
 
+/**
+ * @description [calculation for deleting the zones ]
+ * @param  {[object]}
+ * @param  {[object]}
+ * @return {[object]}
+ */
+
 service.deleteZone = async (req, res) => {
-    if(!req.body.zoneId){
-        res.send({success:false, code:500, msg:"zoneId missing"});
+
+    if(!req.body._id){
+        res.send({success:false, code:500, msg:"_id missing"});
     }
-    let zoneToDelete = req.body.zoneId;
+    //console.log(req.body._id);
+    let zoneToDelete = req.body._id;
     try{
         const removedZone = await Zone.removeZone(zoneToDelete);
         logger.info('Deleted zone-' + removedZone);

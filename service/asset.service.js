@@ -8,7 +8,9 @@
 
 
 import Asset from '../models/asset.model'
-import logger from '../core/logger/app.logger'
+import logger from '../core/logger/app.logger' 
+import msg from '../core/message/error.msg.js'
+//import logger from '../core/logger/app.logger'
 import successMsg from '../core/message/success.msg'
 import utility from '../core/utility.js'
 
@@ -28,8 +30,9 @@ const service = {};
  */
 service.getAll = async (req,res) =>{
     if(!req.query.clientId){
-        res.send({"success":false,"code":"500","msg":"clientId is missing","data":req.query});
+        res.send({"success":false,"code":"500","msg":msg.clientId});
     }
+    
     let clientId = utility.removeQuotationMarks(req.query.clientId);
 	try{
 
@@ -49,7 +52,7 @@ service.getAll = async (req,res) =>{
 		res.send({success:true, code:200, msg:successMsg.allAsset, data:asset});
 	}catch(err){
 		logger.error('Error in getting asset- ' + err);
-		res.send({success:false, code:500, msg:"Error in Asset", err:err});
+		res.send({success:false, code:500, msg:msg.getAsset, err:err});
 
 	}
 }
@@ -61,8 +64,10 @@ service.getAll = async (req,res) =>{
  * @return {[object]}
  */
 service.addAsset = async (req, res) => {
+
+    let clientId = utility.removeQuotationMarks(req.body.clientId);
     let assetToAdd = Asset({
-        clientId : req.body.clientId,
+        clientId : clientId,
         branchId: req.body.branchId,
         regionId: req.body.regionId,
         zoneId : req.body.zoneId,
@@ -75,7 +80,7 @@ service.addAsset = async (req, res) => {
 
     try {
         if(!req.body.zoneId ||!req.body.regionId || !req.body.branchId ||   !req.body.clientId || !req.body.assetName || !req.body.assetTypeId || !req.body.serialNo){
-            res.send({"success":false,"code":"500","msg":"Expected params are missing", "data":req.body});
+            res.send({"success":false,"code":"500","msg":msg.param});
         }
         const savedAsset = await Asset.addAsset(assetToAdd);
         logger.info('Adding asset...');
@@ -83,7 +88,7 @@ service.addAsset = async (req, res) => {
     }
     catch(err) {
         logger.error('Error in getting Asset- ' + err);
-        res.send({"success":false, "code":"500", "msg":"Error in Asset","err":err});
+        res.send({"success":false, "code":"500", "msg":msg.addAsset,"err":err});
     }
 }
 
@@ -117,7 +122,7 @@ service.editAsset = async (req,res) => {
         res.send({"success":true, "code":"200", "msg":successMsg.editAsset,"data":editedAsset});
     }catch(err) {
         logger.error('Error in getting Asset- ' + err);
-        res.send({"success":false, "code":"500", "msg":"Error in Asset edit","err":err});
+        res.send({"success":false, "code":"500", "msg":msg.editAsset,"err":err});
     }
 }
 
@@ -132,16 +137,16 @@ service.editAsset = async (req,res) => {
 service.deleteAsset = async (req, res) => {
     let assetToDelete = req.body.assetId;
     if(!req.body.assetId){
-        res.send({"success":false, "code":"500", "msg":"asset id is missing","err":err});
+        res.send({"success":false, "code":"500", "msg":msg.assetId});
     }
-    try{
+    try{ 
         const removedAsset = await Asset.removeAsset(assetToDelete);
         logger.info('Deleted asset- ' + removedAsset);
         res.send({"success":true, "code":"200", "msg":successMsg.deleteAsset,"data":removedAsset});
     }
     catch(err) {
         logger.error('Failed to delete Asset- ' + err);
-        res.send({"success":false, "code":"500", "msg":"Failed to delete asset","err":err});
+        res.send({"success":false, "code":"500", "msg":msg.deleteAsset,"err":err});
     }
 }
 
@@ -163,7 +168,7 @@ service.getOne= async(req,res)=>{
     }
     catch(err){
         logger.error('Failed to get Asset- ' + err);
-        res.send({"success":false, "code":"500", "msg":"Failed to get asset","err":err});
+        res.send({"success":false, "code":"500", "msg":msg.getAsset,"err":err});
 
     }
 }

@@ -5,12 +5,13 @@ import successMsg from '../core/message/success.msg'
 const service = {};
 
 service.getAll = async (req,res) =>{
+console.log(req.query.clientId)
     if(!req.query.clientId){
         return res.send({success:false, code:500, msg:"clientId missing"})
     }
-	try{
+    try{
 		let dataToFind = {
-			query:{clientId:Number(req.query.clientId)},
+			query:{clientId: req.query.clientId },
 			projection:{}
 		};
 

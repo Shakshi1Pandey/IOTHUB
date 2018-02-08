@@ -1,6 +1,8 @@
 import Region from '../models/region.model'
 import logger from '../core/logger/app.logger'
-import successMsg from '../core/message/success.msg'
+import successMsg from '../core/message/success.msg';
+import utility from '../core/utility.js'
+
 
 const service = {};
 
@@ -8,9 +10,11 @@ service.getAll = async (req,res) =>{
     if(!req.query.clientId){
         return res.send({success:false, code:500, msg:"clientId missing"})
     }
+    let clientId = utility.removeQuotationMarks(req.query.clientId);
+
 	try{
 		let dataToFind = {
-			query:{clientId:Number(req.query.clientId)},
+			query:{clientId:clientId},
 			projection:{}
 		};
 

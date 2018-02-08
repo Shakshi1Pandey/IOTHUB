@@ -22,6 +22,7 @@ router.post('/editDevice',(req,res)=>{
     deviceService.editDevice(req,res);
 });
 router.post('/addDevice', (req, res) => {
+	console.error("hiiiiiiiii")
     deviceService.addDevice(req, res);
 });
 

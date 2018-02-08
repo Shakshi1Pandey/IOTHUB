@@ -15,9 +15,7 @@ import AutoIncrement from "mongoose-auto-increment";
  */ 
 const DeviceSchema = mongoose.Schema({
     clientId : {type: Number },
-    branchId: {type: Number },
     brand:{type: String },
-    regionId: {type: Number },
     assetId : {type: Number },
     deviceId:{type: String },
     deviceType:{type: String },
@@ -66,7 +64,7 @@ DeviceModel.getAll = (clientId) => {
         {
             $lookup:{
                 from:"region",
-                localField:"regionId",
+                localField:"asset_docs.regionId",
                 foreignField:"regionId",
                 as:"region_docs"
             }
@@ -76,8 +74,19 @@ DeviceModel.getAll = (clientId) => {
         },
         {
             $lookup:{
+                from:"zone",
+                localField:"asset_docs.zoneId",
+                foreignField:"zoneId",
+                as:"zone_docs"
+            }
+        },
+        {
+          $unwind:"$zone_docs"
+        },
+        {
+            $lookup:{
                 from:"branch",
-                localField:"branchId",
+                localField:"asset_docs.branchId",
                 foreignField:"branchId",
                 as:"branch_docs"
             }
@@ -96,6 +105,8 @@ DeviceModel.getAll = (clientId) => {
                 assetId : 1,
                 assetName:"$asset_docs.assetName",
                 assetTypeName:"$assetType_docs.assetTypeName",
+                zoneId:"$zone_docs.zoneId",
+                zoneName:"$zone_docs.zoneName",
                 deviceId:1,
                 deviceType:1,
                 deviceName:1,

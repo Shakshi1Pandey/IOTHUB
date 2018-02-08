@@ -42,7 +42,7 @@ service.getAll = async (req,res) =>{
 		res.send({"success":true,"code":"200","msg":successMsg.allDevice,"data":device});
 
 	}catch(err){
-		logger.error('Error in getting device- ' + err);
+		logger.error('Error in getting device7- ' + err);
         res.send({"success":false, "code":"500", "msg":msg.getDevice,"err":err});
 	}
 }
@@ -71,8 +71,8 @@ service.getOne=async(req,res)=>{
  */
 
 service.addDevice = async (req, res) => {
-console.log(req.body);
-    if(!req.body.deviceName || !req.body.clientId || !req.body.deviceType || !req.body.branchId || !req.body.deviceId || !req.body.brand || !req.body.regionId || !req.body.assetId || !req.body.serialNo || !req.body.simno ){
+console.log("++++++++",req.body);
+    if(!req.body.deviceName || !req.body.clientId || !req.body.deviceType || !req.body.deviceId || !req.body.brand || !req.body.assetId || !req.body.serialNo || !req.body.simno ){
       return res.send({"success":false,"code":"500","msg":msg.param});
     }
     let clientId = utility.removeQuotationMarks(req.body.clientId);
@@ -80,10 +80,8 @@ console.log(req.body);
     let deviceToAdd = Device({
        
         clientId : clientId, 
-        branchId: req.body.branchId,
         deviceId: req.body.deviceId,
         brand: req.body.brand,
-        regionId: req.body.regionId,
         assetId : req.body.assetId,
         deviceType: req.body.deviceType,
         deviceName: req.body.deviceName,
@@ -99,8 +97,8 @@ console.log(req.body);
         res.send({"success":true, "code":"200", "msg":successMsg.addDevice,"data":savedDevice});
     }
     catch(err) {
-        logger.error('Error in getting Device- ' + err);
-        res.send({"success":false, "code":"500", "msg":msg.addDevice , err:err});
+        logger.error('Error in getting Device-22 ' + err);
+        res.send({"success":false, "code":"5010", "msg":msg.addDevice , err:err});
        
     }
 }

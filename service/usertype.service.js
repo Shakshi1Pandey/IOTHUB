@@ -10,6 +10,8 @@
 import userTypeConfig from '../models/usertype.model'
 import logger from '../core/logger/app.logger'
 import successMsg from '../core/message/success.msg'
+import utility from '../core/utility.js'
+
 
 
 /**
@@ -29,8 +31,10 @@ service.getAll = async (req,res) =>{
         if(!req.query.clientId){
             res.send({success:false, code:500, msg:"clientId missing", data:req.query});
         }
+        let clientId = utility.removeQuotationMarks(req.query.clientId);
+
 		let dataToFind = {
-			query:{},
+			query:{clientId:clientId},
 			projection:{}
 		};
 
@@ -39,7 +43,7 @@ service.getAll = async (req,res) =>{
 				userType:1,status:1,userTypeId:1
 			}
             dataToFind.query = {
-                clientId:req.query.clientId
+                clientId:clientId
             }
 		}
         console.log(dataToFind)

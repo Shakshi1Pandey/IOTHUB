@@ -1,6 +1,8 @@
 import AssetType from '../models/assetType.model'
 import logger from '../core/logger/app.logger'
 import successMsg from '../core/message/success.msg'
+import utility from '../core/utility.js'
+
 
 /**
  * [service is a object ]
@@ -19,9 +21,10 @@ service.getAll = async (req,res) =>{
     if(!req.query.clientId){
         res.send({"success":false,"code":"500","msg":"clientId is missing","data":req.query});
     }
+    let clientId = utility.removeQuotationMarks(req.query.clientId);
 	try{
 		let dataToFind = {
-			query:{},
+			query:{clientId:clientId},
 			projection:{}
 		};
 

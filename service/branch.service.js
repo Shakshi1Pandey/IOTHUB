@@ -102,7 +102,6 @@ service.addBranch = async (req, res) => {
     let branchToAdd = Branch({
         clientId: clientId,
         zoneId: req.body.zoneId,
-        regionId: req.body.regionId,
         branchName: req.body.branchName,
         pinCode: req.body.pinCode,
         Address: req.body.Address,

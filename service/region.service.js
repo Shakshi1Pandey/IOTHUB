@@ -10,7 +10,7 @@ import Region from '../models/region.model'
 import logger from '../core/logger/app.logger'
 import successMsg from '../core/message/success.msg';
 import utility from '../core/utility.js'
-
+import msg from '../core/message/error.msg.js';
 
 /**
  * [service is a object ]
@@ -27,7 +27,7 @@ const service = {};
 
 service.getAll = async (req,res) =>{
     if(!req.query.clientId){
-        return res.send({success:false, code:500, msg:"clientId missing"})
+        return res.send({success:false, code:500, msg:msg.clientId})
     }
     let clientId = utility.removeQuotationMarks(req.query.clientId);
 
@@ -47,7 +47,7 @@ service.getAll = async (req,res) =>{
 		res.send({success:true, code:200, msg:successMsg.allRegion, data:region});
 	}catch(err){
 		logger.error('Error in getting region- ' + err);
-		res.send({success:false, code:500, msg:"Error in Region", err:err});
+		res.send({success:false, code:500, msg:msg.getRegion, err:err});
 	}
 }
 
@@ -68,7 +68,7 @@ service.getOne=async(req,res)=>{
  }
  catch(err){
      logger.error('Failed to get region- ' + err);
-     res.send({"success":false, "code":"500", "msg":"Failed to get region","err":err});
+     res.send({"success":false, "code":"500", "msg":msg.getRegion,"err":err});
 
  }
 
@@ -84,7 +84,7 @@ service.getOne=async(req,res)=>{
 service.addRegion = async (req, res) => {
 
      if(!req.body.clientId){
-        return res.send({success:false, code:500, msg:"clientId missing"})
+        return res.send({success:false, code:500, msg:msg.clientId})
     }
     let clientId = utility.removeQuotationMarks(req.body.clientId);
     
@@ -102,7 +102,7 @@ service.addRegion = async (req, res) => {
     }
     catch(err) {
         logger.error('Error in getting Region- ' + err);
-        res.send({"success":false, "code":"500", "msg":"Error in Region","err":err});
+        res.send({"success":false, "code":"500", "msg":msg.addRegion,"err":err});
     }
 }
 
@@ -115,7 +115,7 @@ service.addRegion = async (req, res) => {
 service.editRegion = async (req, res) => {
 
     if(!req.body._id || !req.body.regionName || !req.body.status){
-        res.send({"success":false, "code":"500", "msg":"_id or regionName or status is missing"});
+        res.send({"success":false, "code":"500", "msg":msg.param});
 
     }
 
@@ -137,7 +137,7 @@ service.editRegion = async (req, res) => {
     }
     catch(err) {
         logger.error('Error in getting Region- ' + err);
-        res.send({"success":false, "code":"500", "msg":"Error in update Region","err":err});
+        res.send({"success":false, "code":"500", "msg":msg.editRegion,"err":err});
     }
 }
 
@@ -150,7 +150,7 @@ service.editRegion = async (req, res) => {
 
 service.deleteRegion = async (req, res) => {
     if(!req.body._id){
-        res.send({success:false, code:500, msg:"_id missing"});
+        res.send({success:false, code:500, msg:msg._id});
     }
     let regionToDelete = req.body._id;
     try{
@@ -160,7 +160,7 @@ service.deleteRegion = async (req, res) => {
     }
     catch(err) {
         logger.error('Failed to delete Region- ' + err);
-        res.send({"success":false, "code":"500", "msg":"Failed to delete region","err":err});
+        res.send({"success":false, "code":"500", "msg":msg.deleteRegion,"err":err});
     }
 }
 

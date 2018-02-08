@@ -42,8 +42,8 @@ service.getAll = async (req,res) =>{
 		res.send({"success":true,"code":"200","msg":successMsg.allDevice,"data":device});
 
 	}catch(err){
-		logger.error('Error in getting device7- ' + err);
-        res.send({"success":false, "code":"500", "msg":msg.getDevice,"err":err});
+		logger.error('Error in getting device- ' + err);
+        res.send({"success":false, "code":"500", "msg":msg.getDevice,"err":err}); 
 	}
 }
 service.getOne=async(req,res)=>{
@@ -134,7 +134,7 @@ service.deleteDevice = async (req, res) => {
 
 service.editDevice = async(req,res)=>{
     if(!req.body._id){
-        res.send({"success":false,"code":500,"msg":msg.deviceId})
+        res.send({"success":false,"code":500,"msg":msg._id})
     }
     let deviceEdit={
         status: req.body.status,

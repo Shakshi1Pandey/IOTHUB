@@ -118,7 +118,7 @@ service.updateAssetType = async (req, res) => {
 			const modifiedAssetType =	await AssetType.modifyAssetType(query);
 			res.send({"success":true, "code":"200", "msg":successMsg.editAssetType,"data":modifiedAssetType});
 		} catch (e) {
-			res.send({"success":false, "code":"500", "msg":"Failed to update AssetType","err":e});
+			res.send({"success":false, "code":"500", "msg":msg.editAssetType,"err":e});
 		}
 }
 

@@ -11,7 +11,7 @@ import userTypeConfig from '../models/usertype.model'
 import logger from '../core/logger/app.logger'
 import successMsg from '../core/message/success.msg'
 import utility from '../core/utility.js'
-
+import msg from '../core/message/error.msg'
 
 
 /**
@@ -29,13 +29,11 @@ const service = {};
 service.getAll = async (req,res) =>{
 
     if(!req.query.clientId){
-        res.send({success:false, code:500, msg:"clientId missing"});
+        res.send({success:false, code:500, msg:msg.clientId});
     }
 
 	try{
-        if(!req.query.clientId){
-            res.send({success:false, code:500, msg:"clientId missing"});
-        }
+        
         let clientId = utility.removeQuotationMarks(req.query.clientId);
 
 		let dataToFind = {
@@ -57,7 +55,7 @@ service.getAll = async (req,res) =>{
 		res.send({success:true, code:200, msg:successMsg.allUserType, data:usertype});
 	}catch(err){
 		logger.error('Error in getting usertype- ' + err);
-		res.send({success:false, code:500, msg:"Error in userType ", err:err});
+		res.send({success:false, code:500, msg:msg.getUserType, err:err});
 
 	}
 }
@@ -71,16 +69,16 @@ service.getAll = async (req,res) =>{
 service.editUsertype = async (req, res) => {
     if(req.body.clientId=='')
     {
-        res.send({"success":false, "code":"500", "msg":"clientId missing"});
+        res.send({"success":false, "code":"500", "msg":msg.clientId});
     }
     if(req.body.userType=='')
     {
-        res.send({"success":false, "code":"500", "msg":"userType missing"});
+        res.send({"success":false, "code":"500", "msg":msg.userType});
     }
 
     if(!req.body._id)
     {
-        res.send({"success":false, "code":"500", "msg":" _id missing"});
+        res.send({"success":false, "code":"500", "msg":msg._id});
     }
     let userTypeToUpdate = {
         query:{_id:req.body._id},
@@ -100,7 +98,7 @@ service.editUsertype = async (req, res) => {
     }
     catch(err) {
         logger.error('Error in updating Usertype- ' + err);
-        res.send({"success":false, "code":"500", "msg":"Error in Usertype","err":err});
+        res.send({"success":false, "code":"500", "msg":msg.editUserType,"err":err});
     }
 }
 
@@ -114,11 +112,11 @@ service.editUsertype = async (req, res) => {
 service.addUsertype = async (req, res) => {
     if(!req.body.clientId)
     {
-        res.send({"success":false, "code":"500", "msg":"clientId missing"});
+        res.send({"success":false, "code":"500", "msg":msg.clientId});
     }
     if(!req.body.userType)
     {
-        res.send({"success":false, "code":"500", "msg":"userType missing"});
+        res.send({"success":false, "code":"500", "msg":msg.userType});
     }
     let clientId = utility.removeQuotationMarks(req.body.clientId);
 
@@ -135,7 +133,7 @@ service.addUsertype = async (req, res) => {
     }
     catch(err) {
         logger.error('Error in getting Usertype- ' + err);
-        res.send({"success":false, "code":"500", "msg":"Error in Usertype","err":err});
+        res.send({"success":false, "code":"500", "msg":msg.addUserType,"err":err});
     }
 }
 
@@ -150,7 +148,7 @@ service.deleteUsertype = async (req, res) => {
 
     if(!req.body._id)
     {
-        res.send({"success":false, "code":"500", "msg":"_id missing"});
+        res.send({"success":false, "code":"500", "msg":msg._id});
     }
     let usertypeToDelete = req.body._id;
     
@@ -162,7 +160,7 @@ service.deleteUsertype = async (req, res) => {
     }
     catch(err) {
         logger.error('Failed to delete usertype- ' + err);
-        res.send({"success":false, "code":"500", "msg":"Failed to delete usertype","err":err});
+        res.send({"success":false, "code":"500", "msg":msg.deleteUserType,"err":err});
     }
 }
 

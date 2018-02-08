@@ -180,7 +180,7 @@ service.deleteBranch = async (req, res) => {
     try{
         const removedBranch = await Branch.removeBranch(branchToDelete);
         logger.info('Deleted branch-' + removedBranch);
-        res.send({"success":true, "code":"200", "msg":"Branch deleted successfully","data":removedBranch});
+        res.send({"success":true, "code":"200", "msg":successMsg.deleteBranch,"data":removedBranch});
     }
     catch(err) {
         logger.error('Failed to delete Branch- ' + err);

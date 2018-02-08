@@ -9,6 +9,8 @@
 import DeviceTrackingHistory from '../models/deviceTrackingHistory.model';
 import DeviceTracking from '../models/deviceTracking.model';
 import Device from '../models/device.model';
+import utility from '../core/utility.js'
+
 
 import logger from '../core/logger/app.logger'
 
@@ -48,7 +50,7 @@ service.getAll = async (req,res) =>{
 		res.send({success:true, code:200, msg:"sending all DeviceTrackingHistory", data:deviceTrackingHistory});
 	}catch(err){
 		logger.error('Error in getting DeviceTrackingHistory- ' + err);
-		res.send('Got error in getAll');
+		res.send({success:false, code:500, msg:'Got error in getAll', err:err});
 	}
 }
 

@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 import AutoIncrement from 'mongoose-auto-increment';
-AutoIncrement.initialize(mongoose);
+AutoIncrement.initialize(mongoose); 
 
 const ZoneSchema = mongoose.Schema({
     clientId: {type: Number },
@@ -18,7 +18,7 @@ let ZoneModel = mongoose.model('zones',ZoneSchema);
 ZoneModel.getAll = (dataToFind) => {
 	console.log(dataToFind,"dataToFind")
    return ZoneModel.aggregate([
-   {
+   { $match : dataToFind.query},{
      $lookup:
        {
          from: "region",

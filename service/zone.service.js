@@ -8,6 +8,9 @@
 
 import Zone from '../models/zone.model'
 import logger from '../core/logger/app.logger'
+import successMsg from '../core/message/success.msg'
+import utility from '../core/utility.js'
+
 
 /**
  * [service is a object ]
@@ -28,14 +31,16 @@ service.getAll = async (req,res) =>{
     if(!req.query.clientId){
         res.send({success:false, code:500, msg:"clientId missing"});
     }
+    let clientId = utility.removeQuotationMarks(req.query.clientId);
 	try{
 		let dataToFind = {
-			query:{'clientId':req.query.clientId},
+			query:{clientId:clientId},
 			projection:{}
-		};
+        };
+        // console.log(dataToFind);
 		const zone = await Zone.getAll(dataToFind);
         logger.info('sending all zone...');
-		res.send({success:true, code:200, msg:"Found successfully", data:zone});
+		res.send({success:true, code:200, msg:successMsg.allZone, data:zone});
 	}catch(err){
 		logger.error('Error in getting zone- ' + err);
 		res.send({success:false, code:500, msg:"Error in Zone", err:err});
@@ -61,7 +66,7 @@ service.getOne = async (req,res) =>{
         };
         const zone = await Zone.getOne(zoneToFind);
         logger.info('sending a zone...');
-        res.send({success:true, code:200, msg:"Found successfully", data:zone});
+        res.send({success:true, code:200, msg:successMsg.getOneZone, data:zone});
   
     }catch(err){
         logger.error('Error in getting zone- ' + err);
@@ -77,21 +82,20 @@ service.getOne = async (req,res) =>{
  */
 
 service.addZone = async (req, res) => {
-  
+    
     if(!req.body.clientId){
         res.send({success:false, code:500, msg:"clientId missing"});
     }
-  
+
     if(!req.body.regionId){
         res.send({success:false, code:500, msg:"regionId missing"});
     }
     if(!req.body.zoneName){
         res.send({success:false, code:500, msg:"zoneName missing"});
     }
-  
+    let clientId = utility.removeQuotationMarks(req.body.clientId);
     let zoneToAdd = Zone({
-        clientId: req.body.clientId,
-        zoneId: req.body.zoneId,
+        clientId: clientId,
         regionId: req.body.regionId,
         zoneName: req.body.zoneName,
         status: req.body.status,
@@ -102,7 +106,7 @@ service.addZone = async (req, res) => {
         const savedZone = await Zone.addZone(zoneToAdd);
         logger.info('Adding zone...');
         console.log('Adding zone...');
-        res.send({"success":true, "code":"200", "msg":"Zone added successfully","data":savedZone});
+        res.send({"success":true, "code":"200", "msg":successMsg.addZone,"data":savedZone});
     }
     catch(err) {
         logger.error('Error in getting Zone- ' + err);
@@ -144,7 +148,7 @@ service.editZone = async (req, res) => {
         const editedZone = await Zone.editZone(zoneedit);
         logger.info('Adding zone...');
         console.log('Adding zone...');
-        res.send({"success":true, "code":"200", "msg":"Zone updated successfully","data":editedZone});
+        res.send({"success":true, "code":"200", "msg":successMsg.editZone,"data":editedZone});
     }
     catch(err) {
         logger.error('Error in getting Zone- ' + err);
@@ -169,7 +173,7 @@ service.deleteZone = async (req, res) => {
     try{
         const removedZone = await Zone.removeZone(zoneToDelete);
         logger.info('Deleted zone-' + removedZone);
-        res.send({"success":true, "code":"200", "msg":"Zone deleted successfully","data":removedZone});
+        res.send({"success":true, "code":"200", "msg":successMsg.deleteZone,"data":removedZone});
     }
     catch(err) {
         logger.error('Failed to delete Zone- ' + err);

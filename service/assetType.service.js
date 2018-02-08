@@ -9,6 +9,9 @@
 import AssetType from '../models/assetType.model'
 import logger from '../core/logger/app.logger'
 import msg from '../core/message/error.msg.js'
+import successMsg from '../core/message/success.msg'
+import utility from '../core/utility.js'
+
 
 /**
  * [service is a object ]
@@ -28,9 +31,10 @@ service.getAll = async (req,res) =>{
     if(!req.query.clientId){
         res.send({"success":false,"code":"500","msg":msg.clientId});
     }
+    let clientId = utility.removeQuotationMarks(req.query.clientId);
 	try{
 		let dataToFind = {
-			query:{},
+			query:{clientId:clientId},
 			projection:{}
 		};
 
@@ -41,7 +45,7 @@ service.getAll = async (req,res) =>{
 		}
 		const assetType = await AssetType.getAll(dataToFind);
         logger.info('sending all assetType...');
-		res.send({success:true, code:200, msg:"Found successfully", data:assetType});
+		res.send({success:true, code:200, msg:successMsg.allAssetType, data:assetType});
 	}catch(err){
 		logger.error('Error in getting assetType- ' + err);
 		res.send({success:false, code:500, msg:msg.getAssetType, err:err});
@@ -54,10 +58,11 @@ service.getAll = async (req,res) =>{
  * @param  {[object]}
  * @return {[object]}
  */
-
 service.addAssetType = async (req, res) => {
+    let clientId = utility.removeQuotationMarks(req.body.clientId);
+
     let assetTypeToAdd = AssetType({
-        clientId: req.body.clientId,
+        clientId: clientId,
         assetTypeName: req.body.assetTypeName,
         status: req.body.status,
         createAt: new Date(),
@@ -68,7 +73,7 @@ service.addAssetType = async (req, res) => {
             res.send({"success":false,"code":"500","msg":msg.param});
         }
         const savedAssetType = await AssetType.addAssetType(assetTypeToAdd);
-        res.send({"success":true, "code":"200", "msg":"AssetType added successfully","data":savedAssetType});
+        res.send({"success":true, "code":"200", "msg":successMsg.addAssetType,"data":savedAssetType});
     }
     catch(err) {
         logger.error('Error in getting AssetType- ' + err);
@@ -92,7 +97,7 @@ service.deleteAssetType = async (req, res) => {
     try{
         const removedAssetType = await AssetType.removeAssetType(assetTypeToDelete);
         logger.info('Deleted assetType-' + removedAssetType);
-        res.send({"success":true, "code":"200", "msg":"AssetType deleted successfully","data":removedAssetType});
+        res.send({"success":true, "code":"200", "msg":successMsg.deleteAssetType,"data":removedAssetType});
     }
     catch(err) {
         logger.error('Failed to delete AssetType- ' + err);
@@ -111,9 +116,9 @@ service.updateAssetType = async (req, res) => {
 		let query = req.body;
 		try {
 			const modifiedAssetType =	await AssetType.modifyAssetType(query);
-			res.send({"success":true, "code":"200", "msg":"AssetType updated successfully","data":modifiedAssetType});
+			res.send({"success":true, "code":"200", "msg":successMsg.editAssetType,"data":modifiedAssetType});
 		} catch (e) {
-			res.send({"success":false, "code":"500", "msg":msg.editAssetType,"err":e});
+			res.send({"success":false, "code":"500", "msg":"Failed to update AssetType","err":e});
 		}
 }
 

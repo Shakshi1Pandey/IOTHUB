@@ -6,40 +6,40 @@
  * @lastModifedBy Shakshi
  */
 import express from "express";
-import deivceService from "../service/device.service";
-import deivceTrackerService from "../service/deviceTracking.service";
-import deivceTrackerHistoryService from "../service/deviceTrackingHistory.service";
+import deviceService from "../service/device.service";
+import deviceTrackerService from "../service/deviceTracking.service";
+import deviceTrackerHistoryService from "../service/deviceTrackingHistory.service";
 const router = express.Router()
 
 router.get('/allDevice', (req, res) => {
-    deivceService.getAll(req, res);
+    deviceService.getAll(req, res);
 });
 router.get('/oneDevice',(req,res)=>{
-    deivceService.getOne(req, res);
+    deviceService.getOne(req, res);
 })
  
 router.post('/editDevice',(req,res)=>{
-    deivceService.editDevice(req,res);
+    deviceService.editDevice(req,res);
 });
 router.post('/addDevice', (req, res) => {
-    deivceService.addDevice(req, res);
+    deviceService.addDevice(req, res);
 });
 
 router.delete('/deleteDevice', (req, res) => {
-    deivceService.deleteDevice(req, res);
+    deviceService.deleteDevice(req, res);
 });
 
 
 router.get('/allDeviceData', (req, res) => {
-    deivceTrackerService.getAll(req, res);
+    deviceTrackerService.getAll(req, res);
 });
 
 router.get('/addDeviceData', (req, res) => {
-    deivceTrackerHistoryService.addDeviceTrackingHistoryData(req, res);
+    deviceTrackerHistoryService.addDeviceTrackingHistoryData(req, res);
 });
 
 router.get('/allDeviceHistoryData', (req, res) => {
-    deivceTrackerHistoryService.getAll(req, res);
+    deviceTrackerHistoryService.getAll(req, res);
 });
 
 

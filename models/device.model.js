@@ -8,19 +8,18 @@
 
 import mongoose from 'mongoose';
 import AutoIncrement from "mongoose-auto-increment";
-AutoIncrement.initialize(mongoose);
 
 /**
  * [DeviceSchema is used for device data validating aginst schema]
  * @type {[type]}
- */
+ */ 
 const DeviceSchema = mongoose.Schema({
-    clientId : {type: Number }, 
+    clientId : {type: Number },
     branchId: {type: Number },
     brand:{type: String },
     regionId: {type: Number },
     assetId : {type: Number },
-    deviceId:{type: Number },
+    deviceId:{type: String },
     deviceType:{type: String },
     deviceName:{type: String },
     serialNo: {type: Number },
@@ -29,7 +28,6 @@ const DeviceSchema = mongoose.Schema({
     createAt:{type: Date},
     updatedAt:{type: Date}
 }, {collection : 'device'});
-DeviceSchema.plugin(AutoIncrement.plugin,{model:'device',field:'deviceId',startAt:1,incrementBy:1});
 
 let DeviceModel = mongoose.model('device', DeviceSchema);
 
@@ -37,8 +35,77 @@ let DeviceModel = mongoose.model('device', DeviceSchema);
  *@description [is used for getting all data of devices from db]
  * @return {object}
  */
-DeviceModel.getAll = () => {
-    return DeviceModel.find({});
+DeviceModel.getAll = (clientId) => {
+    return DeviceModel.aggregate([
+        {
+            $match:{clientId:clientId}
+        },
+        {
+          $lookup:{
+            from:"asset",
+            localField:"assetId",
+            foreignField:"assetId",
+            as:"asset_docs"
+          }
+
+        },
+        {
+          $unwind:"$asset_docs"
+        },
+        {
+            $lookup:{
+                from:"assettype",
+                localField:"asset_docs.assetTypeId",
+                foreignField:"assetTypeId",
+                as:"assetType_docs"
+            }
+        },
+        {
+          $unwind:"$assetType_docs"
+        },
+        {
+            $lookup:{
+                from:"region",
+                localField:"regionId",
+                foreignField:"regionId",
+                as:"region_docs"
+            }
+        },
+        {
+          $unwind:"$region_docs"
+        },
+        {
+            $lookup:{
+                from:"branch",
+                localField:"branchId",
+                foreignField:"branchId",
+                as:"branch_docs"
+            }
+        },
+        {
+          $unwind:"$branch_docs"
+        },
+        {
+            $project:{
+                clientId : 1, 
+                branchId: 1,
+                branchName:"$branch_docs.branchName",
+                brand:1,
+                regionId: 1,
+                regionName:"$region_docs.regionName",
+                assetId : 1,
+                assetName:"$asset_docs.assetName",
+                assetTypeName:"$assetType_docs.assetTypeName",
+                deviceId:1,
+                deviceType:1,
+                deviceName:1,
+                serialNo: 1,
+                simno: 1
+
+            }
+        }
+    ])
+    //return DeviceModel.find({});
 }
 
 /**

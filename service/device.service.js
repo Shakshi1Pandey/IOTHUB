@@ -9,6 +9,10 @@
 import Device from '../models/device.model'
 import logger from '../core/logger/app.logger'
 import msg from '../core/message/error.msg.js'
+import successMsg from '../core/message/success.msg'
+import utility from '../core/utility.js'
+
+
 
 /**
  * [service is a object ]
@@ -26,11 +30,17 @@ service.getAll = async (req,res) =>{
     if(!req.query.clientId){
         res.send({"success":false,"code":"500","msg":msg.clientId});
     }
+    // if(!req.query.clientId){
+    //     res.send({"success":false,"code":"500","msg":"clientId is missing","data":req.query});
+    // }
+    let clientId = utility.removeQuotationMarks(req.query.clientId);
+    
 	try{
         
-		const device = await Device.getAll();
+		const device = await Device.getAll(clientId);
         logger.info('sending all device...');
-		res.send(device);
+		res.send({"success":true,"code":"200","msg":successMsg.allDevice,"data":device});
+
 	}catch(err){
 		logger.error('Error in getting device- ' + err);
         res.send({"success":false, "code":"500", "msg":msg.getDevice,"err":err});
@@ -43,7 +53,7 @@ service.getOne=async(req,res)=>{
  try{
      const getOneDevice=await Device.getOne(deviceToFind);
      logger.info('get one device-' +getOneDevice);
-     res.send({"success":true,"code":"200","msg":"get device","data":getOneDevice});
+     res.send({"success":true,"code":"200","msg":successMsg.getOneDevice,"data":getOneDevice});
  }
  catch(err){
      logger.error('Failed to get branch- ' + err);
@@ -65,11 +75,13 @@ console.log(req.body);
     if(!req.body.name || !req.body.clientId || !req.body.deviceType){
       return res.send({"success":false,"code":"500","msg":msg.param});
     }
+    let clientId = utility.removeQuotationMarks(req.body.clientId);
 
     let deviceToAdd = Device({
          name: req.body.name,
-        clientId : req.body.clientId, 
+        clientId : clientId, 
         branchId: req.body.branchId,
+        deviceId: req.body.deviceId,
         brand: req.body.brand,
         regionId: req.body.regionId,
         assetId : req.body.assetId,
@@ -84,7 +96,7 @@ console.log(req.body);
         
         const savedDevice = await Device.addDevice(deviceToAdd);
         logger.info('Adding device...');
-        res.send({"success":true, "code":"200", "msg":"Device added successfully","data":savedDevice});
+        res.send({"success":true, "code":"200", "msg":successMsg.addDevice,"data":savedDevice});
     }
     catch(err) {
         logger.error('Error in getting Device- ' + err);
@@ -106,7 +118,8 @@ service.deleteDevice = async (req, res) => {
     try{
         const removedDevice = await Device.removeCar(deviceToDelete);
         logger.info('Deleted Device- ' + removedDevice);
-        res.send({"success":true, "code":"200", "msg":"Device added successfully","data":savedDevice});
+        res.send({"success":true, "code":"200", "msg":successMsg.deleteDevice,"data":removedDevice});
+
     }
     catch(err) {
         logger.error('Failed to delete Device- ' + err);
@@ -139,7 +152,7 @@ service.editDevice = async(req,res)=>{
     const editDevice= await Device.editDevice(deviceToEdit);
     logger.info("update device");
     console.log("update device");
-    res.send({"success":true,"code":200,"msg":"update device","data":editDevice});
+    res.send({"success":true,"code":200,"msg":successMsg.editDevice,"data":editDevice});
     }
     catch(err){
         logger.error('Error in getting device- ' + err);

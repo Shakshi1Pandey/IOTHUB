@@ -9,6 +9,9 @@
 
 import userTypeConfig from '../models/usertype.model'
 import logger from '../core/logger/app.logger'
+import successMsg from '../core/message/success.msg'
+import utility from '../core/utility.js'
+
 
 
 /**
@@ -30,24 +33,28 @@ service.getAll = async (req,res) =>{
     }
 
 	try{
-        
+        if(!req.query.clientId){
+            res.send({success:false, code:500, msg:"clientId missing"});
+        }
+        let clientId = utility.removeQuotationMarks(req.query.clientId);
+
 		let dataToFind = {
-			query:{},
+			query:{clientId:clientId},
 			projection:{}
 		};
 
 		if(req.query.clientId){
 			dataToFind.projection = {
-				userType:1,status:1
+				userType:1,status:1,userTypeId:1
 			}
             dataToFind.query = {
-                clientId:req.query.clientId
+                clientId:clientId
             }
 		}
         console.log(dataToFind)
 		const usertype = await userTypeConfig.getAll(dataToFind);
         logger.info('sending all usertype...');
-		res.send({success:true, code:200, msg:"Found successfully", data:usertype});
+		res.send({success:true, code:200, msg:successMsg.allUserType, data:usertype});
 	}catch(err){
 		logger.error('Error in getting usertype- ' + err);
 		res.send({success:false, code:500, msg:"Error in userType ", err:err});
@@ -89,7 +96,7 @@ service.editUsertype = async (req, res) => {
     try {
         const savedUsertype = await userTypeConfig.editUsertype(userTypeToUpdate);
         logger.info('Updating user type ...');
-        res.send({"success":true, "code":"200", "msg":"Usertype updated successfully","data":savedUsertype});
+        res.send({"success":true, "code":"200", "msg":successMsg.editUsertype,"data":savedUsertype});
     }
     catch(err) {
         logger.error('Error in updating Usertype- ' + err);
@@ -113,8 +120,10 @@ service.addUsertype = async (req, res) => {
     {
         res.send({"success":false, "code":"500", "msg":"userType missing"});
     }
+    let clientId = utility.removeQuotationMarks(req.body.clientId);
+
     let userTypeToAdd = userTypeConfig({
-        clientId : req.body.clientId,
+        clientId : clientId,
         userType: req.body.userType,
         status: "Active",
         createAt: new Date()
@@ -122,7 +131,7 @@ service.addUsertype = async (req, res) => {
     try {
         const savedUsertype = await userTypeConfig.addUsertype(userTypeToAdd);
         logger.info('Adding user type ...');
-        res.send({"success":true, "code":"200", "msg":"Usertype added successfully","data":savedUsertype});
+        res.send({"success":true, "code":"200", "msg":successMsg.addUsertype,"data":savedUsertype});
     }
     catch(err) {
         logger.error('Error in getting Usertype- ' + err);
@@ -149,7 +158,7 @@ service.deleteUsertype = async (req, res) => {
     try{
         const removedUsertype = await userTypeConfig.removedUsertype(usertypeToDelete);
         logger.info('Deleted user type- ' + removedUsertype);
-        res.send({"success":true, "code":"200", "msg":"usertype deleted successfully","data":removedUsertype});
+        res.send({"success":true, "code":"200", "msg":successMsg.deleteUsertype,"data":removedUsertype});
     }
     catch(err) {
         logger.error('Failed to delete usertype- ' + err);

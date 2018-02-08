@@ -10,6 +10,10 @@
 import Asset from '../models/asset.model'
 import logger from '../core/logger/app.logger' 
 import msg from '../core/message/error.msg.js'
+//import logger from '../core/logger/app.logger'
+import successMsg from '../core/message/success.msg'
+import utility from '../core/utility.js'
+
 
 
 /**
@@ -32,7 +36,7 @@ service.getAll = async (req,res) =>{
 	try{
 
 		let dataToFind = {
-			query:{},
+			query:{clientId:clientId},
 			projection:{}
 		};
 
@@ -40,10 +44,11 @@ service.getAll = async (req,res) =>{
 			dataToFind.projection = {
 				assetType:1,assetId:1
 			}
-		}
+        }
+        // console.log(dataToFind);
 		const asset = await Asset.getAll(dataToFind);
         logger.info('sending all asset...');
-		res.send({success:true, code:200, msg:"Found successfully", data:asset});
+		res.send({success:true, code:200, msg:successMsg.allAsset, data:asset});
 	}catch(err){
 		logger.error('Error in getting asset- ' + err);
 		res.send({success:false, code:500, msg:msg.getAsset, err:err});
@@ -58,25 +63,27 @@ service.getAll = async (req,res) =>{
  * @return {[object]}
  */
 service.addAsset = async (req, res) => {
+
+    let clientId = utility.removeQuotationMarks(req.body.clientId);
     let assetToAdd = Asset({
-        clientId : req.body.clientId, 
+        clientId : clientId,
         branchId: req.body.branchId,
         regionId: req.body.regionId,
         zoneId : req.body.zoneId,
-        assetType: req.body.assetType,
+        assetTypeId: req.body.assetTypeId,
         assetName: req.body.assetName,
         serialNo: req.body.serialNo,
         status: "Active",
         createAt: new Date()
     });
-    
+
     try {
-        if(!req.body.clientId || !req.body.assetName){
+        if(!req.body.zoneId ||!req.body.regionId || !req.body.branchId ||   !req.body.clientId || !req.body.assetName || !req.body.assetTypeId || !req.body.serialNo){
             res.send({"success":false,"code":"500","msg":msg.param});
         }
         const savedAsset = await Asset.addAsset(assetToAdd);
         logger.info('Adding asset...');
-        res.send({"success":true, "code":"200", "msg":"Asset added successfully","data":savedAsset});
+        res.send({"success":true, "code":"200", "msg":successMsg.addAsset,"data":savedAsset});
     }
     catch(err) {
         logger.error('Error in getting Asset- ' + err);
@@ -105,13 +112,13 @@ service.editAsset = async (req,res) => {
     let assetEdit = {
         query:{"_id":req.body._id},
         data:{"$set":assetToEdit}
-        
+
     };
     try {
         const editedAsset = await Asset.editAsset(assetEdit);
         logger.info('Adding asset...');
         console.log('Adding asset...');
-        res.send({"success":true, "code":"200", "msg":"Asset updated successfully","data":editedAsset});
+        res.send({"success":true, "code":"200", "msg":successMsg.editAsset,"data":editedAsset});
     }catch(err) {
         logger.error('Error in getting Asset- ' + err);
         res.send({"success":false, "code":"500", "msg":msg.editAsset,"err":err});
@@ -134,13 +141,20 @@ service.deleteAsset = async (req, res) => {
     try{ 
         const removedAsset = await Asset.removeAsset(assetToDelete);
         logger.info('Deleted asset- ' + removedAsset);
-        res.send({"success":true, "code":"200", "msg":"Asset deleted successfully","data":removedAsset});
+        res.send({"success":true, "code":"200", "msg":successMsg.deleteAsset,"data":removedAsset});
     }
     catch(err) {
         logger.error('Failed to delete Asset- ' + err);
         res.send({"success":false, "code":"500", "msg":msg.deleteAsset,"err":err});
     }
 }
+
+/** 
+* @description [with all the calculation before getOne function of model and after getAll]
+* @param  {[type]}
+* @param  {[type]}
+* @return {[type]}
+*/
 service.getOne= async(req,res)=>{
 
     let assetToFind={

@@ -72,7 +72,7 @@ service.getOne=async(req,res)=>{
 
 service.addDevice = async (req, res) => {
 console.log(req.body);
-    if(!req.body.deviceName || !req.body.clientId || !req.body.deviceType || !req.body.branchId || !req.body.deviceId || !req.body.brand, || !req.body.regionId || !req.body.assetId || !req.body.serialNo || !req.body.simno ){
+    if(!req.body.deviceName || !req.body.clientId || !req.body.deviceType || !req.body.branchId || !req.body.deviceId || !req.body.brand || !req.body.regionId || !req.body.assetId || !req.body.serialNo || !req.body.simno ){
       return res.send({"success":false,"code":"500","msg":msg.param});
     }
     let clientId = utility.removeQuotationMarks(req.body.clientId);

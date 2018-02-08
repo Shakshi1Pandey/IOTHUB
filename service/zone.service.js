@@ -1,17 +1,20 @@
 import Zone from '../models/zone.model'
 import logger from '../core/logger/app.logger'
 import successMsg from '../core/message/success.msg'
+import utility from '../core/utility.js'
+
 
 const service = {};
 
 service.getAll = async (req,res) =>{
     console.log(req.query.clientId,"req.query.clientId")
     if(!req.query.clientId){
-        res.send({success:false, code:500, msg:"clientId missing", data:req.query});
+        res.send({success:false, code:500, msg:"clientId missing"});
     }
+    let clientId = utility.removeQuotationMarks(req.query.clientId);
 	try{
 		let dataToFind = {
-			query:{clientId:Number(req.query.clientId)},
+			query:{clientId:clientId},
 			projection:{}
         };
         // console.log(dataToFind);

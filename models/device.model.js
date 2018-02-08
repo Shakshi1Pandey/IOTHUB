@@ -35,8 +35,11 @@ let DeviceModel = mongoose.model('device', DeviceSchema);
  *@description [is used for getting all data of devices from db]
  * @return {object}
  */
-DeviceModel.getAll = () => {
+DeviceModel.getAll = (clientId) => {
     return DeviceModel.aggregate([
+        {
+            $match:{clientId:clientId}
+        },
         {
           $lookup:{
             from:"asset",

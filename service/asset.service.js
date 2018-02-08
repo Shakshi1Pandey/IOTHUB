@@ -63,24 +63,23 @@ service.getAll = async (req,res) =>{
  * @return {[object]}
  */
 service.addAsset = async (req, res) => {
+    if( !req.body.branchId ||   !req.body.clientId || !req.body.assetName || !req.body.assetTypeId || !req.body.serialNo){
+            res.send({"success":false,"code":"500","msg":msg.param});
+    }
 
     let clientId = utility.removeQuotationMarks(req.body.clientId);
     let assetToAdd = Asset({
         clientId : clientId,
         branchId: req.body.branchId,
-        regionId: req.body.regionId,
-        zoneId : req.body.zoneId,
         assetTypeId: req.body.assetTypeId,
         assetName: req.body.assetName,
         serialNo: req.body.serialNo,
-        status: "Active",
+        status: req.body.status || "Active",
         createAt: new Date()
     });
 
     try {
-        if(!req.body.zoneId ||!req.body.regionId || !req.body.branchId ||   !req.body.clientId || !req.body.assetName || !req.body.assetTypeId || !req.body.serialNo){
-            res.send({"success":false,"code":"500","msg":msg.param});
-        }
+        
         const savedAsset = await Asset.addAsset(assetToAdd);
         logger.info('Adding asset...');
         res.send({"success":true, "code":"200", "msg":successMsg.addAsset,"data":savedAsset});

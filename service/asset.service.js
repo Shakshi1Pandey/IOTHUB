@@ -32,7 +32,8 @@ service.getAll = async (req,res) =>{
     if(!req.query.clientId){
         res.send({"success":false,"code":"500","msg":msg.clientId});
     }
-
+    
+    let clientId = utility.removeQuotationMarks(req.query.clientId);
 	try{
 
 		let dataToFind = {

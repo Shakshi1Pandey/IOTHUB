@@ -107,7 +107,7 @@ service.addDeviceTrackingHistoryData = async (req, res) => {
             }
         }
         console.log(deviceToAdd,' F 2');
-        //const savedCurrentDeviceData = await DeviceTracking.addDeviceTracker(deviceToAdd);
+        const savedCurrentDeviceData = await DeviceTracking.addDeviceTracker(deviceToAdd);
 
         logger.info('Adding DeviceTrackingHistory...');
         res.send({success:true,code:200,Msg:"successfully add",data:savedDeviceHistory});

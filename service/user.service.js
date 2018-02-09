@@ -123,10 +123,10 @@ service.editUser = async(req,res)=>{
         data:{"$set":userEdit}
     };
     try{
-    const editUser= await User.editUser(userToEdit);
-    logger.info("update user");
-    console.log("update user");
-    res.send({"success":true,"code":200,"msg":successMsg.editUser,"data":editUser});
+        const editUser= await User.editUser(userToEdit);
+        logger.info("update user");
+        console.log("update user");
+        res.send({"success":true,"code":200,"msg":successMsg.editUser,"data":editUser});
 
     }
     catch(err){

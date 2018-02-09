@@ -17,8 +17,8 @@ const DeviceSchema = mongoose.Schema({
     clientId : {type: Number },
     brand:{type: String },
     assetId : {type: Number },
-    deviceId:{type: String },
-    deviceType:{type: String },
+    deviceId:{type: String, index:{unique:true}},
+    deviceType:{type: String }, 
     deviceName:{type: String },
     serialNo: {type: Number },
     simno: {type: String },
@@ -134,6 +134,7 @@ DeviceModel.getOne = (deviceToFind) => {
  * @return {[object]}
  */
 DeviceModel.addDevice = (deviceToAdd) => {
+    
     return deviceToAdd.save();
 }
 

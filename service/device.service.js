@@ -79,7 +79,7 @@ console.log("++++++++",req.body);
 
     let deviceToAdd = Device({
        
-        clientId : clientId, 
+        clientId : clientId,  
         deviceId: req.body.deviceId,
         brand: req.body.brand,
         assetId : req.body.assetId,

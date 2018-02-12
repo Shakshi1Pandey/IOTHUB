@@ -128,6 +128,9 @@ DeviceModel.getOne = (deviceToFind) => {
     return DeviceModel.findOne(deviceToFind);
 }
 
+DeviceModel.getCount =(deviceToCount)=>{
+    return DeviceModel.find(deviceToCount.query).count();
+}
 /**
  * @description [add one device to db]
  * @param  {object}

@@ -16,7 +16,7 @@ import branch from './routes/branch.router.js';
 import user from './routes/user.router.js';
 import assettype from './routes/assettype.router.js';
 import index from './routes/index.router.js';
-
+import dashboard from './routes/dashboard.router.js';
 
 import cors from 'cors';
 
@@ -63,6 +63,7 @@ app.use(zone);
 app.use(branch);
 app.use(user);
 app.use(assettype);
+app.use(dashboard);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

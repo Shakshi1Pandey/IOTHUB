@@ -26,14 +26,17 @@ const service = {};
  */
 
 service.getAll = async (req,res) =>{
+console.log(req.query.clientId)
     if(!req.query.clientId){
         return res.send({success:false, code:500, msg:msg.clientId})
     }
+
     let clientId = utility.removeQuotationMarks(req.query.clientId);
 
 	try{
 		let dataToFind = {
 			query:{clientId:clientId},
+
 			projection:{}
 		};
 

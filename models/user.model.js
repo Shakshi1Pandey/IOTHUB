@@ -27,7 +27,10 @@ UserModel.getOne = (userToFind) => {
     console.log(userToFind," = userToFind")
     return UserModel.findOne(userToFind);
 }
-
+UserModel.getCount=(userToCount)=>
+{
+    return UserModel.find(userToCount.query).count();
+}
 UserModel.addUser = (userToAdd) => {
     return userToAdd.save();
 }

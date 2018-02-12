@@ -10,7 +10,6 @@
 import Asset from '../models/asset.model'
 import logger from '../core/logger/app.logger' 
 import msg from '../core/message/error.msg.js'
-//import logger from '../core/logger/app.logger'
 import successMsg from '../core/message/success.msg'
 import utility from '../core/utility.js'
 
@@ -64,24 +63,23 @@ service.getAll = async (req,res) =>{
  * @return {[object]}
  */
 service.addAsset = async (req, res) => {
+    if( !req.body.branchId ||   !req.body.clientId || !req.body.assetName || !req.body.assetTypeId || !req.body.serialNo){
+            res.send({"success":false,"code":"500","msg":msg.param});
+    }
 
     let clientId = utility.removeQuotationMarks(req.body.clientId);
     let assetToAdd = Asset({
         clientId : clientId,
         branchId: req.body.branchId,
-        regionId: req.body.regionId,
-        zoneId : req.body.zoneId,
         assetTypeId: req.body.assetTypeId,
         assetName: req.body.assetName,
         serialNo: req.body.serialNo,
-        status: "Active",
+        status: req.body.status || "Active",
         createAt: new Date()
     });
 
     try {
-        if(!req.body.zoneId ||!req.body.regionId || !req.body.branchId ||   !req.body.clientId || !req.body.assetName || !req.body.assetTypeId || !req.body.serialNo){
-            res.send({"success":false,"code":"500","msg":msg.param});
-        }
+        
         const savedAsset = await Asset.addAsset(assetToAdd);
         logger.info('Adding asset...');
         res.send({"success":true, "code":"200", "msg":successMsg.addAsset,"data":savedAsset});
@@ -161,10 +159,10 @@ service.getOne= async(req,res)=>{
     let assetToFind={
         assetId:req.query.assetId
     }
-    try{
+    try{ 
         const getOneAsset=await Asset.getOne(assetToFind);
         logger.info('get one asset-' +getOneAsset);
-        res.send({"success":true,"code":"200","msg":"get asset","data":getOneAsset});
+        res.send({"success":true,"code":"200","msg":successMsg.allAsset,"data":getOneAsset});
     }
     catch(err){
         logger.error('Failed to get Asset- ' + err);

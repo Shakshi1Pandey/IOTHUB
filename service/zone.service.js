@@ -10,7 +10,7 @@ import Zone from '../models/zone.model'
 import logger from '../core/logger/app.logger'
 import successMsg from '../core/message/success.msg'
 import utility from '../core/utility.js'
-
+import msg from '../core/message/error.msg.js'
 
 /**
  * [service is a object ]
@@ -26,10 +26,11 @@ const service = {};
  * @return {[object]}
  */
 
+ 
 service.getAll = async (req,res) =>{
 
     if(!req.query.clientId){
-        res.send({success:false, code:500, msg:"clientId missing"});
+        res.send({success:false, code:500, msg:msg.clientId});
     }
     let clientId = utility.removeQuotationMarks(req.query.clientId);
 	try{
@@ -43,7 +44,7 @@ service.getAll = async (req,res) =>{
 		res.send({success:true, code:200, msg:successMsg.allZone, data:zone});
 	}catch(err){
 		logger.error('Error in getting zone- ' + err);
-		res.send({success:false, code:500, msg:"Error in Zone", err:err});
+		res.send({success:false, code:500, msg:msg.getZone, err:err});
 	}
 }
 
@@ -57,7 +58,7 @@ service.getAll = async (req,res) =>{
 service.getOne = async (req,res) =>{
     
     if(!req.query.clientId){
-        res.send({success:false, code:500, msg:"clientId missing"});
+        res.send({success:false, code:500, msg:msg.clientId});
     }
 
     try{        
@@ -70,7 +71,7 @@ service.getOne = async (req,res) =>{
   
     }catch(err){
         logger.error('Error in getting zone- ' + err);
-		res.send({success:false, code:500, msg:"Error in Zone", err:err});
+		res.send({success:false, code:500, msg:msg.getZone, err:err});
     }
 }
 
@@ -84,14 +85,14 @@ service.getOne = async (req,res) =>{
 service.addZone = async (req, res) => {
     
     if(!req.body.clientId){
-        res.send({success:false, code:500, msg:"clientId missing"});
+        res.send({success:false, code:500, msg:msg.clientId});
     }
 
     if(!req.body.regionId){
-        res.send({success:false, code:500, msg:"regionId missing"});
+        res.send({success:false, code:500, msg:msg.regionId});
     }
     if(!req.body.zoneName){
-        res.send({success:false, code:500, msg:"zoneName missing"});
+        res.send({success:false, code:500, msg:msg.zoneName});
     }
     let clientId = utility.removeQuotationMarks(req.body.clientId);
     let zoneToAdd = Zone({
@@ -110,7 +111,7 @@ service.addZone = async (req, res) => {
     }
     catch(err) {
         logger.error('Error in getting Zone- ' + err);
-        res.send({"success":false, "code":"500", "msg":"Error in Zone","err":err});
+        res.send({"success":false, "code":"500", "msg":msg.addZone,"err":err});
     }
 }
 
@@ -123,13 +124,13 @@ service.addZone = async (req, res) => {
 
 service.editZone = async (req, res) => {
     if(!req.body._id){
-        res.send({"success":false, "code":"500", "msg":"_id is missing"});
+        res.send({"success":false, "code":"500", "msg":msg._id});
     }
     if(!req.body.status){
-        res.send({"success":false, "code":"500", "msg":"status is missing"});
+        res.send({"success":false, "code":"500", "msg":msg.status});
     }
     if(!req.body.zoneName){
-        res.send({"success":false, "code":"500", "msg":"zoneName is missing"});
+        res.send({"success":false, "code":"500", "msg":msg.zoneName});
     }
 
     let zoneToEdit = {
@@ -152,7 +153,7 @@ service.editZone = async (req, res) => {
     }
     catch(err) {
         logger.error('Error in getting Zone- ' + err);
-        res.send({"success":false, "code":"500", "msg":"Error in Zone edit","err":err});
+        res.send({"success":false, "code":"500", "msg":msg.editZone,"err":err});
     }
 }
 
@@ -166,9 +167,8 @@ service.editZone = async (req, res) => {
 service.deleteZone = async (req, res) => {
 
     if(!req.body._id){
-        res.send({success:false, code:500, msg:"_id missing"});
+        res.send({success:false, code:500, msg:msg._id});
     }
-    //console.log(req.body._id);
     let zoneToDelete = req.body._id;
     try{
         const removedZone = await Zone.removeZone(zoneToDelete);
@@ -177,7 +177,7 @@ service.deleteZone = async (req, res) => {
     }
     catch(err) {
         logger.error('Failed to delete Zone- ' + err);
-        res.send({"success":false, "code":"500", "msg":"Failed to delete zone","err":err});
+        res.send({"success":false, "code":"500", "msg":msg.deleteZone,"err":err});
     }
 }
 

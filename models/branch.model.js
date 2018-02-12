@@ -51,7 +51,7 @@ BranchModel.getAll = (dataToFind) => {
                 zoneId:1,
                 branchId:1,
                 branchName:1,
-                pincode:1,
+                pinCode:1,
                 Address:1,
                 zoneName:"$zone_docs.zoneName",
                 status:1,

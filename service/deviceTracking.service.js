@@ -9,9 +9,8 @@
 import DeviceTracker from '../models/deviceTracking.model'
 import logger from '../core/logger/app.logger' 
 import msg from '../core/message/error.msg.js'
-//import logger from '../core/logger/app.logger'
 import utility from '../core/utility.js'
-
+import successMsg from '../core/message/success.msg.js'
 
 /**
  * [service is a object ]
@@ -34,10 +33,10 @@ service.getAll = async (req,res) =>{
         }
 		const deviceTracker = await DeviceTracker.getAll(condition);
         logger.info('sending all DeviceTracker...');
-		res.send({success:true, code:200, msg:"sending all DeviceTracker",data:deviceTracker});
+		res.send({success:true, code:200, msg:successMsg.allDeviceTrack,data:deviceTracker});
 	}catch(err){
 		logger.error('Error in getting DeviceTracker- ' + err);
-		res.send({success:false, code:500, msg:'Got error in getAll', err:err});
+		res.send({success:false, code:500, msg:msg.getDeviceTracking, err:err});
 	}
 }
 
@@ -54,12 +53,12 @@ service.addDeviceTracker = async (req, res) => {
     try {
         const savedDevice = await DeviceTracker.addDevice(deviceDataToAdd);
         logger.info('Adding DeviceTracker...');
-        res.send({success:true, code:200, msg:"Adding DeviceTracker",data:savedDevice});
+        res.send({success:true, code:200, msg:successMsg.addDeviceTrack,data:savedDevice});
         //res.send('added: ' + savedDevice);
     }
     catch(err) {
         logger.error('Error in getting DeviceTracker- ' + err);
-        res.send({success:false, code:500, msg:'Error in getting DeviceTracker', err:err});
+        res.send({success:false, code:500, msg:msg.addDeviceTracking, err:err});
 
         //res.send('Got error in getAll');
     }
@@ -75,13 +74,13 @@ service.deleteTracker = async (req, res) => {
     try{
         const removedDevice = await DeviceTracker.removeCar(deviceToDelete);
         logger.info('Deleted DeviceTracker- ' + removedDevice);
-        res.send({success:true, code:200, msg:"Deleted DeviceTracker",data:removedDevice});
+        res.send({success:true, code:200, msg:successMsg.deleteDeviceTrack,data:removedDevice});
 
        // res.send('DeviceTracker successfully deleted');
     }
     catch(err) {
         logger.error('Failed to delete DeviceTracker- ' + err);
-        res.send({success:false, code:500, msg:'Failed to delete DeviceTracker', err:err});
+        res.send({success:false, code:500, msg:msg.deleteDeviceTracking, err:err});
 
         //res.send('Delete failed..!');
     }

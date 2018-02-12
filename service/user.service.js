@@ -5,9 +5,12 @@
  * @lastModifed 5-Feb-2018
  * @lastModifedBy Shakshi
  */
+
 import User from '../models/user.model'
 import logger from '../core/logger/app.logger'
 import successMsg from '../core/message/success.msg'
+import msg from '../core/message/error.msg.js'
+import utility from '../core/utility.js'
 
 
 /**
@@ -25,9 +28,9 @@ const service = {};
  */
 
 service.getAll = async (req,res) =>{
-    // if(!req.query.clientId){
-    //     res.send({"success":false,"code":"500","msg":"clientId is missing","data":req.query});
-    // }
+    if(!req.query.clientId){
+        res.send({"success":false,"code":"500","msg":msg.clientId});
+    }
 	try{
 		let dataToFind = {
 			query:{},
@@ -44,7 +47,7 @@ service.getAll = async (req,res) =>{
 		res.send({success:true, code:200, msg:successMsg.allUser, data:user});
 	}catch(err){
 		logger.error('Error in getting user- ' + err);
-		res.send({success:false, code:500, msg:"Error in User", err:err});
+		res.send({success:false, code:500, msg:msg.getUser, err:err});
 	}
 }
 
@@ -67,7 +70,7 @@ service.getOne=async(req,res)=>{
  }
  catch(err){
      logger.error('Failed to get user- ' + err);
-     res.send({"success":false, "code":"500", "msg":"Failed to get user","err":err});
+     res.send({"success":false, "code":"500", "msg":msg.getUser,"err":err});
 
  }
 
@@ -95,7 +98,7 @@ service.addUser = async (req, res) => {
     });
     try {
         if(!req.body.clientId || !req.body.userTypeId|| !req.body.name || !req.body.password || !req.body.emailId){
-            res.send({"success":false, "code":"500","msg":"Expected params are missing","data":req.body});
+            res.send({"success":false, "code":"500","msg":msg.param});
         }
         const savedUser = await User.addUser(userToAdd);
         logger.info('Adding user...');
@@ -103,13 +106,13 @@ service.addUser = async (req, res) => {
     }
     catch(err) {
         logger.error('Error in getting User- ' + err);
-        res.send({"success":false, "code":"500", "msg":"Error in User","err":err});
+        res.send({"success":false, "code":"500", "msg":msg.addUser,"err":err});
     }
 }
 
 service.editUser = async(req,res)=>{
     if(!req.body._id){
-        res.send({"success":false,"code":500,"msg":"user_id is missing", data:req.query})
+        res.send({"success":false,"code":500,"msg":msg._id})
     }
     let userEdit={
         status:req.body.status,
@@ -120,22 +123,22 @@ service.editUser = async(req,res)=>{
         data:{"$set":userEdit}
     };
     try{
-    const editUser= await User.editUser(userToEdit);
-    logger.info("update user");
-    console.log("update user");
-    res.send({"success":true,"code":200,"msg":successMsg.editUser,"data":editUser});
+        const editUser= await User.editUser(userToEdit);
+        logger.info("update user");
+        console.log("update user");
+        res.send({"success":true,"code":200,"msg":successMsg.editUser,"data":editUser});
 
     }
     catch(err){
         logger.error('Error in getting user- ' + err);
-        res.send({"success":false, "code":"500", "msg":"Error in user edit","err":err});
+        res.send({"success":false, "code":"500", "msg":msg.editUser,"err":err});
     }
 }
 
 service.deleteUser = async (req, res) => {
     let userToDelete = req.body.userId;
     if(!req.body.userId){
-        ({"success":false,"code":"500","msg":"user id is missing "});
+        ({"success":false,"code":"500","msg":msg.userId });
     }
     try{
         const removedUser = await User.removeUser(userToDelete);
@@ -144,7 +147,7 @@ service.deleteUser = async (req, res) => {
     }
     catch(err) {
         logger.error('Failed to delete User- ' + err);
-        res.send({"success":false, "code":"500", "msg":"Failed to delete user","err":err});
+        res.send({"success":false, "code":"500", "msg":msg.deleteUser,"err":err});
     }
 }
 
@@ -159,10 +162,10 @@ service.login = async (req, res) =>{
 
     try{
         if(!req.body.emailId){
-            res.send({success:false, code:500, msg:"EmailId is missing"});
+            res.send({success:false, code:500, msg:msg.emailId});
         }
         if(!req.body.password){
-            res.send({success:false, code:500, msg:"password is missing"})
+            res.send({success:false, code:500, msg:msg.password})
         }
         const loggedUser = await User.login(req.body);
         console.log(loggedUser, "loggedUser")
@@ -172,7 +175,7 @@ service.login = async (req, res) =>{
             res.send({success:false, code:500, msg:"EmailId or password does not match"})
         }
     }catch(error){
-        res.send({success:false, code:500, msg:"Unable to process request", err:error})
+        res.send({success:false, code:500, msg:msg.login, err:error})
     }
 }
 export default service;

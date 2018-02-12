@@ -102,7 +102,6 @@ service.addBranch = async (req, res) => {
     let branchToAdd = Branch({
         clientId: clientId,
         zoneId: req.body.zoneId,
-        regionId: req.body.regionId,
         branchName: req.body.branchName,
         pinCode: req.body.pinCode,
         Address: req.body.Address,
@@ -181,7 +180,7 @@ service.deleteBranch = async (req, res) => {
     try{
         const removedBranch = await Branch.removeBranch(branchToDelete);
         logger.info('Deleted branch-' + removedBranch);
-        res.send({"success":true, "code":"200", "msg":"Branch deleted successfully","data":removedBranch});
+        res.send({"success":true, "code":"200", "msg":successMsg.deleteBranch,"data":removedBranch});
     }
     catch(err) {
         logger.error('Failed to delete Branch- ' + err);

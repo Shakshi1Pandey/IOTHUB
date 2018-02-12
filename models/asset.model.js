@@ -19,8 +19,6 @@ AutoIncrement.initialize(mongoose);
 const AssetSchema = mongoose.Schema({
     clientId : {type: Number },
     branchId: {type: Number },
-    regionId:{ type :Number},
-    zoneId : {type: Number},
     assetId : {type: Number },
     assetTypeId:{type: Number },
     assetName:{type: String },
@@ -61,19 +59,19 @@ AssetModel.getAll = (dataToFind) => {
         },
         {
             $lookup:{
-                from:"region",
-                localField:"regionId",
-                foreignField:"regionId",
-                as:"region_docs"
+                from:"branch",
+                localField:"branchId",
+                foreignField:"branchId",
+                as:"branch_docs"
             }
         },
         {
-          $unwind:"$region_docs"
+          $unwind:"$branch_docs"
         },
         {
             $lookup:{
                 from:"zone",
-                localField:"zoneId",
+                localField:"branch_docs.zoneId",
                 foreignField:"zoneId",
                 as:"zone_docs"
             }
@@ -83,14 +81,14 @@ AssetModel.getAll = (dataToFind) => {
         },
         {
             $lookup:{
-                from:"branch",
-                localField:"zone_docs.zoneId",
-                foreignField:"zoneId",
-                as:"branch_docs"
+                from:"region",
+                localField:"zone_docs.regionId",
+                foreignField:"regionId",
+                as:"region_docs"
             }
         },
         {
-          $unwind:"$branch_docs"
+          $unwind:"$region_docs"
         },
         {
             $project:{

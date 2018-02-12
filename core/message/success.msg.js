@@ -69,6 +69,13 @@ msg.addZone="Zone added successfully!!!!"
 msg.deleteZone="Zone deleted successfully!!!"
 msg.editZone="Zone updated successfully!!!"
 
+/**
+ * Device tracking related msg
+ */ 
+msg.allDeviceTrack="Found successfully!!!!"
+msg.addDeviceTrack="Device Track added successfully!!!!"
+msg.deleteDeviceTrack="Device Track deleted successfully!!!!"
+
 
 
 

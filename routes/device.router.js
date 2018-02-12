@@ -17,11 +17,12 @@ router.get('/allDevice', (req, res) => {
 router.get('/oneDevice',(req,res)=>{
     deviceService.getOne(req, res);
 })
- 
+  
 router.post('/editDevice',(req,res)=>{
     deviceService.editDevice(req,res);
 });
 router.post('/addDevice', (req, res) => {
+	console.error("hiiiiiiiii")
     deviceService.addDevice(req, res);
 });
 

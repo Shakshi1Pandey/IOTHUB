@@ -35,7 +35,7 @@ incrementBy: 1
 
 let AssetModel = mongoose.model('asset', AssetSchema);
 
-
+ 
  
 /**
  *@description [is used for getting all data of asset from db]
@@ -121,6 +121,10 @@ AssetModel.getAll = (dataToFind) => {
 AssetModel.getOne = (assetToFind) => {
     console.log(assetToFind," = assetToFind")
     return AssetModel.findOne(assetToFind);
+}
+
+AssetModel.getCount=(assetToCount)=>{
+    return AssetModel.find(assetToCount.query).count();
 }
 
 /**

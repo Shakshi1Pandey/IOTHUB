@@ -100,10 +100,7 @@ service.addAsset = async (req, res) => {
 service.editAsset = async (req,res) => {
     let assetToEdit = {
         branchId: req.body.branchId,
-        regionId: req.body.regionId,
-        zoneId : req.body.zoneId,
-        assetId : req.body.assetId,
-        assetType: req.body.assetType,
+        assetTypeId: req.body.assetTypeId,
         assetName: req.body.assetName,
         serialNo: req.body.serialNo,
         status: req.body.status

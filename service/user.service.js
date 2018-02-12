@@ -72,6 +72,8 @@ service.getOne=async(req,res)=>{
 
 }
 
+
+
 /**
  * @description [calculation before add user to db and after adding users ]
  * @param  {[object]}

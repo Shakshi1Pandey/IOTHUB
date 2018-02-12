@@ -26,7 +26,7 @@ service.getCount=async(req,res)=>{
         const getUserCount=await User.getCount(userToCount);
         const getAssetCount=await Asset.getCount(assetToCount);
         const getDeviceCount=await Device.getCount(deviceToCount);
-        let data={"allUser":getUserCount,"allAsset":getAssetCount,"allDevice":getDeviceCount};
+        let data=[{"allUser":getUserCount,"allAsset":getAssetCount,"allDevice":getDeviceCount}];
         logger.info('get all user');
         res.send({"success":true,"code":"200","msg":successMsg.getUser,"data":data});
     }

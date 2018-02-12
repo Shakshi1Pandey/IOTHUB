@@ -15,6 +15,8 @@ import zone from './routes/zone.router.js';
 import branch from './routes/branch.router.js';
 import user from './routes/user.router.js';
 import assettype from './routes/assettype.router.js';
+import index from './routes/index.router.js';
+
 
 import cors from 'cors';
 
@@ -41,6 +43,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.use('/', index);
 // app.use('/users', users);
 //
 app.use(cors())

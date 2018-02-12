@@ -41,6 +41,7 @@ let AssetModel = mongoose.model('asset', AssetSchema);
  *@description [is used for getting all data of asset from db]
  * @return {object}
  */
+
 AssetModel.getAll = (dataToFind) => {
 	console.log(dataToFind,"dataToFind")
     return AssetModel.aggregate([

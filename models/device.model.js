@@ -63,17 +63,6 @@ DeviceModel.getAll = (clientId) => {
         },
         {
             $lookup:{
-                from:"zone",
-                localField:"asset_docs.zoneId",
-                foreignField:"zoneId",
-                as:"zone_docs"
-            }
-        },
-        {
-          $unwind:"$zone_docs"
-        },
-        {
-            $lookup:{
                 from:"branch",
                 localField:"asset_docs.branchId",
                 foreignField:"branchId",
@@ -82,6 +71,17 @@ DeviceModel.getAll = (clientId) => {
         },
         {
           $unwind:"$branch_docs"
+        },
+        {
+            $lookup:{
+                from:"zone",
+                localField:"branch_docs.zoneId",
+                foreignField:"zoneId",
+                as:"zone_docs"
+            }
+        },
+        {
+          $unwind:"$zone_docs"
         },
         {
             $lookup:{

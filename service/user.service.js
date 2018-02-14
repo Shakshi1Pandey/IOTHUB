@@ -10,7 +10,7 @@ import User from '../models/user.model'
 import logger from '../core/logger/app.logger'
 import successMsg from '../core/message/success.msg'
 import msg from '../core/message/error.msg.js'
-import utility from '../core/utility.js'
+import utility from '../core/utility.js' 
 
 
 /**
@@ -28,22 +28,18 @@ const service = {};
  */
 
 service.getAll = async (req,res) =>{
+    //console.log("hiiiiii");
     if(!req.query.clientId){
-        res.send({"success":false,"code":"500","msg":msg.clientId});
+       return res.send({"success":false,"code":"500","msg":msg.clientId});
     }
+    let clientId = utility.removeQuotationMarks(req.query.clientId);
 	try{
 		let dataToFind = {
-			query:{},
-			projection:{}
+			query:{clientId:clientId}
 		};
-
-		if(req.query.userId){
-			dataToFind.projection = {
-				userId:1
-			}
-		}
 		const user = await User.getAll(dataToFind);
         logger.info('sending all user...');
+       //console.log(user);
 		res.send({success:true, code:200, msg:successMsg.allUser, data:user});
 	}catch(err){
 		logger.error('Error in getting user- ' + err);
@@ -54,7 +50,7 @@ service.getAll = async (req,res) =>{
 /**
  * @description  [Get one user details from db]
  * @param  {[type]} req [description]
- * @param  {[type]} res [description]
+ * @param  {[type]} res [description] 
  * @return {[type]}     [description]
  */
 service.getOne=async(req,res)=>{
@@ -100,10 +96,11 @@ service.addUser = async (req, res) => {
     });
     try {
         if(!req.body.clientId || !req.body.userTypeId|| !req.body.name || !req.body.password || !req.body.emailId){
-            res.send({"success":false, "code":"500","msg":msg.param});
+          return res.send({"success":false, "code":"500","msg":msg.param});
         }
         const savedUser = await User.addUser(userToAdd);
         logger.info('Adding user...');
+      //  console.log(savedUser);
         res.send({"success":true, "code":"200", "msg":successMsg.addUser,"data":savedUser});
     }
     catch(err) {
@@ -180,4 +177,6 @@ service.login = async (req, res) =>{
         res.send({success:false, code:500, msg:msg.login, err:error})
     }
 }
+
+
 export default service;

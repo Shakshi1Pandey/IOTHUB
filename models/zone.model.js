@@ -7,7 +7,7 @@ const ZoneSchema = mongoose.Schema({
     zoneId: {type: Number },
     regionId: {type:Number },
     zoneName:{type: String },
-    status:{type: String },
+    status:{type: String }, 
     createAt:{type: Date},
     updatedAt:{type: Date}
   }, {collection : 'zone'});

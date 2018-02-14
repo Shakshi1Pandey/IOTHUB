@@ -10,7 +10,7 @@
 import Asset from '../models/asset.model'
 import logger from '../core/logger/app.logger' 
 import msg from '../core/message/error.msg.js'
-import successMsg from '../core/message/success.msg'
+import successMsg from '../core/message/success.msg' 
 import utility from '../core/utility.js'
 
 

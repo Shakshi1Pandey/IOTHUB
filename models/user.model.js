@@ -19,18 +19,39 @@ const UserSchema = mongoose.Schema({
 let UserModel = mongoose.model('users',UserSchema);
 
 UserModel.getAll = (dataToFind) => {
-	console.log(dataToFind,"dataToFind")
-    return UserModel.find(dataToFind.query,dataToFind.projection);
-}
+   return UserModel.aggregate([
+    { $match: dataToFind.query},
+    {
+      $lookup:{
+        from:"usertype",
+        localField:"userTypeId", 
+        foreignField:"userTypeId",
+        as:"userType_docs"
+      }
 
+    },
+    { 
+      $unwind:"$userType_docs"
+    },
+    {
+        $project:{
+            clientId:1,
+            userId:1,
+            emailId: 1,
+            name:1,
+            userTypeId:1 ,           
+            userType:"$userType_docs.userType",          
+            status:1
+
+        }
+    }
+   ]);
+}
 UserModel.getOne = (userToFind) => {
     console.log(userToFind," = userToFind")
     return UserModel.findOne(userToFind);
 }
-UserModel.getCount=(userToCount)=>
-{
-    return UserModel.find(userToCount.query).count();
-}
+ 
 UserModel.addUser = (userToAdd) => {
     return userToAdd.save();
 }
@@ -43,6 +64,7 @@ UserModel.editUser = (userToEdit) => {
 UserModel.removeUser = (userId) => {
     return UserModel.remove({userId: userId});
 }
+
 
 /**
  * [Service is responsible for getting selected detail of user or client or admin]

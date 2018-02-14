@@ -29,7 +29,7 @@ router.post('/editUser', (req, res) => {
 
 router.post('/deleteUser', (req, res) => {
     userService.deleteUser(req, res);
-});
+}); 
 
 router.post('/login', (req, res) => {
     userService.login(req, res);

@@ -111,7 +111,8 @@ DeviceModel.getAll = (clientId) => {
                 deviceType:1,
                 deviceName:1,
                 serialNo: 1,
-                simno: 1
+                simno: 1,
+                status:1
 
             }
         }

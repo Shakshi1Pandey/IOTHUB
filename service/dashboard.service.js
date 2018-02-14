@@ -5,11 +5,13 @@ import Asset from '../models/asset.model'
 import Device from '../models/device.model'
 import utility from '../core/utility.js'
 import successMsg from '../core/message/success.msg'
+import msg from '../core/message/error.msg'
 
 const service={}
 
 service.getCount=async(req,res)=>{
     let clientId = utility.removeQuotationMarks(req.query.clientId);
+    console.log(clientId,"clientIdclientId")
     let userToCount={
         query:{clientId:clientId},
         projection:{}

@@ -65,6 +65,10 @@ UserModel.removeUser = (userId) => {
     return UserModel.remove({userId: userId});
 }
 
+UserModel.getCount = (userToCount)=>{
+    
+    return UserModel.find(userToCount.query).count();
+}
 
 /**
  * [Service is responsible for getting selected detail of user or client or admin]

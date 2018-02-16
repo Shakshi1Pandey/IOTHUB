@@ -16,6 +16,7 @@ import branch from './branch.router.js';
 import user from './user.router.js';
 import usertype from './usertype.router.js';
 import assettype from './assettype.router.js';
+import client from './client.router.js';
 
 router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });

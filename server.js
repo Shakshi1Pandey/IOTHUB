@@ -17,6 +17,9 @@ import user from './routes/user.router.js';
 import assettype from './routes/assettype.router.js';
 import index from './routes/index.router.js';
 import dashboard from './routes/dashboard.router.js';
+import client from './routes/client.router.js';
+import net from 'net';
+import deviceTrackerHistoryService from "./service/deviceTrackingHistory.service";
 
 import cors from 'cors';
 
@@ -30,7 +33,6 @@ logger.stream = {
 connectToDb();
 
 var app = express();
-
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
@@ -64,6 +66,7 @@ app.use(branch);
 app.use(user);
 app.use(assettype);
 app.use(dashboard);
+app.use(client);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -82,6 +85,13 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+
+const PORT = 3030;
+const ADDRESS = '0.0.0.0';
+
+let server = net.createServer(deviceTrackerHistoryService.onClientConnected);
+server.listen(PORT, ADDRESS);
+console.log(`socket started at: ${ADDRESS}:${PORT}`);
 
 app.listen(port, () => {
     logger.info('server started - ', port);

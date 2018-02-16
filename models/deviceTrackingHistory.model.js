@@ -1,5 +1,5 @@
 /**
- * @file(deviceTrackerHistory.model.js) With Schema for deviceTrackerHistory model and all the db query function 
+ * @file(deviceTrackerHistory.model.js) With Schema for deviceTrackerHistory model and all the db query function
  * @author Shakshi Pandey <shakshi.kumari@limitlessmobile.com>
  * @version 1.0.0
  * @lastModifed 11-Jan-2018
@@ -12,18 +12,55 @@ import mongoose from 'mongoose';
  * [DeviceTrackerHistorySchema is used for deviceTrackerHistory data validating aginst schema]
  * @type {[type]}
  */
+// const DeviceTrackerHistorySchema = mongoose.Schema({
+//     clientId : {type: Number },
+//     deviceId: {type: String } ,
+//     lat:{type: Number },
+//     lng: {type: Number },
+//     date: {type: Date},
+//     temprature: {type: String},
+//     deviceType: {type: String },
+//     workingStatus: {type: String },
+//     status:{type: String },
+//     createdAt:{type: Date,default:Date.now}
+// }, {collection : 'deviceTrackerHistory'});
+
 const DeviceTrackerHistorySchema = mongoose.Schema({
-    clientId : {type: Number }, 
-    deviceId: {type: String } ,
-    lat:{type: Number },
-    lng: {type: Number },
-    date: {type: Date},
-    temprature: {type: String},
-    deviceType: {type: String },
-    workingStatus: {type: String },
-    status:{type: String },
-    createdAt:{type: Date,default:Date.now}
-}, {collection : 'deviceTrackerHistory'});
+          clientId : {type: Number },
+          deviceId: {type: String},
+          history: [{
+            header : {type: String},
+            length : {type: Number},
+            alaramCode : {type: String},
+            deviceId : {type: String},
+            vehicleStatus : {type:String},
+            dateTime : {type: Date},
+            batteryVoltage : {type:String},
+            supplyVoltage : {type:String},
+            ADC : {type:String},
+            temperatureA : {type:String},
+            temperatureB : {type:String},
+            LACCI : {type:String},
+            cellID : {type:String},
+            GPSSatellites : {type:String},
+            GSMsignal : {type:String},
+            angle : {type:String},
+            speed : {type:String},
+            HDOP : {type:String},
+            mileage : {type:String},
+            latitude : {type:Number},
+            NS : {type:String},
+            longitude : {type:Number},
+            EW : {type:String},
+            serialNumber : {type:String},
+            checksum : {type:String},
+            createdAt:{type: Date}
+          }],
+          deviceType: {type: String },
+          workingStatus: {type: String },
+          status:{type: String },
+          createdAt:{type: Date}
+        },{collection: 'deviceTrackerHistory'});
 
 let DeviceTrackerHistoryModel = mongoose.model('deviceTrackerHistory', DeviceTrackerHistorySchema);
 
@@ -35,6 +72,10 @@ DeviceTrackerHistoryModel.getAll = (condition) => {
     return DeviceTrackerHistoryModel.find(condition);
 }
 
+DeviceTrackerHistoryModel.findOne = (condition) =>{
+    return DeviceTrackerHistoryModel.findOne(condition);
+}
+
 /**
  * @description [add one deviceTrackerHistory to db]
  * @param  {object}
@@ -42,6 +83,14 @@ DeviceTrackerHistoryModel.getAll = (condition) => {
  */
 DeviceTrackerHistoryModel.addDeviceTrackingHistory = (deviceDataToAdd) => {
     return deviceDataToAdd.save();
+}
+
+DeviceTrackerHistoryModel.updateDeviceTrackerHistory = (deviceDataToAdd) => {
+    return DeviceTrackerHistoryModel.findOneAndUpdate(deviceDataToAdd.query,deviceDataToAdd.data,{upsert:true});
+}
+
+DeviceTrackerHistoryModel.aggregation = (query) => {
+    return DeviceTrackerHistoryModel.aggregation(query);
 }
 
 /**

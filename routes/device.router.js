@@ -1,5 +1,5 @@
 /**
- * @file(device.router.js) All routing of device,device Tracker and Device Tracker history 
+ * @file(device.router.js) All routing of device,device Tracker and Device Tracker history
  * @author Shakshi Pandey <shakshi.kumari@limitlessmobile.com>
  * @version 1.0.0
  * @lastModifed 11-Jan-2018
@@ -17,7 +17,7 @@ router.get('/allDevice', (req, res) => {
 router.get('/oneDevice',(req,res)=>{
     deviceService.getOne(req, res);
 })
-  
+
 router.post('/editDevice',(req,res)=>{
     deviceService.editDevice(req,res);
 });
@@ -40,8 +40,14 @@ router.get('/addDeviceData', (req, res) => {
 });
 
 router.get('/allDeviceHistoryData', (req, res) => {
-    deviceTrackerHistoryService.getAll(req, res);
+    deviceTrackerHistoryService.getAllDeviceHistoryLatLng(req, res);
 });
+
+router.get('/allDeviceHistoryData', (req, res) => {
+    deviceTrackerHistoryService.getAllDeviceRecentLatLng(req, res);
+});
+
+
 
 
 export default router;

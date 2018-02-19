@@ -89,8 +89,8 @@ DeviceTrackerHistoryModel.updateDeviceTrackerHistory = (deviceDataToAdd) => {
     return DeviceTrackerHistoryModel.findOneAndUpdate(deviceDataToAdd.query,deviceDataToAdd.data,{upsert:true});
 }
 
-DeviceTrackerHistoryModel.aggregation = (query) => {
-    return DeviceTrackerHistoryModel.aggregation(query);
+DeviceTrackerHistoryModel.getAggregation = (query) => {
+    return DeviceTrackerHistoryModel.aggregate(query);
 }
 
 /**

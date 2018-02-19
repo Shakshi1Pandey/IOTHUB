@@ -43,7 +43,7 @@ router.get('/allDeviceHistoryData', (req, res) => {
     deviceTrackerHistoryService.getAllDeviceHistoryLatLng(req, res);
 });
 
-router.get('/allDeviceHistoryData', (req, res) => {
+router.get('/allDeviceRecentData', (req, res) => {
     deviceTrackerHistoryService.getAllDeviceRecentLatLng(req, res);
 });
 

@@ -199,12 +199,10 @@ service.getAll = async (req,res) =>{
 }
 
 service.getAllDeviceHistoryLatLng = async (req,res) =>{
-	console.log(req.query.clientId,'idddddd');
 	try{
         let condition = {
-            clientId: String(utility.removeQuotationMarks(req.query.clientId))
+            clientId: utility.removeQuotationMarks(req.query.clientId)
         }
-				console.log(condition,'condition');
 		const deviceTrackingHistory = await DeviceTrackingHistory.getAll(condition);
         logger.info('sending all DeviceTrackingHistory...');
 		res.send({success:true, code:200, msg:"sending all DeviceTrackingHistory", data:deviceTrackingHistory});
@@ -218,7 +216,7 @@ service.getAllDeviceRecentLatLng = async (req,res) =>{
 	try{
         let condition = [
 							{
-								$match:{clientId:req.body.clientId}
+								$match:{clientId: utility.removeQuotationMarks(req.query.clientId)}
 							},
 						   {
 						     $project:
@@ -227,13 +225,13 @@ service.getAllDeviceRecentLatLng = async (req,res) =>{
 						         recent: { $arrayElemAt: [ "$history", -1 ] }
 						      }
 						   }
-						]
-		const deviceTrackingHistory = await DeviceTrackingHistory.aggregation(condition);
+						];
+    const deviceTrackingHistory = await DeviceTrackingHistory.getAggregation(condition);
         logger.info('sending all DeviceTrackingHistory...');
-		res.send({success:true, code:200, msg:"sending all DeviceTrackingHistory", data:deviceTrackingHistory});
+		res.send({success:true, code:200, msg:"sending all DeviceTrackingRecentLatLng", data:deviceTrackingHistory});
 	}catch(err){
 		logger.error('Error in getting DeviceTrackingHistory- ' + err);
-		res.send({success:false, code:500, msg:msg.getDeviceTrackingHistory, err:err});
+		res.send({success:false, code:500, msg:"sending all DeviceTrackingRecentLatLng Faild", err:err});
 	}
 }
 /**

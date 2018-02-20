@@ -14,7 +14,7 @@ import msg from '../core/message/error.msg.js';
 const MongoClient= require('mongodb').MongoClient;
 const url = 'mongodb://localhost:27017/iot_server_app';
 import logger from '../core/logger/app.logger'
-
+import NodeGeocoder from 'node-geocoder';
 
 /**
  * [service is a object ]
@@ -35,15 +35,17 @@ service.onClientConnected = function(socket) {
   socket.on('data', (data) => {
     var m = data.toString().replace(/[\n\r]*$/, '');
     var l = typeCheck(m);
-    if(typeof l === 'object' && typeof l !== 'string'){
-      socket.data = { msg: l };
-      insertData(socket);
-    } else {
-      console.log(`${socket.name} : ${l} "check the data"`);
-      broadcast(socket.name + "> " + l + " check the data", socket);
-      socket.write(`${l}. check the data!\n`);
-    }
-
+    address(l,function(result){
+      var l = result;
+        if(typeof l === 'object' && typeof l !== 'string'){
+          socket.data = { msg: l };
+          insertData(socket);
+        } else {
+          console.log(`${socket.name} : ${l} "check the data"`);
+          broadcast(socket.name + "> " + l + " check the data", socket);
+          socket.write(`${l}. check the data!\n`);
+        }
+    })
   });
 
   socket.on('end', () => {
@@ -74,15 +76,23 @@ function parser116(s){
     "speed":s.slice(75,78),
     "HDOP":s.slice(78,82),
     "mileage":s.slice(82,89),
-    "latitude":Number(s.slice(89,98)),
+    "latitude":lat(s.slice(89,98)),
     "NS":s.slice(98,99),
-    "longitude":Number(s.slice(99,109)),
+    "longitude":lng(s.slice(99,109)),
     "EW":s.slice(109,110),
     "serialNumber":s.slice(110,114),
     "checksum":s.slice(114,116),
 		"createdAt": new Date()
   }
   return p;
+}
+
+function lat(t){
+  return (Number(t.slice(0,2)) + (Number(t.slice(2,9))/60))
+}
+
+function lng(g) {
+  return (Number(g.slice(0,3)) + (Number(g.slice(3,10))/60))
 }
 
 function dateTime(d){
@@ -109,10 +119,27 @@ function typeCheck(str){
   }
 }
 
+async function address(geo,cb){
+  var options = {
+      provider: 'google',
+      httpAdapter: 'https',
+      apiKey: ' AIzaSyA6oeTBjzkaluuFGMJFgdEWoGfElxbfcCk',
+      formatter: 'json'
+    };
+  var geocoder = NodeGeocoder(options);
+  var result = await geocoder.reverse({lat:geo.latitude, lon:geo.longitude});
+      geo.address = result[0].formattedAddress || 'NA';
+      geo.placeId = result[0].extra.googlePlaceId || 'NA';
+      geo.state = result[0].administrativeLevels.level1long || 'NA';
+      geo.city = result[0].city || 'NA';
+      geo.country = result[0].country || 'NA';
+      geo.zipcode = result[0].zipcode || 'NA';
+  return  cb(geo);
+}
+
 function insertData(socket){
   MongoClient.connect(url, function(err, db){
     var find = {deviceId:socket.data.msg.deviceId}
-    console.log(find,'find');
     db.collection('deviceTrackerHistory').findOne(find, (err,result)=>{
       if(!result){
         var insert = {

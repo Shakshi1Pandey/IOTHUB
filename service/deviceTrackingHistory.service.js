@@ -273,13 +273,54 @@ service.addDeviceTrackingHistoryData = async (req, res) => {
 
     let deviceToAdd = DeviceTrackingHistory({
 
-        deviceId: dataString[0] || 1 ,
-        lat: dataString[1] || 1000.0,
-        lng: dataString[2] || 123333.99,
-        date:  dataString[3] || new Date(),
-        temprature: dataString[4] || 0,
-        workingStatus:  1,
+        // deviceId: dataString[0] || 1 ,
+        // lat: dataString[1] || 1000.0,
+        // lng: dataString[2] || 123333.99,
+        // date:  dataString[3] || new Date(),
+        // temprature: dataString[4] || 0,
+        // workingStatus:  1,
+        // status: 'Active',
+
+        deviceId : dataString[0] || 1,
+        history : [
+            {
+                "header" : "$$",
+                "length" : 116,
+                "alaramCode" : "40",
+                "deviceId" : dataString[0] || 1 ,
+                "vehicleStatus" : "10811000",
+                "dateTime" : dataString[3],
+                "batteryVoltage" : "4.1V",
+                "supplyVoltage" : "09V",
+                "ADC" : "04.84V",
+                "temperatureA" : dataString[4],
+                "temperatureB" : dataString[4],
+                "LACCI" : "01AA",
+                "cellID" : "5125",
+                "GPSSatellites" : "06",
+                "GSMsignal" : "31",
+                "angle" : "000",
+                "speed" : "000",
+                "HDOP" : "04.9",
+                "mileage" : "0000000",
+                "latitude" : dataString[1],
+                "NS" : "N",
+                "longitude" : dataString[2],
+                "EW" : "E",
+                "serialNumber" : "0001",
+                "checksum" : "58",
+                "createdAt" : new Date(),
+                "address" : "49 2 C St - Dubai - United Arab Emirates",
+                "placeId" : "ChIJB8-fz9hCXz4RO9NeuHKWaok",
+                "state" : "Dubai",
+                "city" : "Dubai",
+                "country" : "United Arab Emirates",
+                "zipcode" : "NA"
+            }
+        ],
+        workingStatus: 1,
         status: 'Active',
+        createdAt : new Date()
     });
 
 
@@ -313,6 +354,7 @@ service.addDeviceTrackingHistoryData = async (req, res) => {
                 status: 'Active',
             }
         }
+
         console.log(deviceToAdd,' F 2');
         const savedCurrentDeviceData = await DeviceTracking.addDeviceTracker(deviceToAdd);
 

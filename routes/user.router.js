@@ -35,4 +35,17 @@ router.post('/login', (req, res) => {
     userService.login(req, res);
 });
 
+router.post('/forgetPassword',(req,res)=>{
+    userService.forgetPassword(req,res);
+})
+router.post('/forgetPasswordReset',(req,res)=>{
+    userService.forgetPasswordReset(req,res);
+})
+router.post('/changePassword',(req,res)=>{
+    userService.changePassword(req,res);
+})
+ router.post('/updateUser',(req,res)=>{
+     userService.update(req,res);
+ })
+
 export default router;

@@ -4,8 +4,11 @@ AutoIncrement.initialize(mongoose);
 
 const UserSchema = mongoose.Schema({
     clientId:{ type: Number },
+    token:{type:String},
+    salt:{type:String},
+    temp_str:{type:String},
     userId: {type: Number },
-    emailId: {type: String },
+    emailId: {type: String , index:{unique:true} },
     password: {type: String },
     name:{type: String },
     userTypeId: {type: Number},
@@ -56,8 +59,9 @@ UserModel.addUser = (userToAdd) => {
     return userToAdd.save();
 }
 
-UserModel.editUser = (userToEdit) => {
-    return UserModel.update(userToEdit.query,userToEdit.data);
+UserModel.editUser = (userToEdit) =>{
+    console.log(userToEdit);
+    return UserModel.update(userToEdit.query,{$set:{temp_str:"ttdd21"}});
 }
 
 
@@ -76,7 +80,20 @@ UserModel.getCount = (userToCount)=>{
  * @return {[type]}      [object]
  */
 UserModel.login = (user) =>{
-    return UserModel.findOne({emailId:user.emailId,password:user.password},{clientId:1, userId:1, name:1, userType:1, status:1 });
+    return UserModel.findOne({emailId:user.emailId},{clientId:1,password:1, userId:1, name:1,emailId:1, userType:1,salt:1, status:1 });
+}
+
+UserModel.forgetPassword = (user)=>{
+    return UserModel.find({emailId:user.emailId});
+}
+UserModel.forgetPasswordReset=(user)=>{
+    return UserModel.find({emailId:user.emailId});
+}
+UserModel.changePassword=(user)=>{
+    return UserModel.find({emailId:user.emailId});
+}
+UserModel.update=(user)=>{
+    return UserModel.update(userToEdit.query,userToEdit.set);
 }
 
 export default UserModel;

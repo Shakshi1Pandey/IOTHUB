@@ -113,9 +113,15 @@ service.deleteAssetType = async (req, res) => {
  */
 
 service.updateAssetType = async (req, res) => {
-		let query = req.body;
+        // let query = req.body;
+        
+       let edit={
+        query:{"assetTypeId":req.body.assetTypeId},
+        data:{"$set":req.body}
+       }
+
 		try {
-			const modifiedAssetType =	await AssetType.modifyAssetType(query);
+			const modifiedAssetType =	await AssetType.modifyAssetType(edit);
 			res.send({"success":true, "code":"200", "msg":successMsg.editAssetType,"data":modifiedAssetType});
 		} catch (e) {
 			res.send({"success":false, "code":"500", "msg":msg.editAssetType,"err":e});

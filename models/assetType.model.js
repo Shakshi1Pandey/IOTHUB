@@ -36,7 +36,7 @@ AssetTypeModel.removeAssetType = (assetTypeId) => {
 }
 
 AssetTypeModel.modifyAssetType = (dataToUpdate) => {
-  return AssetTypeModel.update({},dataToUpdate);
+  return AssetTypeModel.update(dataToUpdate.query,dataToUpdate.data);
 }
 
 export default AssetTypeModel;

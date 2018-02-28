@@ -63,7 +63,7 @@ service.getAll = async (req,res) =>{
  * @return {[object]}
  */
 service.addAsset = async (req, res) => {
-    if( !req.body.branchId ||   !req.body.clientId || !req.body.assetName || !req.body.assetTypeId || !req.body.serialNo){
+    if(!req.body.clientId || !req.body.assetName || !req.body.assetTypeId || !req.body.serialNo){
             res.send({"success":false,"code":"500","msg":msg.param});
     }
 

@@ -4,6 +4,7 @@ AutoIncrement.initialize(mongoose);
 
 const UserSchema = mongoose.Schema({
     clientId:{ type: Number },
+    parentId:{type:String},
     token:{type:String},
     salt:{type:String},
     temp_str:{type:String},
@@ -12,6 +13,11 @@ const UserSchema = mongoose.Schema({
     password: {type: String },
     name:{type: String },
     userTypeId: {type: Number},
+    address:{type: String },
+    sector:{type: String },
+    city:{type: String },
+    state:{type: String },
+    country:{type: String },
     status:{type: String },
     createAt:{type: Date},
     updatedAt:{type: Date}

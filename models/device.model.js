@@ -61,52 +61,52 @@ DeviceModel.getAll = (clientId) => {
         {
           $unwind:"$assetType_docs"
         },
-        {
-            $lookup:{
-                from:"branch",
-                localField:"asset_docs.branchId",
-                foreignField:"branchId",
-                as:"branch_docs"
-            }
-        },
-        {
-          $unwind:"$branch_docs"
-        },
-        {
-            $lookup:{
-                from:"zone",
-                localField:"branch_docs.zoneId",
-                foreignField:"zoneId",
-                as:"zone_docs"
-            }
-        },
-        {
-          $unwind:"$zone_docs"
-        },
-        {
-            $lookup:{
-                from:"region",
-                localField:"zone_docs.regionId",
-                foreignField:"regionId",
-                as:"region_docs"
-            }
-        },
-        {
-          $unwind:"$region_docs"
-        },
+        // {
+        //     $lookup:{
+        //         from:"branch",
+        //         localField:"asset_docs.branchId",
+        //         foreignField:"branchId",
+        //         as:"branch_docs"
+        //     }
+        // },
+        // {
+        //   $unwind:"$branch_docs"
+        // },
+        // {
+        //     $lookup:{
+        //         from:"zone",
+        //         localField:"branch_docs.zoneId",
+        //         foreignField:"zoneId",
+        //         as:"zone_docs"
+        //     }
+        // },
+        // {
+        //   $unwind:"$zone_docs"
+        // },
+        // {
+        //     $lookup:{
+        //         from:"region",
+        //         localField:"zone_docs.regionId",
+        //         foreignField:"regionId",
+        //         as:"region_docs"
+        //     }
+        // },
+        // {
+        //   $unwind:"$region_docs"
+        // },
         {
             $project:{
                 clientId : 1, 
-                branchId: 1,
-                branchName:"$branch_docs.branchName",
+                // branchId: 1,
+                // branchName:"$branch_docs.branchName",
                 brand:1,
-                regionId: 1,
-                regionName:"$region_docs.regionName",
+                // regionId: 1,
+                // regionName:"$region_docs.regionName",
                 assetId : 1,
                 assetName:"$asset_docs.assetName",
                 assetTypeName:"$assetType_docs.assetTypeName",
-                zoneId:"$zone_docs.zoneId",
-                zoneName:"$zone_docs.zoneName",
+                // zoneId:"$zone_docs.zoneId",
+                // zoneName:"$zone_docs.zoneName",
                 deviceId:1,
                 deviceType:1,
                 deviceName:1,

@@ -96,6 +96,7 @@ service.addUser = async (req, res) => {
     let userToAdd = User({
 
         clientId:clientId,
+        parentId:req.body.parentId,
         token:token,
         salt:temp,
         temp_str:"",

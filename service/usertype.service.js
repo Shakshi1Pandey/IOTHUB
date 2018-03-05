@@ -52,10 +52,10 @@ service.getAll = async (req,res) =>{
         console.log(dataToFind)
 		const usertype = await userTypeConfig.getAll(dataToFind);
         logger.info('sending all usertype...');
-		res.send({success:true, code:200, msg:successMsg.allUserType, data:usertype});
+		res.send({"success":true, "code":200, "msg":successMsg.allUserType, "data":usertype});
 	}catch(err){
 		logger.error('Error in getting usertype- ' + err);
-		res.send({success:false, code:500, msg:msg.getUserType, err:err});
+		res.send({"success":false, "code":500, "msg":msg.getUserType, "err":err});
 
 	}
 }
@@ -76,12 +76,12 @@ service.editUsertype = async (req, res) => {
         res.send({"success":false, "code":"500", "msg":msg.userType});
     }
 
-    if(!req.body._id)
-    {
-        res.send({"success":false, "code":"500", "msg":msg._id});
-    }
+    // if(!req.body._id)
+    // {
+    //     res.send({"success":false, "code":"500", "msg":msg._id});
+    // }
     let userTypeToUpdate = {
-        query:{_id:req.body._id},
+        query:{userTypeId:req.body.userTypeId},
 
         data:{
             $set:{
@@ -94,7 +94,7 @@ service.editUsertype = async (req, res) => {
     try {
         const savedUsertype = await userTypeConfig.editUsertype(userTypeToUpdate);
         logger.info('Updating user type ...');
-        res.send({"success":true, "code":"200", "msg":successMsg.editUsertype,"data":savedUsertype});
+        res.send({"success":true, "code":"200", "msg":"user Type update succesfully","data":savedUsertype});
     }
     catch(err) {
         logger.error('Error in updating Usertype- ' + err);
@@ -123,13 +123,13 @@ service.addUsertype = async (req, res) => {
     let userTypeToAdd = userTypeConfig({
         clientId : clientId,
         userType: req.body.userType,
-        status: "Active",
+        status: req.body.status,
         createAt: new Date()
     });
     try {
         const savedUsertype = await userTypeConfig.addUsertype(userTypeToAdd);
         logger.info('Adding user type ...');
-        res.send({"success":true, "code":"200", "msg":successMsg.addUsertype,"data":savedUsertype});
+        res.send({"success":true, "code":"200", "msg":"user Type added successfully!!","data":savedUsertype});
     }
     catch(err) {
         logger.error('Error in getting Usertype- ' + err);

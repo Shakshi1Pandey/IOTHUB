@@ -71,15 +71,15 @@ service.getAll = async (req,res)=>{
 }
 
 service.editAccount = async (req,res)=>{
-	if(!req.body.clientId){
-		return res.send({success:false, code:500, msg:"clientId is missing"})
+	if(!req.body._id){
+		return res.send({success:false, code:500, msg:"_id is missing"})
 	}
 	if(!req.body.status){
 		return res.send({success:false, code:500, msg:"status is missing"})
 	}
 	try{
 		var objtoUpdate={
-			query:{clientId:req.body.clientId},
+			query:{_id:req.body._id},
 			data:{$set:{status:req.body.status}}
 		}
 		var updatedAccount = await AccountModel.editAccount(objtoUpdate);

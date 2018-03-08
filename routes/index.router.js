@@ -10,9 +10,6 @@ const router = express.Router()
 
 import device from './device.router.js';
 import asset from './asset.router.js';
-import region from './branch.router.js';
-import zone from './zone.router.js';
-import branch from './branch.router.js';
 import user from './user.router.js';
 import usertype from './usertype.router.js';
 import assettype from './assettype.router.js';

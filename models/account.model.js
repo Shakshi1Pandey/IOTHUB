@@ -2,7 +2,7 @@
  * @file(account.model.js) With Schema for account model and all the db query function 
  * @author Shakshi Pandey <shakshi.kumari@limitlessmobile.com>
  * @version 1.0.0
- * @lastModifed 11-Jan-2018
+ * @lastModifed 8-Feb-2018
  * @lastModifedBy Shakshi
  */
 
@@ -10,7 +10,7 @@ import mongoose from 'mongoose';
 import AutoIncrement from "mongoose-auto-increment";
 
 /**
- * [AccountSchema is used for  account data validating aginst schema]
+ * [AccountSchema is used for account data validating aginst schema]
  * @type {[type]}
  */ 
 const AccountSchema = mongoose.Schema({

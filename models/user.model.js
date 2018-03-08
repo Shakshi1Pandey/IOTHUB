@@ -20,6 +20,7 @@ const UserSchema = mongoose.Schema({
     country:{type: String },
     status:{type: String },
     accountIds:[{type:String}],
+    childIds:[{type:String}],
     locations:[{type:String}],
     createAt:{type: Date},
     updatedAt:{type: Date}

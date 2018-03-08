@@ -19,6 +19,8 @@ const UserSchema = mongoose.Schema({
     state:{type: String },
     country:{type: String },
     status:{type: String },
+    accountIds:[{type:String}],
+    locations:[{type:String}],
     createAt:{type: Date},
     updatedAt:{type: Date}
   }, {collection : 'user'});

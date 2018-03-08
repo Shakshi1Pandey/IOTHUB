@@ -22,6 +22,8 @@ const DeviceSchema = mongoose.Schema({
     deviceName:{type: String },
     serialNo: {type: Number },
     simno: {type: String },
+    userId:{type:String},
+    accountId:{type:String},
     status:{type: String },
     createAt:{type: Date},
     updatedAt:{type: Date}

@@ -17,8 +17,24 @@ const AccountSchema = mongoose.Schema({
     userId:{type:String},
     accountName:{type:String},
     status:{type: String },
-    createAt:{type: Date},
+    createdAt:{type: Date},
     updatedAt:{type: Date}
 }, {collection : ' account'});
 
 let AccountModel = mongoose.model(' account', AccountSchema);
+
+/**
+ * @description [add one device to db]
+ * @param  {object}
+ * @return {[object]}
+ */
+AccountModel.addAccount = (accountToAdd) => {
+    return accountToAdd.save();
+}
+AccountModel.allAccount = (query) =>{
+    return AccountModel.find(query);
+}
+AccountModel.editAccount = (objToUpdate) =>{
+    return AccountModel.update(objToUpdate.query,objToUpdate.data);
+}
+export default AccountModel;

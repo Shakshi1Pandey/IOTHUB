@@ -70,10 +70,12 @@ service.addAsset = async (req, res) => {
     let clientId = utility.removeQuotationMarks(req.body.clientId);
     let assetToAdd = Asset({
         clientId : clientId,
-        branchId: req.body.branchId,
         assetTypeId: req.body.assetTypeId,
         assetName: req.body.assetName,
         serialNo: req.body.serialNo,
+        address:req.body.address,
+        city:req.body.city,
+        state:req.body.state,
         status: req.body.status || "Active",
         createAt: new Date()
     });

@@ -22,9 +22,9 @@ const AssetSchema = mongoose.Schema({
     assetTypeId:{type: Number },
     assetName:{type: String },
     serialNo: {type: Number },
-    address:{type: Number},
-    city:{type: Number},
-    state:{type: Number},
+    address:{type: String},
+    city:{type: String},
+    state:{type: String},
     status:{type: String },
     createAt:{type: Date},
     updatedAt:{type: Date}

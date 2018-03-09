@@ -24,6 +24,7 @@ const AssetSchema = mongoose.Schema({
     serialNo: {type: Number },
     address:{type: String},
     city:{type: String},
+    country:{type:String},
     state:{type: String},
     status:{type: String },
     createAt:{type: Date},

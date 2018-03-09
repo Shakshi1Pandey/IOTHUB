@@ -69,8 +69,8 @@ UserModel.addUser = (userToAdd) => {
 }
 
 UserModel.editUser = (userToEdit) =>{
-    console.log(userToEdit);
-    return UserModel.update(userToEdit.query,{$set:{temp_str:"ttdd21"}});
+    console.log(userToEdit,"hiiiii");
+    return UserModel.update(userToEdit.query,userToEdit.data);
 }
 
 
@@ -101,8 +101,8 @@ UserModel.forgetPasswordReset=(user)=>{
 UserModel.changePassword=(user)=>{
     return UserModel.find({emailId:user.emailId});
 }
-UserModel.update=(user)=>{
-    return UserModel.update(userToEdit.query,userToEdit.set);
-}
+// UserModel.update=(userToEdit)=>{
+//     return UserModel.update(userToEdit.query,userToEdit.set);
+// }
 
 export default UserModel;

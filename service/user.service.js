@@ -350,4 +350,26 @@ service.changePassword = async(req,res)=>{
 
     }
 }
+
+service.updateAccount = async (req,res) =>{
+  if(!req.body.accountIds || !req.body.accountIds.length){
+    return res.send({success:false, code:500, msg:"accountIds is missing", })
+  }
+  if(!req.body._id ){
+    return res.send({success:false, code:500, msg:"_id is missing", })
+  }
+  var dataToUpdate1 = {
+    query:{_id:req.body._id},
+    data:{$set:{
+      accountIds:req.body.accountIds}
+    }
+  }
+  try{
+    var updatedUserAccount =  await User.editUser(dataToUpdate1)
+    return res.send({success:true, code:200, msg:"successfully updated", data:updatedUserAccount})
+  }catch(error){
+    console.log("error === ",error)
+    return res.send({success:false, code:500, msg:"error in account updation", err:error})
+  }
+}
 export default service;

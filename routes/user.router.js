@@ -47,5 +47,8 @@ router.post('/changePassword',(req,res)=>{
  router.post('/updateUser',(req,res)=>{
      userService.update(req,res);
  })
+ router.post('/updateAccount',(req,res)=>{
+     userService.updateAccount(req,res);
+ })
 
 export default router;

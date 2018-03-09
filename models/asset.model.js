@@ -113,7 +113,7 @@ AssetModel.getAll = (dataToFind) => {
     //         }
     //     }
     // ]);
-    return AssetModel.find(dataToFind);
+    return AssetModel.find(dataToFind.query,dataToFind.projection);
 
 }
 

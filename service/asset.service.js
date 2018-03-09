@@ -29,7 +29,7 @@ const service = {};
  */
 service.getAll = async (req,res) =>{
     if(!req.query.clientId){
-        res.send({"success":false,"code":"500","msg":msg.clientId});
+        return res.send({"success":false,"code":"500","msg":msg.clientId});
     }
     
     let clientId = utility.removeQuotationMarks(req.query.clientId);
@@ -48,10 +48,10 @@ service.getAll = async (req,res) =>{
         // console.log(dataToFind);
 		const asset = await Asset.getAll(dataToFind);
         logger.info('sending all asset...');
-		res.send({success:true, code:200, msg:successMsg.allAsset, data:asset});
+		return res.send({success:true, code:200, msg:successMsg.allAsset, data:asset});
 	}catch(err){
 		logger.error('Error in getting asset- ' + err);
-		res.send({success:false, code:500, msg:msg.getAsset, err:err});
+		return res.send({success:false, code:500, msg:msg.getAsset, err:err});
 
 	}
 }

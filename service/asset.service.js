@@ -75,6 +75,7 @@ service.addAsset = async (req, res) => {
         serialNo: req.body.serialNo,
         address:req.body.address,
         city:req.body.city,
+        country:req.body.country,
         state:req.body.state,
         status: req.body.status || "Active",
         createAt: new Date()

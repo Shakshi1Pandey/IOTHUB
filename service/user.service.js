@@ -7,6 +7,7 @@
  */
 
 import User from '../models/user.model'
+import Account from '../models/account.model'
 import logger from '../core/logger/app.logger'
 import successMsg from '../core/message/success.msg'
 import msg from '../core/message/error.msg.js'
@@ -59,14 +60,25 @@ service.getAll = async (req,res) =>{
  */
 service.getOne=async(req,res)=>{
     let userToFind={
-        userId:req.query.userId}
+        _id:req.query._id
+    }
+    
     console.log(req.query.userId);
  
  try{
     
      const getOneUser=await User.getOne(userToFind);
+     var allAccount = [];
+     if(getOneUser){
+      let AccountToFind={
+          _id:{$in:getOneUser.accountIds}
+        }
+      allAccount =await Account.allAccount(AccountToFind);
+     
+     }
+       
      logger.info('get one user-' +getOneUser);
-     res.send({"success":true,"code":"200","msg":successMsg.getOneUser,"data":getOneUser});
+     res.send({"success":true,"code":"200","msg":successMsg.getOneUser,"data":allAccount});
  }
  catch(err){
      logger.error('Failed to get user- ' + err);

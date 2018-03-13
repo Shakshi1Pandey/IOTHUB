@@ -42,10 +42,24 @@ service.getAll = async (req,res) =>{
 		let dataToFind = {
 			query:{clientId:clientId}
 		};
-		const user = await User.getAll(dataToFind);
+		const users = await User.getAll(dataToFind);
         logger.info('sending all user...');
-       //console.log(user);
-		res.send({success:true, code:200, msg:successMsg.allUser, data:user});
+       console.log(users,typeof clientId);
+       var allAccount;
+    if(users && users.length){
+      
+      for(var i=0; i<users.length; i++){
+        console.log(i," = i")
+         let AccountToFind={
+          _id:{$in:users[i].accountIds}
+        }
+        allAccount = await Account.allAccount(AccountToFind);
+        console.log(allAccount,"allAccount")
+        users[i].accounts = allAccount;
+      }
+      console.log("hii")
+    }
+		res.send({success:true, code:200, msg:successMsg.allUser, data:users});
 	}catch(err){
 		logger.error('Error in getting user- ' + err);
 		res.send({success:false, code:500, msg:msg.getUser, err:err});
@@ -107,23 +121,23 @@ service.addUser = async (req, res) => {
 
     let userToAdd = User({
 
-        clientId:clientId,
-        parentId:req.body.parentId,
-        token:token,
-        salt:temp,
-        temp_str:"",
-	    emailId: req.body.emailId,
-	    password: hashed_password,
-	    name: req.body.name,
-        userTypeId: req.body.userTypeId,
-        address:req.body.address,
-        sector:req.body.sector,
-        city:req.body.city,
-        state:req.body.state,
-        country:req.body.country,
-        status:req.body.status || "Active",
-        createAt: new Date(),
-        updatedAt: new Date()
+      clientId:clientId,
+      parentId:req.body.parentId,
+      token:token,
+      salt:temp,
+      temp_str:"",
+      emailId: req.body.emailId,
+      password: hashed_password,
+      name: req.body.name,
+      userTypeId: req.body.userTypeId,
+      address:req.body.address,
+      sector:req.body.sector,
+      city:req.body.city,
+      state:req.body.state,
+      country:req.body.country,
+      status:req.body.status || "Active",
+      createAt: new Date(),
+      updatedAt: new Date()
     });
     try {
         if(!req.body.clientId || !req.body.userTypeId|| !req.body.name || !req.body.password || !req.body.emailId){

@@ -31,6 +31,7 @@ const UserSchema = mongoose.Schema({
 let UserModel = mongoose.model('users',UserSchema);
 
 UserModel.getAll = (dataToFind) => {
+    console.log(dataToFind,"dataToFinddataToFind")
    return UserModel.aggregate([
     { $match: dataToFind.query},
     {
@@ -51,7 +52,8 @@ UserModel.getAll = (dataToFind) => {
             userId:1,
             emailId: 1,
             name:1,
-            userTypeId:1 ,           
+            userTypeId:1 , 
+            accountIds:1,          
             userType:"$userType_docs.userType",          
             status:1
 

@@ -53,7 +53,8 @@ UserModel.getAll = (dataToFind) => {
             emailId: 1,
             name:1,
             userTypeId:1 , 
-            accountIds:1,          
+            accountIds:1,  
+            locations:1,        
             userType:"$userType_docs.userType",          
             status:1
 

@@ -406,7 +406,7 @@ service.updateAccount = async (req,res) =>{
   }
   try{
     var updatedUserAccount =  await User.editUser(dataToUpdate1)
-    return res.send({success:true, code:200, msg:"successfully updated", data:updatedUserAccount})
+    return res.send({success:true, code:200, msg:"Successfully updated", data:updatedUserAccount})
   }catch(error){
     console.log("error === ",error)
     return res.send({success:false, code:500, msg:"error in account updation", err:error})

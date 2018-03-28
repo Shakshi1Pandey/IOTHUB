@@ -14,7 +14,7 @@ import AutoIncrement from "mongoose-auto-increment";
  * @type {[type]}
  */ 
 const DeviceSchema = mongoose.Schema({
-    clientId : {type: Number },
+    customerId : {type: Number },
     brand:{type: String },
     assetId : {type: Number },
     deviceId:{type: String, index:{unique:true}},
@@ -23,7 +23,6 @@ const DeviceSchema = mongoose.Schema({
     serialNo: {type: Number },
     simno: {type: String },
     userId:{type:String},
-    accountId:{type:String},
     status:{type: String },
     createAt:{type: Date},
     updatedAt:{type: Date}
@@ -35,10 +34,10 @@ let DeviceModel = mongoose.model('device', DeviceSchema);
  *@description [is used for getting all data of devices from db]
  * @return {object}
  */
-DeviceModel.getAll = (clientId) => {
+DeviceModel.getAll = (customerId) => {
     return DeviceModel.aggregate([
         {
-            $match:{clientId:clientId}
+            $match:{customerId:customerId}
         },
         {
           $lookup:{
@@ -98,7 +97,7 @@ DeviceModel.getAll = (clientId) => {
         // },
         {
             $project:{
-                clientId : 1, 
+                customerId : 1, 
                 // branchId: 1,
                 // branchName:"$branch_docs.branchName",
                 brand:1,

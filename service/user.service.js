@@ -7,7 +7,7 @@
  */
 
 import User from '../models/user.model'
-import Account from '../models/account.model'
+import Customer from '../models/customer.model'
 import logger from '../core/logger/app.logger'
 import successMsg from '../core/message/success.msg'
 import msg from '../core/message/error.msg.js'
@@ -45,17 +45,17 @@ service.getAll = async (req,res) =>{
 		const users = await User.getAll(dataToFind);
         logger.info('sending all user...');
        console.log(users,typeof clientId);
-       var allAccount;
+       var allCustomer;
     if(users && users.length){
       
       for(var i=0; i<users.length; i++){
         console.log(i," = i")
-         let AccountToFind={
-          _id:{$in:users[i].accountIds}
+         let CustomerToFind={
+          _id:{$in:users[i].CustomerIds}
         }
-        allAccount = await Account.allAccount(AccountToFind);
-        console.log(allAccount,"allAccount")
-        users[i].accounts = allAccount;
+        allCustomer = await Customer.allCustomer(CustomerToFind);
+        console.log(allCustomer,"allCustomer")
+        users[i].Customers = allCustomer;
       }
       console.log("hii")
     }
@@ -82,17 +82,17 @@ service.getOne=async(req,res)=>{
  try{
     
      const getOneUser=await User.getOne(userToFind);
-     var allAccount = [];
+     var allCustomer = [];
      if(getOneUser){
-      let AccountToFind={
-          _id:{$in:getOneUser.accountIds}
+      let CustomerToFind={
+          _id:{$in:getOneUser.CustomerIds}
         }
-      allAccount =await Account.allAccount(AccountToFind);
+      allCustomer =await Customer.allCustomer(CustomerToFind);
      
      }
        
      logger.info('get one user-' +getOneUser);
-     res.send({"success":true,"code":"200","msg":successMsg.getOneUser,"data":allAccount});
+     res.send({"success":true,"code":"200","msg":successMsg.getOneUser,"data":allCustomer});
  }
  catch(err){
      logger.error('Failed to get user- ' + err);
@@ -377,11 +377,11 @@ service.changePassword = async(req,res)=>{
     }
 }
 
-service.updateAccount = async (req,res) =>{
+service.updateCustomer = async (req,res) =>{
   var locations = {};
-  if(!req.body.accountIds || !req.body.accountIds.length){
+  if(!req.body.CustomerIds || !req.body.CustomerIds.length){
     if(!req.body.locations)
-      return res.send({success:false, code:500, msg:"accountIds or locations is missing", })
+      return res.send({success:false, code:500, msg:"CustomerIds or locations is missing", })
     else{
       locations = {
         locations:req.body.locations
@@ -389,9 +389,9 @@ service.updateAccount = async (req,res) =>{
     }
       
   }
-  if(req.body.accountIds){
+  if(req.body.CustomerIds){
     locations = {
-      accountIds:req.body.accountIds
+      CustomerIds:req.body.CustomerIds
     }
   }
   
@@ -405,11 +405,53 @@ service.updateAccount = async (req,res) =>{
     }
   }
   try{
-    var updatedUserAccount =  await User.editUser(dataToUpdate1)
-    return res.send({success:true, code:200, msg:"Successfully updated", data:updatedUserAccount})
+    var updatedUserCustomer =  await User.editUser(dataToUpdate1)
+    return res.send({success:true, code:200, msg:"Successfully updated", data:updatedUserCustomer})
   }catch(error){
     console.log("error === ",error)
-    return res.send({success:false, code:500, msg:"error in account updation", err:error})
+    return res.send({success:false, code:500, msg:"error in Customer updation", err:error})
   }
+}
+/**
+ * @description [calculation before add superadmin to db  ]
+ * @param  {[object]}
+ * @param  {[object]}
+ * @return {[object]}
+ */
+service.RegisterSuperAdmin = async (detailsToReg) => {
+
+    console.log("RegisterSuperAdmin called")
+    var temp =rand(100,30);
+    var newPassword=temp+detailsToReg.password;
+    var token= crypto.createHash('sha512').update(detailsToReg.password+rand).digest("hex");
+    var hashed_password=crypto.createHash('sha512').update(newPassword).digest("hex");
+    
+    
+    let userToAdd = User({
+
+      token:token,
+      salt:temp,
+      temp_str:"",
+      emailId: detailsToReg.email,
+      password: hashed_password,
+      module: detailsToReg.module,
+      status: "Active",
+      userType:"SuperAdmin",
+      createAt: new Date(),
+      updatedAt: new Date()
+    });
+    try {
+        
+        const savedUser = await User.addUser(userToAdd);
+        
+        
+        logger.info('Register superAdmin...');
+      //  console.log(savedUser);
+        
+    }
+    catch(err) {
+        logger.error('Error in adding superadmin- ' + err);
+        
+    }
 }
 export default service;

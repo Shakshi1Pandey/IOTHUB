@@ -3,7 +3,6 @@ import AutoIncrement from "mongoose-auto-increment";
 AutoIncrement.initialize(mongoose);
 
 const UserSchema = mongoose.Schema({
-    clientId:{ type: Number },
     parentId:{type:String},
     token:{type:String},
     salt:{type:String},
@@ -19,9 +18,18 @@ const UserSchema = mongoose.Schema({
     state:{type: String },
     country:{type: String },
     status:{type: String },
-    accountIds:[{type:String}],
+    customerIds:[{type:String}],
     childIds:[{type:String}],
-    locations:[{type:String}],
+    locations:[{
+        country:{type:String},
+        state:{type:String},
+        city:{type:String},
+        area:{type:String}
+    }],
+    module:[{               //Permission for user
+        name:{type:String}, //Asset or Device or Coustmer or User, may be all
+        permission:[{type:String}] // GET or POST or PUT or DELETE, may be all
+    }],
     createAt:{type: Date},
     updatedAt:{type: Date}
   }, {collection : 'user'});
@@ -53,7 +61,7 @@ UserModel.getAll = (dataToFind) => {
             emailId: 1,
             name:1,
             userTypeId:1 , 
-            accountIds:1,  
+            customerIds:1,  
             locations:1,        
             userType:"$userType_docs.userType",          
             status:1

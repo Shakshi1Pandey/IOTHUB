@@ -22,10 +22,11 @@ const AssetSchema = mongoose.Schema({
     assetTypeId:{type: Number },
     assetName:{type: String },
     serialNo: {type: Number },
-    address:{type: String},
-    city:{type: String},
     country:{type:String},
+    city:{type: String},
     state:{type: String},
+    area:{type: String},
+    address:{type: String},
     status:{type: String },
     createAt:{type: Date},
     updatedAt:{type: Date}

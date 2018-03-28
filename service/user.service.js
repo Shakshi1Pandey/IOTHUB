@@ -243,6 +243,7 @@ service.login = async (req, res) =>{
             res.send({success:false, code:500, msg:"EmailId or password does not match"})
         }
     }catch(error){
+      console.log("error == ",error)
         res.send({success:false, code:500, msg:msg.login, err:error})
     }
 }
@@ -432,7 +433,7 @@ service.RegisterSuperAdmin = async (detailsToReg) => {
       token:token,
       salt:temp,
       temp_str:"",
-      emailId: detailsToReg.email,
+      emailId: detailsToReg.emailId,
       password: hashed_password,
       module: detailsToReg.module,
       status: "Active",

@@ -100,7 +100,7 @@ UserModel.getCount = (userToCount)=>{
  * @return {[type]}      [object]
  */
 UserModel.login = (user) =>{
-    return UserModel.findOne({emailId:user.emailId},{clientId:1,password:1, userId:1, name:1,emailId:1, userType:1,salt:1, status:1 });
+    return UserModel.findOne({emailId:user.emailId},{});
 }
 
 UserModel.forgetPassword = (user)=>{

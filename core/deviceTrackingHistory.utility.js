@@ -80,14 +80,21 @@ class deviceTrackingHistoryUtility {
         formatter: 'json'
       };
     var geocoder = NodeGeocoder(options);
-    var result = await geocoder.reverse({lat:geo.latitude, lon:geo.longitude});
-        geo.address = result[0].formattedAddress || 'NA';
-        geo.placeId = result[0].extra.googlePlaceId || 'NA';
-        geo.state = result[0].administrativeLevels.level1long || 'NA';
-        geo.city = result[0].city || 'NA';
-        geo.country = result[0].country || 'NA';
-        geo.zipcode = result[0].zipcode || 'NA';
-    return  cb(geo);
+    try {
+
+      var result = await geocoder.reverse({lat:geo.latitude, lon:geo.longitude});
+          geo.address = result[0].formattedAddress || 'NA';
+          geo.placeId = result[0].extra.googlePlaceId || 'NA';
+          geo.state = result[0].administrativeLevels.level1long || 'NA';
+          geo.city = result[0].city || 'NA';
+          geo.country = result[0].country || 'NA';
+          geo.zipcode = result[0].zipcode || 'NA';
+      return  cb(geo);
+
+    } catch (e) {
+      console.log(e,'address error');
+      return e;
+    }
   }
 
   static insertData(socket){

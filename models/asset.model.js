@@ -17,11 +17,11 @@ AutoIncrement.initialize(mongoose);
 
 
 const AssetSchema = mongoose.Schema({
-    clientId : {type: Number },
+    customerId : {type: String },
     assetId : {type: Number },
-    assetTypeId:{type: Number },
+    assetTypeId:{type: String },
     assetName:{type: String },
-    serialNo: {type: Number },
+    serialNo: {type: String },
     country:{type:String},
     city:{type: String},
     state:{type: String},

@@ -4,7 +4,7 @@ AutoIncrement.initialize(mongoose);
 
 
 const assetTypeSchema = mongoose.Schema({
-    customerId: {type: Number },
+    customerId: {type: String },
     assetTypeId: {type: Number },
     assetTypeName: {type: String },
     createdBy:{type: String},

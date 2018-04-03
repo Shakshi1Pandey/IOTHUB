@@ -28,15 +28,19 @@ const service = {};
  * @return {[object]}
  */
 service.getAll = async (req,res) =>{
-    if(!req.query.clientId){
-        return res.send({"success":false,"code":"500","msg":msg.clientId});
+    var location = {};
+    if(!req.query.customerId){
+        return res.send({"success":false,"code":"500","msg":"customerId is missing"});
+    }
+    if(req.query.location){
+        location=req.query.location;
     }
     
-    let clientId = utility.removeQuotationMarks(req.query.clientId);
+    //let clientId = utility.removeQuotationMarks(req.query.clientId);
 	try{
 
 		let dataToFind = {
-			query:{clientId:clientId},
+			query:{$or:[{customerId:req.query.customerId},location]}, //add location filter also beacuse of user assigned location, so user can see asset of coustmer of assigned location not outside of location
 			projection:{}
 		};
 
@@ -63,13 +67,13 @@ service.getAll = async (req,res) =>{
  * @return {[object]}
  */
 service.addAsset = async (req, res) => {
-    if(!req.body.clientId || !req.body.assetName || !req.body.assetTypeId || !req.body.serialNo){
+    if(!req.body.customerId || !req.body.assetName || !req.body.assetTypeId || !req.body.serialNo){
             res.send({"success":false,"code":"500","msg":msg.param});
     }
 
     let clientId = utility.removeQuotationMarks(req.body.clientId);
     let assetToAdd = Asset({
-        clientId : clientId,
+        customerId : req.body.customerId,
         assetTypeId: req.body.assetTypeId,
         assetName: req.body.assetName,
         serialNo: req.body.serialNo,
@@ -77,6 +81,7 @@ service.addAsset = async (req, res) => {
         city:req.body.city,
         country:req.body.country,
         state:req.body.state,
+        area:req.body.area,
         status: req.body.status || "Active",
         createAt: new Date()
     });

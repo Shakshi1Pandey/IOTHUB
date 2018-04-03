@@ -27,7 +27,7 @@ const service = {};
  * @return {[object]}
  */
 service.getAll = async (req,res) =>{
-    if(!req.query.clientId){
+    if(!req.body.customerId){
         res.send({"success":false,"code":"500","msg":msg.clientId});
     }
     // if(!req.query.clientId){
@@ -37,7 +37,7 @@ service.getAll = async (req,res) =>{
     
 	try{
         
-		const device = await Device.getAll(clientId);
+		const device = await Device.getAll(req.body.customerId);
         logger.info('sending all device...');
 		res.send({"success":true,"code":"200","msg":successMsg.allDevice,"data":device});
 
@@ -71,15 +71,36 @@ service.getOne=async(req,res)=>{
  */
 
 service.addDevice = async (req, res) => {
-console.log("++++++++",req.body);
-    if(!req.body.deviceName || !req.body.clientId || !req.body.deviceType || !req.body.deviceId || !req.body.brand || !req.body.assetId || !req.body.serialNo || !req.body.simno ){
-      return res.send({"success":false,"code":"500","msg":msg.param});
+
+    if(!req.body.deviceName ){
+      return res.send({"success":false,"code":"500","msg":"deviceName is missing"});
     }
-    let clientId = utility.removeQuotationMarks(req.body.clientId);
+    if(!req.body.customerId){
+        return res.send({"success":false,"code":"500","msg":"customerId is missing"});
+    }
+    if(!req.body.deviceType){
+        return res.send({"success":false,"code":"500","msg":"deviceType is missing"});
+    }
+    if(!req.body.deviceId){
+        return res.send({"success":false,"code":"500","msg":"deviceId is missing"});
+    }
+    if(!req.body.brand){
+        return res.send({"success":false,"code":"500","msg":"brand is missing"});
+    }
+    if(!req.body.assetId){
+        return res.send({"success":false,"code":"500","msg":"assetId is missing"});
+    }
+    if(!req.body.serialNo){
+        return res.send({"success":false,"code":"500","msg":"serialNo is missing"});
+    }
+    if(!req.body.simno){
+        return res.send({"success":false,"code":"500","msg":"simno is missing"});
+    }
+    //let clientId = utility.removeQuotationMarks(req.body.clientId);
 
     let deviceToAdd = Device({
        
-        clientId : clientId,  
+        customerId : req.body.customerId,  
         deviceId: req.body.deviceId,
         brand: req.body.brand,
         assetId : req.body.assetId,
@@ -87,6 +108,7 @@ console.log("++++++++",req.body);
         deviceName: req.body.deviceName,
         serialNo: req.body.serialNo,
         simno: req.body.simno,
+        registerBy:req.body._id,
         status: req.body.status || "Active",
         createAt: new Date()
     });

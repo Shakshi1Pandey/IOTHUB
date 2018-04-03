@@ -7,6 +7,7 @@
  */
 
 import User from '../models/user.model'
+import userTypeConfig from '../models/usertype.model'
 import Customer from '../models/customer.model'
 import logger from '../core/logger/app.logger'
 import successMsg from '../core/message/success.msg'
@@ -113,16 +114,14 @@ service.getOne=async(req,res)=>{
  * @return {[object]}
  */
 service.addUser = async (req, res) => {
-    let clientId = utility.removeQuotationMarks(req.body.clientId);
+   
     var temp =rand(100,30);
     var newPassword=temp+req.body.password;
     var token= crypto.createHash('sha512').update(req.body.password+rand).digest("hex");
     var hashed_password=crypto.createHash('sha512').update(newPassword).digest("hex");
 
     let userToAdd = User({
-
-      clientId:clientId,
-      parentId:req.body.parentId,
+      parentId:req.body._id,
       token:token,
       salt:temp,
       temp_str:"",
@@ -135,6 +134,7 @@ service.addUser = async (req, res) => {
       city:req.body.city,
       state:req.body.state,
       country:req.body.country,
+      module:req.body.module,
       status:req.body.status || "Active",
       createAt: new Date(),
       updatedAt: new Date()
@@ -228,6 +228,10 @@ service.login = async (req, res) =>{
             var emailId=loggedUser.emailId;
             var newpass=temp+req.body.password;
             var hashed_password1=crypto.createHash('sha512').update(newpass).digest("hex");
+            if(!loggedUser.module){
+                const loggedUserRole = await userTypeConfig.getOne({_id:loggedUser.userTypeId});
+                loggedUser.module = loggedUserRole.module;
+            }
             if(hash_db==hashed_password1)
             {
                 res.send({success:true, code:200, msg:successMsg.loginUser, data:loggedUser });

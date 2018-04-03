@@ -110,19 +110,24 @@ service.editUsertype = async (req, res) => {
  */
 
 service.addUsertype = async (req, res) => {
-    if(!req.body.clientId)
+    if(!req.body._id)
     {
-        res.send({"success":false, "code":"500", "msg":msg.clientId});
+        res.send({"success":false, "code":"500", "msg":"_id is missing"});
     }
     if(!req.body.userType)
     {
         res.send({"success":false, "code":"500", "msg":msg.userType});
     }
-    let clientId = utility.removeQuotationMarks(req.body.clientId);
+    if(!req.body.module || !req.body.module.length)
+    {
+        res.send({"success":false, "code":"500", "msg":"module is missing"});
+    }
+    //let clientId = utility.removeQuotationMarks(req.body.clientId);
 
     let userTypeToAdd = userTypeConfig({
-        clientId : clientId,
+        createdBy : req.body._id,
         userType: req.body.userType,
+        module:req.body.module,
         status: req.body.status,
         createAt: new Date()
     });

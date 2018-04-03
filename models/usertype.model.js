@@ -15,10 +15,15 @@ AutoIncrement.initialize(mongoose);
  * @type {[type]}
  */
 const UserTypeSchema = mongoose.Schema({
-    clientId : {type: Number }, 
+
     userTypeId:{type:Number},
     userType: {type: String },
+    module:[{               //Permission for user
+        name:{type:String}, //Asset or Device or Coustmer or User, may be all
+        permission:[{type:String}] // GET or POST or PUT or DELETE, may be all
+    }],
     status:{type: String },
+    createdBy:{type: String},
     createAt:{type: Date},
     updatedAt:{type: Date}
 }, {collection : 'usertype'});

@@ -65,7 +65,9 @@ service.addAssetType = async (req, res) => {
      if(!req.body._id){
         return res.send({"success":false,"code":"500","msg":"_id is missing"});
     }
-
+    if(!req.body.assetTypeName){
+            return res.send({"success":false,"code":"500","msg":msg.param});
+    }
     let assetTypeToAdd = AssetType({
         customerId: req.body.customerId,
         assetTypeName: req.body.assetTypeName,
@@ -75,9 +77,7 @@ service.addAssetType = async (req, res) => {
         updatedAt: new Date()
     });
     try {
-        if(!req.body.clientId ||!req.body.assetTypeName){
-            return res.send({"success":false,"code":"500","msg":msg.param});
-        }
+        
         const savedAssetType = await AssetType.addAssetType(assetTypeToAdd);
         return res.send({"success":true, "code":"200", "msg":successMsg.addAssetType,"data":savedAssetType});
     }

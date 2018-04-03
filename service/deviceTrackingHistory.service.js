@@ -65,7 +65,7 @@ service.getAll = async (req,res) =>{
 service.getAllDeviceHistoryLatLng = async (req,res) =>{
 	try{
         let condition = {
-            clientId: utility.removeQuotationMarks(req.query.clientId)
+            customerId: utility.removeQuotationMarks(req.query.customerId)
         }
 		const deviceTrackingHistory = await DeviceTrackingHistory.getAll(condition);
         logger.info('sending all DeviceTrackingHistory...');
@@ -80,7 +80,7 @@ service.getAllDeviceRecentLatLng = async (req,res) =>{
 	try{
         let condition = [
 							{
-								$match:{clientId: utility.removeQuotationMarks(req.query.clientId)}
+								$match:{customerId: utility.removeQuotationMarks(req.query.customerId)}
 							},
 						   {
 						     $project:
@@ -168,7 +168,7 @@ service.addDeviceTrackingHistoryData = async (req, res) => {
         const deviceData = await Device.getOne(deviceToFind);
         if(deviceData){
             deviceToAdd.deviceType = deviceData.deviceType;
-            deviceToAdd.clientId = deviceData.clientId;
+            deviceToAdd.customerId = deviceData.customerId;
         }
         else
         {
@@ -180,7 +180,7 @@ service.addDeviceTrackingHistoryData = async (req, res) => {
         deviceToAdd = {
             query: {deviceId :deviceData.deviceId},
             data : {
-                clientId:deviceData.clientId,
+                customerId:deviceData.customerId,
                 deviceType:deviceData.deviceType,
                 deviceId:  dataString[0] || 1 ,
                 lat: dataString[1] || 100288.0,

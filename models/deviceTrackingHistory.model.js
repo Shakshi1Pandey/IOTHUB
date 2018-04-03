@@ -63,7 +63,7 @@ import mongoose from 'mongoose';
 // }
 
 const DeviceTrackerHistorySchema = mongoose.Schema({
-          clientId : {type: Number },
+          customerId : {type: String },
           deviceId: {type: String},
           history: [Object],
           deviceType: {type: String },

@@ -27,8 +27,8 @@ const service = {};
  * @return {[object]}
  */
 service.getAll = async (req,res) =>{
-    if(!req.body.customerId){
-        res.send({"success":false,"code":"500","msg":msg.clientId});
+    if(!req.query.customerId){
+        return res.send({"success":false,"code":"500","msg":"customerId is missing"});
     }
     // if(!req.query.clientId){
     //     res.send({"success":false,"code":"500","msg":"clientId is missing","data":req.query});
@@ -37,13 +37,13 @@ service.getAll = async (req,res) =>{
     
 	try{
         
-		const device = await Device.getAll(req.body.customerId);
+		const device = await Device.getAll(req.query.customerId);
         logger.info('sending all device...');
-		res.send({"success":true,"code":"200","msg":successMsg.allDevice,"data":device});
+		return res.send({"success":true,"code":"200","msg":successMsg.allDevice,"data":device});
 
 	}catch(err){
 		logger.error('Error in getting device- ' + err);
-        res.send({"success":false, "code":"500", "msg":msg.getDevice,"err":err}); 
+        return res.send({"success":false, "code":"500", "msg":msg.getDevice,"err":err}); 
 	}
 }
 service.getOne=async(req,res)=>{

@@ -35,90 +35,90 @@ let DeviceModel = mongoose.model('device', DeviceSchema);
  * @return {object}
  */
 DeviceModel.getAll = (customerId) => {
-    return DeviceModel.aggregate([
-        {
-            $match:{customerId:customerId}
-        },
-        {
-          $lookup:{
-            from:"asset",
-            localField:"assetId",
-            foreignField:"assetId",
-            as:"asset_docs"
-          }
+    // return DeviceModel.aggregate([
+    //     {
+    //         $match:{customerId:customerId}
+    //     },
+    //     {
+    //       $lookup:{
+    //         from:"asset",
+    //         localField:"assetId",
+    //         foreignField:"assetId",
+    //         as:"asset_docs"
+    //       }
 
-        },
-        {
-          $unwind:"$asset_docs"
-        },
-        {
-            $lookup:{
-                from:"assettype",
-                localField:"asset_docs.assetTypeId",
-                foreignField:"assetTypeId",
-                as:"assetType_docs"
-            }
-        },
-        {
-          $unwind:"$assetType_docs"
-        },
-        // {
-        //     $lookup:{
-        //         from:"branch",
-        //         localField:"asset_docs.branchId",
-        //         foreignField:"branchId",
-        //         as:"branch_docs"
-        //     }
-        // },
-        // {
-        //   $unwind:"$branch_docs"
-        // },
-        // {
-        //     $lookup:{
-        //         from:"zone",
-        //         localField:"branch_docs.zoneId",
-        //         foreignField:"zoneId",
-        //         as:"zone_docs"
-        //     }
-        // },
-        // {
-        //   $unwind:"$zone_docs"
-        // },
-        // {
-        //     $lookup:{
-        //         from:"region",
-        //         localField:"zone_docs.regionId",
-        //         foreignField:"regionId",
-        //         as:"region_docs"
-        //     }
-        // },
-        // {
-        //   $unwind:"$region_docs"
-        // },
-        {
-            $project:{
-                customerId : 1, 
-                // branchId: 1,
-                // branchName:"$branch_docs.branchName",
-                brand:1,
-                // regionId: 1,
-                // regionName:"$region_docs.regionName",
-                assetId : 1,
-                assetName:"$asset_docs.assetName",
-                assetTypeName:"$assetType_docs.assetTypeName",
-                // zoneId:"$zone_docs.zoneId",
-                // zoneName:"$zone_docs.zoneName",
-                deviceId:1,
-                deviceType:1,
-                deviceName:1,
-                serialNo: 1,
-                simno: 1,
-                status:1
+    //     },
+    //     {
+    //       $unwind:"$asset_docs"
+    //     },
+    //     {
+    //         $lookup:{
+    //             from:"assettype",
+    //             localField:"asset_docs.assetTypeId",
+    //             foreignField:"assetTypeId",
+    //             as:"assetType_docs"
+    //         }
+    //     },
+    //     {
+    //       $unwind:"$assetType_docs"
+    //     },
+    //     // {
+    //     //     $lookup:{
+    //     //         from:"branch",
+    //     //         localField:"asset_docs.branchId",
+    //     //         foreignField:"branchId",
+    //     //         as:"branch_docs"
+    //     //     }
+    //     // },
+    //     // {
+    //     //   $unwind:"$branch_docs"
+    //     // },
+    //     // {
+    //     //     $lookup:{
+    //     //         from:"zone",
+    //     //         localField:"branch_docs.zoneId",
+    //     //         foreignField:"zoneId",
+    //     //         as:"zone_docs"
+    //     //     }
+    //     // },
+    //     // {
+    //     //   $unwind:"$zone_docs"
+    //     // },
+    //     // {
+    //     //     $lookup:{
+    //     //         from:"region",
+    //     //         localField:"zone_docs.regionId",
+    //     //         foreignField:"regionId",
+    //     //         as:"region_docs"
+    //     //     }
+    //     // },
+    //     // {
+    //     //   $unwind:"$region_docs"
+    //     // },
+    //     {
+    //         $project:{
+    //             customerId : 1, 
+    //             // branchId: 1,
+    //             // branchName:"$branch_docs.branchName",
+    //             brand:1,
+    //             // regionId: 1,
+    //             // regionName:"$region_docs.regionName",
+    //             assetId : 1,
+    //             assetName:"$asset_docs.assetName",
+    //             assetTypeName:"$assetType_docs.assetTypeName",
+    //             // zoneId:"$zone_docs.zoneId",
+    //             // zoneName:"$zone_docs.zoneName",
+    //             deviceId:1,
+    //             deviceType:1,
+    //             deviceName:1,
+    //             serialNo: 1,
+    //             simno: 1,
+    //             status:1
 
-            }
-        }
-    ])
-    //return DeviceModel.find({});
+    //         }
+    //     }
+    // ])
+    return DeviceModel.find({});
 }
 
 /**

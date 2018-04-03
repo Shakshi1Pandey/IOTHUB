@@ -29,7 +29,7 @@ const service = {};
 
 service.getAll = async (req,res) =>{
     if(!req.query._id){
-        res.send({"success":false,"code":"500","msg":"_id is missing"});
+        return res.send({"success":false,"code":"500","msg":"_id is missing"});
     }
     //let clientId = utility.removeQuotationMarks(req.query.clientId);
 	try{
@@ -45,10 +45,10 @@ service.getAll = async (req,res) =>{
 		}
 		const assetType = await AssetType.getAll(dataToFind);
         logger.info('sending all assetType...');
-		res.send({success:true, code:200, msg:successMsg.allAssetType, data:assetType});
+		return res.send({success:true, code:200, msg:successMsg.allAssetType, data:assetType});
 	}catch(err){
 		logger.error('Error in getting assetType- ' + err);
-		res.send({success:false, code:500, msg:msg.getAssetType, err:err});
+		return res.send({success:false, code:500, msg:msg.getAssetType, err:err});
 	}
 }
 
@@ -60,10 +60,10 @@ service.getAll = async (req,res) =>{
  */
 service.addAssetType = async (req, res) => {
     if(!req.body.coustmerId){
-        res.send({"success":false,"code":"500","msg":"coustmerId is missing"});
+        return res.send({"success":false,"code":"500","msg":"coustmerId is missing"});
     }
      if(!req.body._id){
-        res.send({"success":false,"code":"500","msg":"_id is missing"});
+        return res.send({"success":false,"code":"500","msg":"_id is missing"});
     }
 
     let assetTypeToAdd = AssetType({
@@ -76,14 +76,14 @@ service.addAssetType = async (req, res) => {
     });
     try {
         if(!req.body.clientId ||!req.body.assetTypeName){
-            res.send({"success":false,"code":"500","msg":msg.param});
+            return res.send({"success":false,"code":"500","msg":msg.param});
         }
         const savedAssetType = await AssetType.addAssetType(assetTypeToAdd);
-        res.send({"success":true, "code":"200", "msg":successMsg.addAssetType,"data":savedAssetType});
+        return res.send({"success":true, "code":"200", "msg":successMsg.addAssetType,"data":savedAssetType});
     }
     catch(err) {
         logger.error('Error in getting AssetType- ' + err);
-        res.send({"success":false, "code":"500", "msg":msg.addAssetType,"err":err});
+        return res.send({"success":false, "code":"500", "msg":msg.addAssetType,"err":err});
     }
 }
 
@@ -97,13 +97,13 @@ service.addAssetType = async (req, res) => {
 service.deleteAssetType = async (req, res) => {
     let assetTypeToDelete = req.body.assetTypeId;
     if(!req.body.assetTypeId){
-        res.send({"success":false, "code":"500", "msg":msg.assetTypeId});
+        return res.send({"success":false, "code":"500", "msg":msg.assetTypeId});
 
     }
     try{
         const removedAssetType = await AssetType.removeAssetType(assetTypeToDelete);
         logger.info('Deleted assetType-' + removedAssetType);
-        res.send({"success":true, "code":"200", "msg":successMsg.deleteAssetType,"data":removedAssetType});
+        return res.send({"success":true, "code":"200", "msg":successMsg.deleteAssetType,"data":removedAssetType});
     }
     catch(err) {
         logger.error('Failed to delete AssetType- ' + err);
@@ -122,15 +122,15 @@ service.updateAssetType = async (req, res) => {
         // let query = req.body;
         
        let edit={
-        query:{"assetTypeId":req.body.assetTypeId},
+        query:{"_id":req.body._id},
         data:{"$set":req.body}
        }
 
 		try {
 			const modifiedAssetType =	await AssetType.modifyAssetType(edit);
-			res.send({"success":true, "code":"200", "msg":successMsg.editAssetType,"data":modifiedAssetType});
+			return res.send({"success":true, "code":"200", "msg":successMsg.editAssetType,"data":modifiedAssetType});
 		} catch (e) {
-			res.send({"success":false, "code":"500", "msg":msg.editAssetType,"err":e});
+			return res.send({"success":false, "code":"500", "msg":msg.editAssetType,"err":e});
 		}
 }
 

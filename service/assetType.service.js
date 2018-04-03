@@ -59,15 +59,15 @@ service.getAll = async (req,res) =>{
  * @return {[object]}
  */
 service.addAssetType = async (req, res) => {
-    if(!req.body.coustmerId){
-        return res.send({"success":false,"code":"500","msg":"coustmerId is missing"});
+    if(!req.body.customerId){
+        return res.send({"success":false,"code":"500","msg":"customerId is missing"});
     }
      if(!req.body._id){
         return res.send({"success":false,"code":"500","msg":"_id is missing"});
     }
 
     let assetTypeToAdd = AssetType({
-        coustmerId: req.body.coustmerId,
+        customerId: req.body.customerId,
         assetTypeName: req.body.assetTypeName,
         status: req.body.status,
         createdBy:req.body._id,

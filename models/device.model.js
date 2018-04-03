@@ -14,13 +14,13 @@ import AutoIncrement from "mongoose-auto-increment";
  * @type {[type]}
  */ 
 const DeviceSchema = mongoose.Schema({
-    customerId : {type: Number },
+    customerId : {type: String },
     brand:{type: String },
-    assetId : {type: Number },
+    assetId : {type: String },
     deviceId:{type: String, index:{unique:true}},
     deviceType:{type: String }, 
     deviceName:{type: String },
-    serialNo: {type: Number },
+    serialNo: {type: String },
     simno: {type: String },
     registerBy:{type:String},
     status:{type: String },

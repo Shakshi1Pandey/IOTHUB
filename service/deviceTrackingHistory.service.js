@@ -76,11 +76,15 @@ service.getAll = async (req, res) => {
 service.getAllDeviceHistoryLatLng = async (req, res) => {
   console.log(req.query.customerId, 'check');
   try {
-    let condition = {
-      customerId: req.query.customerId
-    };
-    const deviceTrackingHistory = await DeviceTrackingHistory.getAll(condition);
-    logger.info('sending all DeviceTrackingHistory...');
+    let condition = [
+      {
+        $match: { customerId: req.query.customerId }
+      }
+    ];
+    const deviceTrackingHistory = await DeviceTrackingHistory.getAggregation(
+      condition
+    );
+    logger.info('sending all DeviceTrackingHistory...', deviceTrackingHistory);
     res.send({
       success: true,
       code: 200,

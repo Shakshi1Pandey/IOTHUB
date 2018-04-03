@@ -10,18 +10,21 @@ import msg from '../core/message/error.msg'
 const service={}
 
 service.getCount=async(req,res)=>{
-    let clientId = utility.removeQuotationMarks(req.query.clientId);
+    //let clientId = utility.removeQuotationMarks(req.query.clientId);
+    if(!req.query.customerId){
+        return res.send({success:false, code:500, msg:"customerId" });
+    }
     console.log(clientId,"clientIdclientId")
     let userToCount={
-        query:{clientId:clientId},
+        query:{createdBy:req.query._id || ""},
         projection:{}
     };
     let assetToCount={
-        query:{clientId:clientId},
+        query:{customerId:req.query.customerId},
         projection:{}
     };
     let deviceToCount={
-        query:{clientId:clientId},
+        query:{customerId:req.query.customerId},
         projection:{}
     };
     try{
@@ -34,7 +37,7 @@ service.getCount=async(req,res)=>{
     }
     catch(err){
         logger.error('Error in getting userCount- ' + err);
-		res.send({success:false, code:500, msg:msg.getUser, err:err});
+		return res.send({success:false, code:500, msg:msg.getUser, err:err});
     }
 }
 

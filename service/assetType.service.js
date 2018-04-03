@@ -28,13 +28,13 @@ const service = {};
  */
 
 service.getAll = async (req,res) =>{
-    if(!req.query.clientId){
-        res.send({"success":false,"code":"500","msg":msg.clientId});
+    if(!req.query._id){
+        res.send({"success":false,"code":"500","msg":"_id is missing"});
     }
-    let clientId = utility.removeQuotationMarks(req.query.clientId);
+    //let clientId = utility.removeQuotationMarks(req.query.clientId);
 	try{
 		let dataToFind = {
-			query:{clientId:clientId},
+			query:{createdBy:req.query._id},
 			projection:{}
 		};
 
@@ -59,12 +59,18 @@ service.getAll = async (req,res) =>{
  * @return {[object]}
  */
 service.addAssetType = async (req, res) => {
-    let clientId = utility.removeQuotationMarks(req.body.clientId);
+    if(!req.body.coustmerId){
+        res.send({"success":false,"code":"500","msg":"coustmerId is missing"});
+    }
+     if(!req.body._id){
+        res.send({"success":false,"code":"500","msg":"_id is missing"});
+    }
 
     let assetTypeToAdd = AssetType({
-        clientId: clientId,
+        coustmerId: req.body.coustmerId,
         assetTypeName: req.body.assetTypeName,
         status: req.body.status,
+        createdBy:req.body._id,
         createAt: new Date(),
         updatedAt: new Date()
     });

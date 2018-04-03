@@ -33,7 +33,7 @@ service.getAll = async (req,res) =>{
     // if(!req.query.clientId){
     //     res.send({"success":false,"code":"500","msg":"clientId is missing","data":req.query});
     // }
-    let clientId = utility.removeQuotationMarks(req.query.clientId);
+    //let clientId = utility.removeQuotationMarks(req.query.clientId);
     
 	try{
         
@@ -48,7 +48,8 @@ service.getAll = async (req,res) =>{
 }
 service.getOne=async(req,res)=>{
     let deviceToFind={
-        deviceId:req.params.deviceId}
+        deviceId:req.params.deviceId
+    }
  
  try{
      const getOneDevice=await Device.getOne(deviceToFind);

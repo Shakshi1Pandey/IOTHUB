@@ -40,7 +40,7 @@ service.getAll = async (req,res) =>{
 	try{
 
 		let dataToFind = {
-			query:{$or:[{customerId:req.query.customerId},location]}, //add location filter also beacuse of user assigned location, so user can see asset of coustmer of assigned location not outside of location
+			query:{$or:[{customerId:req.query.customerId}]}, //add location filter also beacuse of user assigned location, so user can see asset of coustmer of assigned location not outside of location
 			projection:{}
 		};
 

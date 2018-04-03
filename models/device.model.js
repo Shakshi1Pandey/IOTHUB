@@ -118,7 +118,7 @@ DeviceModel.getAll = (customerId) => {
     //         }
     //     }
     // ])
-    return DeviceModel.find({});
+    return DeviceModel.find({customerId:customerId});
 }
 
 /**

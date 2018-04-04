@@ -59,11 +59,12 @@ service.addCustomer = async (req,res)=>{
  * @return {[object]}
  */
 service.getAll = async (req,res)=>{
-	var customerIds={};
+	
 	console.log(req.query,"req.query._id")
 	if(!req.query._id){
 			return res.send({success:false, code:500, msg:"user_id is missing"})
 	}
+	var customerIds={createdBy:req.query._id};
 	try{
 		var userData = await UserModel.getOne({_id:req.query._id});
 		if(userData){

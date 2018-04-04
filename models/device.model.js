@@ -35,51 +35,51 @@ let DeviceModel = mongoose.model('device', DeviceSchema);
  * @return {object}
  */
 DeviceModel.getAll = (customerId) => {
-    return DeviceModel.aggregate([
-        {
-            $match:{customerId:customerId}
-        },
-        {
-          $lookup:{
-            from:"asset",
-            localField:"assetId",
-            foreignField:"_id",
-            as:"asset_docs"
-          }
+    // return DeviceModel.aggregate([
+    //     {
+    //         $match:{customerId:customerId}
+    //     },
+    //     {
+    //       $lookup:{
+    //         from:"asset",
+    //         localField:"assetId",
+    //         foreignField:"_id",
+    //         as:"asset_docs"
+    //       }
 
-        },
-        {
-          $unwind:"$asset_docs"
-        },
-        {
-            $lookup:{
-                from:"assettype",
-                localField:"asset_docs.assetTypeId",
-                foreignField:"_id",
-                as:"assetType_docs"
-            }
-        },
-        {
-          $unwind:"$assetType_docs"
-        },
-        {
-            $project:{
-                customerId : 1, 
-                brand:1,
-                assetId : 1,
-                assetName:"$asset_docs.assetName",
-                assetTypeName:"$assetType_docs.assetTypeName",
-                deviceId:1,
-                deviceType:1,
-                deviceName:1,
-                serialNo: 1,
-                simno: 1,
-                status:1
+    //     },
+    //     {
+    //       $unwind:"$asset_docs"
+    //     },
+    //     {
+    //         $lookup:{
+    //             from:"assettype",
+    //             localField:"asset_docs.assetTypeId",
+    //             foreignField:"_id",
+    //             as:"assetType_docs"
+    //         }
+    //     },
+    //     {
+    //       $unwind:"$assetType_docs"
+    //     },
+    //     {
+    //         $project:{
+    //             customerId : 1, 
+    //             brand:1,
+    //             assetId : 1,
+    //             assetName:"$asset_docs.assetName",
+    //             assetTypeName:"$assetType_docs.assetTypeName",
+    //             deviceId:1,
+    //             deviceType:1,
+    //             deviceName:1,
+    //             serialNo: 1,
+    //             simno: 1,
+    //             status:1
 
-            }
-        }
-    ])
-    //return DeviceModel.find({customerId:customerId});
+    //         }
+    //     }
+    // ])
+    return DeviceModel.find({customerId:customerId});
 }
 
 /**

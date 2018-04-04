@@ -48,74 +48,38 @@ let AssetModel = mongoose.model('asset', AssetSchema);
 
 AssetModel.getAll = (dataToFind) => {
 	console.log(dataToFind,"dataToFind")
-    // return AssetModel.aggregate([
-    //     { $match: dataToFind.query},
-    //     {
-    //       $lookup:{
-    //         from:"assettype",
-    //         localField:"assetTypeId",
-    //         foreignField:"assetTypeId",
-    //         as:"assetType_docs"
-    //       }
+    return AssetModel.aggregate([
+        { $match: dataToFind.query},
+        {
+          $lookup:{
+            from:"assettype",
+            localField:"assetTypeId",
+            foreignField:"_id",
+            as:"assetType_docs"
+          }
 
-    //     },
-    //     { 
-    //       $unwind:"$assetType_docs"
-    //     },
-    //     {
-    //         $lookup:{
-    //             from:"branch",
-    //             localField:"branchId",
-    //             foreignField:"branchId",
-    //             as:"branch_docs"
-    //         }
-    //     },
-    //     {
-    //       $unwind:"$branch_docs"
-    //     },
-    //     {
-    //         $lookup:{
-    //             from:"zone",
-    //             localField:"branch_docs.zoneId",
-    //             foreignField:"zoneId",
-    //             as:"zone_docs"
-    //         }
-    //     },
-    //     {
-    //       $unwind:"$zone_docs"
-    //     },
-    //     {
-    //         $lookup:{
-    //             from:"region",
-    //             localField:"zone_docs.regionId",
-    //             foreignField:"regionId",
-    //             as:"region_docs"
-    //         }
-    //     },
-    //     {
-    //       $unwind:"$region_docs"
-    //     },
-    //     {
-    //         $project:{
-    //             clientId:1,
-    //             assetId:1,
-    //             branchId: 1,
-    //             branchName:"$branch_docs.branchName",
-    //             regionId:1,
-    //             regionName:"$region_docs.regionName",
-    //             zoneId : 1,
-    //             zoneName:"$zone_docs.zoneName",
-    //             assetId : 1,
-    //             assetTypeId:1,
-    //             assetTypeName:"$assetType_docs.assetTypeName",
-    //             assetName:1,
-    //             serialNo: 1,
-    //             status:1
+        },
+        { 
+          $unwind:"$assetType_docs"
+        },
+        {
+            $project:{
+                assetId : 1,
+                assetTypeId:1,
+                assetTypeName:"$assetType_docs.assetTypeName",
+                assetName:1,
+                serialNo: 1,
+                country:1,
+                city:1,
+                state:1,
+                area:1,
+                address:1,
+                status:1
 
-    //         }
-    //     }
-    // ]);
-    return AssetModel.find(dataToFind.query,dataToFind.projection);
+            }
+        }
+    ]);
+    //return AssetModel.find(dataToFind.query,dataToFind.projection);
 
 }
 

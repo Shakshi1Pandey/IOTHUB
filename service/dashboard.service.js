@@ -17,7 +17,9 @@ service.getCount=async(req,res)=>{
     }else{
         query.registerBy = req.query._id;
     }
-    if(req.query.customerId !== null && req.query.customerId !== '' && req.query.customerId !== undefined){
+    
+    if(req.query.customerId !== 'null' && req.query.customerId !== '' && req.query.customerId !== undefined){
+        console.log("+++++")
         query.customerId = req.query.customerId
     }
    

@@ -13,21 +13,23 @@ service.getCount=async(req,res)=>{
     var query = {};
     if(!req.query._id){
         return res.send({success:false, code:500, msg:"_id is missing" });
+    }else{
+        query.createdBy = req.query._id;
     }
     if(req.query.customerId){
-        
+        query.customerId = req.query.customerId
     }
-    console.log(clientId,"clientIdclientId")
+   
     let userToCount={
         query:{createdBy:req.query._id || ""},
         projection:{}
     };
     let assetToCount={
-        query:{customerId:req.query.customerId},
+        query:query,
         projection:{}
     };
     let deviceToCount={
-        query:{customerId:req.query.customerId},
+        query:query,
         projection:{}
     };
     try{

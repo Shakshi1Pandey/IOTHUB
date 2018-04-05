@@ -3,6 +3,7 @@ import mongoose from 'mongoose'
 import User from '../models/user.model'
 import Asset from '../models/asset.model'
 import Device from '../models/device.model'
+import CustomerModel from '../models/customer.model';
 import utility from '../core/utility.js'
 import successMsg from '../core/message/success.msg'
 import msg from '../core/message/error.msg'
@@ -36,7 +37,8 @@ service.getCount=async(req,res)=>{
         const getUserCount=await User.getCount(userToCount);
         const getAssetCount=await Asset.getCount(assetToCount);
         const getDeviceCount=await Device.getCount(deviceToCount);
-        let data=[{"allUser":getUserCount,"allAsset":getAssetCount,"allDevice":getDeviceCount}];
+         const getCustomerCount=await CustomerModel.getCount(userToCount);
+        let data=[{"allUser":getUserCount,"allAsset":getAssetCount,"allDevice":getDeviceCount, "allCustomer":getCustomerCount}];
         logger.info('get all user');
         res.send({"success":true,"code":"200","msg":successMsg.getUser,"data":data});
     }

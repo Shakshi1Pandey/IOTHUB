@@ -37,4 +37,8 @@ CustomerModel.allCustomer = (query) =>{
 CustomerModel.editCustomer = (objToUpdate) =>{
     return CustomerModel.update(objToUpdate.query,objToUpdate.data);
 }
+CustomerModel.getCount = (userToCount)=>{
+    
+    return CustomerModel.find(userToCount.query).count();
+}
 export default CustomerModel;

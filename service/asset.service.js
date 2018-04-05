@@ -82,6 +82,7 @@ service.addAsset = async (req, res) => {
         country:req.body.country,
         state:req.body.state,
         area:req.body.area,
+        registerBy:req.body._id,
         status: req.body.status || "Active",
         createAt: new Date()
     });

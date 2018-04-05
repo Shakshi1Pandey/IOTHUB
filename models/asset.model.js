@@ -28,6 +28,7 @@ const AssetSchema = mongoose.Schema({
     area:{type: String},
     address:{type: String},
     status:{type: String },
+    registerBy:{type: String},
     createAt:{type: Date},
     updatedAt:{type: Date}
 }, {collection : 'asset'});

@@ -14,7 +14,7 @@ service.getCount=async(req,res)=>{
     if(!req.query._id){
         return res.send({success:false, code:500, msg:"_id is missing" });
     }else{
-        query.createdBy = req.query._id;
+        query.registerBy = req.query._id;
     }
     if(req.query.customerId){
         query.customerId = req.query.customerId

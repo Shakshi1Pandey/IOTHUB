@@ -10,9 +10,12 @@ import msg from '../core/message/error.msg'
 const service={}
 
 service.getCount=async(req,res)=>{
-    //let clientId = utility.removeQuotationMarks(req.query.clientId);
-    if(!req.query.customerId){
-        return res.send({success:false, code:500, msg:"customerId" });
+    var query = {};
+    if(!req.query._id){
+        return res.send({success:false, code:500, msg:"_id is missing" });
+    }
+    if(req.query.customerId){
+        
     }
     console.log(clientId,"clientIdclientId")
     let userToCount={

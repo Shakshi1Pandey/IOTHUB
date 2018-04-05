@@ -36,10 +36,13 @@ service.getCount=async(req,res)=>{
         projection:{}
     };
     try{
-        const getUserCount=await User.getCount(userToCount);
-        const getAssetCount=await Asset.getCount(assetToCount);
-        const getDeviceCount=await Device.getCount(deviceToCount);
-         const getCustomerCount=await CustomerModel.getCount(userToCount);
+        const getUserCount = await User.getCount(userToCount);
+        const getAssetCount = await Asset.getCount(assetToCount);
+        const getDeviceCount = await Device.getCount(deviceToCount);
+        var getCustomerCount=0;
+        if(!query.customerId)
+            getCustomerCount = await CustomerModel.getCount(userToCount);
+
         let data=[{"allUser":getUserCount,"allAsset":getAssetCount,"allDevice":getDeviceCount, "allCustomer":getCustomerCount}];
         logger.info('get all user');
         res.send({"success":true,"code":"200","msg":successMsg.getUser,"data":data});

@@ -84,13 +84,15 @@ export class DeviceFunctionUtility {
   }
 
   static time(d){
-    d.slice(0, 2) +
-    ':' +
-    d.slice(2, 4) +
-    ':' +
-    d.slice(4, 6)
+    return (
+      d.slice(0, 2) +
+      ':' +
+      d.slice(2, 4) +
+      ':' +
+      d.slice(4, 6)
+    )
   }
-  
+
   static convertBV(s) {
     return s[0] + '.' + s[1] + 'V';
   }

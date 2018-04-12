@@ -47,19 +47,19 @@ service.getAll = async (req,res) =>{
         logger.info('sending all user...');
        
        var allCustomer;
-    if(users && users.length){
+    // if(users && users.length){
       
-      for(var i=0; i<users.length; i++){
-        console.log(i," = i")
-         let CustomerToFind={
-          _id:{$in:users[i].CustomerIds}
-        }
-        allCustomer = await Customer.allCustomer(CustomerToFind);
-        console.log(allCustomer,"allCustomer")
-        users[i].Customers = allCustomer;
-      }
-      console.log("hii")
-    }
+    //   for(var i=0; i<users.length; i++){
+    //     console.log(i," = i")
+    //      let CustomerToFind={
+    //       _id:{$in:users[i].CustomerIds}
+    //     }
+    //     allCustomer = await Customer.allCustomer(CustomerToFind);
+    //     console.log(allCustomer,"allCustomer")
+    //     users[i].Customers = allCustomer;
+    //   }
+    //   console.log("hii")
+    // }
 		res.send({success:true, code:200, msg:successMsg.allUser, data:users});
 	}catch(err){
 		logger.error('Error in getting user- ' + err);
@@ -228,7 +228,7 @@ service.login = async (req, res) =>{
             var emailId=loggedUser.emailId;
             var newpass=temp+req.body.password;
             var hashed_password1=crypto.createHash('sha512').update(newpass).digest("hex");
-            if(!loggedUser.module){
+            if(!loggedUser.module || !loggedUser.module.length){
                 const loggedUserRole = await roleConfig.getOne({_id:loggedUser.roleId});
                 loggedUser.module = loggedUserRole.module;
             }

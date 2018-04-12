@@ -28,27 +28,27 @@ const service = {};
  */
 service.getAll = async (req,res) =>{
 
-    if(!req.query.clientId){
-        res.send({success:false, code:500, msg:msg.clientId});
+    if(!req.query._id){
+        res.send({success:false, code:500, msg:"_id is missing"});
     }
 
 	try{
         
-        let clientId = utility.removeQuotationMarks(req.query.clientId);
+        //let clientId = utility.removeQuotationMarks(req.query.clientId);
 
 		let dataToFind = {
-			query:{clientId:clientId},
+			query:{createdBy:req.query._id},
 			projection:{}
 		};
 
-		if(req.query.clientId){
-			dataToFind.projection = {
-				role:1,status:1,roleId:1
-			}
-            dataToFind.query = {
-                clientId:clientId
-            }
-		}
+		// if(req.query.req.query._id){
+		// 	dataToFind.projection = {
+		// 		role:1,status:1,roleId:1
+		// 	}
+  //           dataToFind.query = {
+  //               clientId:clientId
+  //           }
+		// }
         console.log(dataToFind)
 		const Role = await RoleConfig.getAll(dataToFind);
         logger.info('sending all Role...');

@@ -29,7 +29,7 @@ const service = {};
 service.getAll = async (req,res) =>{
 
     if(!req.query._id){
-        res.send({success:false, code:500, msg:"_id is missing"});
+        return res.send({success:false, code:500, msg:"_id is missing"});
     }
 
 	try{
@@ -52,10 +52,10 @@ service.getAll = async (req,res) =>{
         console.log(dataToFind)
 		const Role = await RoleConfig.getAll(dataToFind);
         logger.info('sending all Role...');
-		res.send({"success":true, "code":200, "msg":successMsg.allRole, "data":Role});
+		return res.send({"success":true, "code":200, "msg":successMsg.allRole, "data":Role});
 	}catch(err){
 		logger.error('Error in getting Role- ' + err);
-		res.send({"success":false, "code":500, "msg":msg.getRole, "err":err});
+		return res.send({"success":false, "code":500, "msg":msg.getRole, "err":err});
 
 	}
 }

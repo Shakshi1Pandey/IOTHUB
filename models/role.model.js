@@ -16,8 +16,8 @@ AutoIncrement.initialize(mongoose);
  */
 const UserTypeSchema = mongoose.Schema({
 
-    userTypeId:{type:Number},
-    userType: {type: String },
+    roleId:{type:Number},
+    role: {type: String },
     module:[{               //Permission for user
         name:{type:String}, //Asset or Device or Coustmer or User, may be all
         permission:[{type:String}] // GET or POST or PUT or DELETE, may be all
@@ -26,11 +26,11 @@ const UserTypeSchema = mongoose.Schema({
     createdBy:{type: String},
     createAt:{type: Date},
     updatedAt:{type: Date}
-}, {collection : 'usertype'});
+}, {collection : 'role'});
 
-UserTypeSchema.plugin(AutoIncrement.plugin,{model:'usertype',field:'userTypeId',startAt:1,incrementBy:1});
+UserTypeSchema.plugin(AutoIncrement.plugin,{model:'role',field:'roleId',startAt:1,incrementBy:1});
 
-let UserTypeModel = mongoose.model('usertype', UserTypeSchema);
+let UserTypeModel = mongoose.model('role', UserTypeSchema);
 
 /**
  *@description [is used for getting all data of devices from db]

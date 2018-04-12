@@ -206,7 +206,7 @@ service.addRole = async (req, res) => {
 
     let RoleToAdd = RoleConfig({
         createdBy : req.body._id,
-        role: req.body.Role,
+        role: req.body.role,
         module:module,
         status: req.body.status || "Active",
         createAt: new Date()

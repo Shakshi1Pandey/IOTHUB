@@ -109,11 +109,11 @@ service.editRole = async (req, res) => {
 service.addRole = async (req, res) => {
     if(!req.body._id)
     {
-        res.send({"success":false, "code":"500", "msg":"_id is missing"});
+        return res.send({"success":false, "code":"500", "msg":"_id is missing"});
     }
     if(!req.body.role)
     {
-        res.send({"success":false, "code":"500", "msg":msg.Role});
+        return res.send({"success":false, "code":"500", "msg":msg.Role});
     }
     // if(!req.body.module || !req.body.module.length)
     // {
@@ -214,11 +214,11 @@ service.addRole = async (req, res) => {
     try {
         const savedRole = await RoleConfig.addRole(RoleToAdd);
         logger.info('Adding user type ...');
-        res.send({"success":true, "code":"200", "msg":"user Type added successfully!!","data":savedRole});
+        return res.send({"success":true, "code":"200", "msg":"user Type added successfully!!","data":savedRole});
     }
     catch(err) {
-        logger.error('Error in getting Role- ' + err);
-        res.send({"success":false, "code":"500", "msg":msg.addRole,"err":err});
+        logger.error('Error in adding Role- ' + err);
+        return res.send({"success":false, "code":"500", "msg":msg.addRole,"err":err});
     }
 }
 

@@ -35,17 +35,17 @@ const service = {};
 
 service.getAll = async (req,res) =>{
     //console.log("hiiiiii");
-    if(!req.query.clientId){
-       return res.send({"success":false,"code":"500","msg":msg.clientId});
+    if(!req.query._id){
+       return res.send({"success":false,"code":"500","msg":"_id is missing"});
     }
-    let clientId = utility.removeQuotationMarks(req.query.clientId);
+    //let clientId = utility.removeQuotationMarks(req.query.clientId);
 	try{
 		let dataToFind = {
-			query:{clientId:clientId}
+			query:{parentId:req.query._id}
 		};
 		const users = await User.getAll(dataToFind);
         logger.info('sending all user...');
-       console.log(users,typeof clientId);
+       
        var allCustomer;
     if(users && users.length){
       

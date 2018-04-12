@@ -112,7 +112,8 @@ service.getAllDeviceRecentLatLng = async (req, res) => {
       {
         $project: {
           deviceId: 1,
-          recent: { $arrayElemAt: ['$history', -1] }
+          recent: { $arrayElemAt: ['$history', -1] },
+          deviceType : 1
         }
       }
     ];

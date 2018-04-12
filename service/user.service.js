@@ -7,7 +7,7 @@
  */
 
 import User from '../models/user.model'
-import userTypeConfig from '../models/usertype.model'
+import roleConfig from '../models/role.model'
 import Customer from '../models/customer.model'
 import logger from '../core/logger/app.logger'
 import successMsg from '../core/message/success.msg'
@@ -114,7 +114,9 @@ service.getOne=async(req,res)=>{
  * @return {[object]}
  */
 service.addUser = async (req, res) => {
-   
+   if(!req.body._id || !req.body.roleId|| !req.body.name || !req.body.password || !req.body.emailId){
+          return res.send({"success":false, "code":"500","msg":msg.param});
+    }
     var temp =rand(100,30);
     var newPassword=temp+req.body.password;
     var token= crypto.createHash('sha512').update(req.body.password+rand).digest("hex");
@@ -128,7 +130,7 @@ service.addUser = async (req, res) => {
       emailId: req.body.emailId,
       password: hashed_password,
       name: req.body.name,
-      userTypeId: req.body.userTypeId,
+      roleId: req.body.roleId,
       address:req.body.address,
       sector:req.body.sector,
       city:req.body.city,
@@ -140,9 +142,7 @@ service.addUser = async (req, res) => {
       updatedAt: new Date()
     });
     try {
-        if(!req.body.clientId || !req.body.userTypeId|| !req.body.name || !req.body.password || !req.body.emailId){
-          return res.send({"success":false, "code":"500","msg":msg.param});
-        }
+        
         const savedUser = await User.addUser(userToAdd);
         logger.info('Adding user...');
       //  console.log(savedUser);
@@ -229,7 +229,7 @@ service.login = async (req, res) =>{
             var newpass=temp+req.body.password;
             var hashed_password1=crypto.createHash('sha512').update(newpass).digest("hex");
             if(!loggedUser.module){
-                const loggedUserRole = await userTypeConfig.getOne({_id:loggedUser.userTypeId});
+                const loggedUserRole = await roleConfig.getOne({_id:loggedUser.roleId});
                 loggedUser.module = loggedUserRole.module;
             }
             if(hash_db==hashed_password1)
@@ -384,7 +384,7 @@ service.changePassword = async(req,res)=>{
 
 service.updateCustomer = async (req,res) =>{
   var locations = {};
-  if(!req.body.CustomerIds || !req.body.CustomerIds.length){
+  if(!req.body.customerIds || !req.body.customerIds.length){
     if(!req.body.locations)
       return res.send({success:false, code:500, msg:"CustomerIds or locations is missing", })
     else{
@@ -394,9 +394,9 @@ service.updateCustomer = async (req,res) =>{
     }
       
   }
-  if(req.body.CustomerIds){
+  if(req.body.customerIds){
     locations = {
-      CustomerIds:req.body.CustomerIds
+      customerIds:req.body.customerIds
     }
   }
   
@@ -441,7 +441,7 @@ service.RegisterSuperAdmin = async (detailsToReg) => {
       password: hashed_password,
       module: detailsToReg.module,
       status: "Active",
-      userType:"SuperAdmin",
+      roleId:"SuperAdmin",
       createAt: new Date(),
       updatedAt: new Date()
     });

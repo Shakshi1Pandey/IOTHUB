@@ -54,7 +54,7 @@ UserTypeModel.getOne = (deviceToFind) => {
  * @param  {object}
  * @return {[object]}
  */
-UserTypeModel.addUsertype = (userTypeToAdd) => {
+UserTypeModel.addRole = (userTypeToAdd) => {
     return userTypeToAdd.save();
 }
 

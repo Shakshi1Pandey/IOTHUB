@@ -9,7 +9,7 @@ import config from './core/config/config.dev';
 import connectToDb from './db/connect';
 import asset from './routes/asset.router.js';
 import device from './routes/device.router.js';
-import usertype from './routes/usertype.router.js';
+import role from './routes/role.router.js';
 import userservice from './service/user.service.js';
 import user from './routes/user.router.js';
 import assettype from './routes/assettype.router.js';
@@ -63,7 +63,7 @@ app.use(function(req, res, next) {
 
 app.use(device);
 app.use(asset);
-app.use(usertype);
+app.use(role);
 app.use(user);
 app.use(assettype);
 app.use(dashboard);

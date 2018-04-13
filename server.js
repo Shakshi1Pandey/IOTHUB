@@ -19,8 +19,9 @@ import client from './routes/client.router.js';
 import customer from './routes/customer.router.js';
 import net from 'net';
 import deviceTrackerHistoryService from "./service/deviceTrackingHistory.service";
-
 import cors from 'cors';
+import notification from './core/alert/notification';
+import http from 'http';
 
 const port = config.serverPort;
 logger.stream = {
@@ -91,11 +92,15 @@ app.use(function(err, req, res, next) {
 const PORT = 3030;
 const ADDRESS = '0.0.0.0';
 
-let server = net.createServer(deviceTrackerHistoryService.onClientConnected);
-server.listen(PORT, ADDRESS);
-console.log(`socket started at: ${ADDRESS}:${PORT}`);
+let netSocket = net.createServer(deviceTrackerHistoryService.onClientConnected);
+netSocket.listen(PORT, ADDRESS);
+console.log(`netSocket started at: ${ADDRESS}:${PORT}`);
 
-app.listen(port, () => {
+let server = http.createServer(app);
+
+notification(server);
+
+server.listen(port, () => {
     logger.info('server started - ', port);
 });
 

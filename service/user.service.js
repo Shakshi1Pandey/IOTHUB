@@ -118,6 +118,9 @@ service.addUser = async (req, res) => {
    if(!req.body._id || !req.body.roleId|| !req.body.name || !req.body.password || !req.body.emailId){
           return res.send({"success":false, "code":"500","msg":msg.param});
     }
+    if(!req.body.customerIds){
+        return res.send({"success":false, "code":"500","msg":"customerIds is missing"});
+    }
     var temp =rand(100,30);
     var newPassword=temp+req.body.password;
     var token= crypto.createHash('sha512').update(req.body.password+rand).digest("hex");
@@ -136,6 +139,7 @@ service.addUser = async (req, res) => {
       sector:req.body.sector,
       city:req.body.city,
       state:req.body.state,
+      customerIds:req.body.customerIds,
       country:req.body.country,
       module:req.body.module,
       status:req.body.status || "Active",

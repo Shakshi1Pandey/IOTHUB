@@ -11,7 +11,7 @@ const UserSchema = mongoose.Schema({
     emailId: {type: String , index:{unique:true} },
     password: {type: String },
     name:{type: String },
-    roleId: {type: Number},
+    roleId: {type: String},
     address:{type: String },
     sector:{type: String },
     city:{type: String },

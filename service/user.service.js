@@ -17,6 +17,7 @@ import  crypto from 'crypto'
 import jwt from 'jsonwebtoken'
 import nm from 'nodemailer'
 import rand from 'csprng'
+import ObjectID from "bson-objectid";
 
 
 /**
@@ -41,7 +42,7 @@ service.getAll = async (req,res) =>{
     //let clientId = utility.removeQuotationMarks(req.query.clientId);
 	try{
 		let dataToFind = {
-			query:{parentId:req.query._id}
+			query:{parentId:ObjectID(req.query._id)}
 		};
 		const users = await User.getAll(dataToFind);
         logger.info('sending all user...');

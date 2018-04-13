@@ -1,9 +1,10 @@
 import mongoose from 'mongoose';
 import AutoIncrement from "mongoose-auto-increment";
+import ObjectID from "bson-objectid";
 AutoIncrement.initialize(mongoose);
 
 const UserSchema = mongoose.Schema({
-    parentId:{type:String},
+    parentId:{type:mongoose.Schema.ObjectId },
     token:{type:String},
     salt:{type:String},
     temp_str:{type:String},
@@ -11,7 +12,7 @@ const UserSchema = mongoose.Schema({
     emailId: {type: String , index:{unique:true} },
     password: {type: String },
     name:{type: String },
-    roleId: {type: String},
+    roleId: {type: mongoose.Schema.ObjectId},
     address:{type: String },
     sector:{type: String },
     city:{type: String },
@@ -39,7 +40,7 @@ const UserSchema = mongoose.Schema({
 let UserModel = mongoose.model('users',UserSchema);
 
 UserModel.getAll = (dataToFind) => {
-    console.log(dataToFind,"dataToFinddataToFind")
+    console.log(dataToFind,"dataToFinddataToFind111")
    return UserModel.aggregate([
     { $match: dataToFind.query},
     {
@@ -47,23 +48,23 @@ UserModel.getAll = (dataToFind) => {
         from:"role",
         localField:"roleId", 
         foreignField:"_id",
-        as:"userType_docs"
+        as:"role_docs"
       }
 
     },
     { 
-      $unwind:"$userType_docs"
+      $unwind:"$role_docs"
     },
     {
         $project:{
-            clientId:1,
+            parentId:1,
             userId:1,
             emailId: 1,
             name:1,
             userTypeId:1 , 
             customerIds:1,  
             locations:1,        
-            role:"$userType_docs.role",          
+            role:"$role_docs.role",          
             status:1
 
         }

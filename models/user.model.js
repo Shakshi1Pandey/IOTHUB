@@ -44,9 +44,9 @@ UserModel.getAll = (dataToFind) => {
     { $match: dataToFind.query},
     {
       $lookup:{
-        from:"usertype",
-        localField:"userTypeId", 
-        foreignField:"userTypeId",
+        from:"role",
+        localField:"roleId", 
+        foreignField:"_id",
         as:"userType_docs"
       }
 
@@ -63,7 +63,7 @@ UserModel.getAll = (dataToFind) => {
             userTypeId:1 , 
             customerIds:1,  
             locations:1,        
-            userType:"$userType_docs.userType",          
+            role:"$userType_docs.role",          
             status:1
 
         }

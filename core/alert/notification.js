@@ -4,7 +4,7 @@ export default function(server) {
   let io = new socketIO(server);
   io.on('connection', s => {
     console.log('Connected');
-    s.emit('alert');
+    s.emit(udid,data);
     io.on('disconnect', () => {
       console.log('Disconnected');
     });

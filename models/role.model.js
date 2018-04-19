@@ -17,7 +17,7 @@ AutoIncrement.initialize(mongoose);
 const UserTypeSchema = mongoose.Schema({
 
     roleId:{type:Number},
-    role: {type: String },
+    role: {type: String, index:{unique:true} },
     module:[{               //Permission for user
         name:{type:String}, //Asset or Device or Coustmer or User, may be all
         permission:[{type:String}] // GET or POST or PUT or DELETE, may be all

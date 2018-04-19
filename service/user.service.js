@@ -18,6 +18,7 @@ import jwt from 'jsonwebtoken'
 import nm from 'nodemailer'
 import rand from 'csprng'
 import ObjectID from "bson-objectid";
+import RoleConfig from '../models/role.model'
 
 
 /**
@@ -81,15 +82,15 @@ service.getOne=async(req,res)=>{
     
     console.log(req.query.userId);
  
- try{
+    try{
     
-     const getOneUser=await User.getOne(userToFind);
-     var allCustomer = [];
-     if(getOneUser){
-      let CustomerToFind={
+        const getOneUser=await User.getOne(userToFind);
+        var allCustomer = [];
+        if(getOneUser){
+        let CustomerToFind={
           _id:{$in:getOneUser.CustomerIds}
         }
-      allCustomer =await Customer.allCustomer(CustomerToFind);
+        allCustomer =await Customer.allCustomer(CustomerToFind);
      
      }
        
@@ -118,7 +119,7 @@ service.addUser = async (req, res) => {
    if(!req.body._id || !req.body.roleId|| !req.body.name || !req.body.password || !req.body.emailId){
           return res.send({"success":false, "code":"500","msg":msg.param});
     }
-    if(!req.body.customerIds){
+    if(!req.body["customerIds[]"]){
         return res.send({"success":false, "code":"500","msg":"customerIds is missing"});
     }
     var temp =rand(100,30);
@@ -139,7 +140,7 @@ service.addUser = async (req, res) => {
       sector:req.body.sector,
       city:req.body.city,
       state:req.body.state,
-      customerIds:req.body.customerIds,
+      customerIds:req.body["customerIds[]"],
       country:req.body.country,
       module:req.body.module,
       status:req.body.status || "Active",
@@ -437,29 +438,41 @@ service.RegisterSuperAdmin = async (detailsToReg) => {
     var hashed_password=crypto.createHash('sha512').update(newPassword).digest("hex");
     
     
-    let userToAdd = User({
-
-      token:token,
-      salt:temp,
-      temp_str:"",
-      emailId: detailsToReg.emailId,
-      password: hashed_password,
-      module: detailsToReg.module,
-      status: "Active",
-      roleId:"SuperAdmin",
-      createAt: new Date(),
-      updatedAt: new Date()
-    });
+    
+    var roleObj = RoleConfig({
+        role: "SuperAdmin",
+        module:detailsToReg.module,
+        status:"Active"
+    })
+    
     try {
         
-        const savedUser = await User.addUser(userToAdd);
-        
+       
+        const savedRole = await RoleConfig.addRole(roleObj);
+        if(savedRole){
+            let userToAdd = User({
+
+              token:token,
+              salt:temp,
+              temp_str:"",
+              emailId: detailsToReg.emailId,
+              password: hashed_password,
+              module: detailsToReg.module,
+              status: "Active",
+              roleId:ObjectID(savedRole._id),
+              createAt: new Date(),
+              updatedAt: new Date()
+            });
+            const savedUser = await User.addUser(userToAdd);
+            console.log("savedUser == " ,savedUser);
+        }
         
         logger.info('Register superAdmin...');
-      //  console.log(savedUser);
+       
         
     }
     catch(err) {
+        console.log("err == ",err);
         logger.error('Error in adding superadmin- ' + err);
         
     }

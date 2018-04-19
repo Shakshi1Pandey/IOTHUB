@@ -3,10 +3,11 @@
 import { MongoClient } from 'mongodb';
 import { DeviceParserUtility } from './deviceParserUtility';
 import { DeviceFunctionUtility } from './deviceFunctionUtility';
-import { Email } from './alert/email';
-import { Sms } from './alert/sms';
+//import { Email } from './alert/email';
+//import { Sms } from './alert/sms';
 var url = 'mongodb://localhost:27017/iot_server_app';
 var clients = [];
+import { AlertUtility } from './alert/alertUtility';
 
 class deviceTrackingHistoryUtility {
 
@@ -22,6 +23,9 @@ class deviceTrackingHistoryUtility {
     socket.on('data', data => {
       var m = data.toString().replace(/[\n\r]*$/, '');
       console.log(m, 'message');
+      var data = {temp:30}
+      var tlv = {max:20}
+      AlertUtility.tempAlert({data,tlv});
       // var data = {
       //   to:'karthikeyan.a@live.com',
       //   subject: 'original string',

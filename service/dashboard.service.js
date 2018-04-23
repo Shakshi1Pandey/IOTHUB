@@ -7,6 +7,8 @@ import CustomerModel from '../models/customer.model';
 import utility from '../core/utility.js'
 import successMsg from '../core/message/success.msg'
 import msg from '../core/message/error.msg'
+import ObjectID from "bson-objectid";
+
 
 const service={}
 
@@ -24,7 +26,7 @@ service.getCount=async(req,res)=>{
     }
    
     let userToCount={
-        query:{createdBy:req.query._id || ""},
+        query:{parentId:ObjectID(req.query._id) || ""},
         projection:{}
     };
     let assetToCount={

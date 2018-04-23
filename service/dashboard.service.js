@@ -45,6 +45,7 @@ service.getCount=async(req,res)=>{
         const getDeviceCount = await Device.getCount(deviceToCount);
         var getCustomerCount=0;
         var etLoogedUser = 0;
+        var getLoogedUser;
         if(!query.customerId){
             getCustomerCount = await CustomerModel.getCount(userToCount);
             getLoogedUser = await User.getOne({_id:ObjectID(req.query._id)});

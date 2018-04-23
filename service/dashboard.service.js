@@ -17,12 +17,14 @@ service.getCount=async(req,res)=>{
     if(!req.query._id){
         return res.send({success:false, code:500, msg:"_id is missing" });
     }else{
-        query.registerBy = req.query._id;
+        query ={
+            registerBy:req.query._id
+        } 
     }
     
     if(req.query.customerId !== 'null' && req.query.customerId !== '' && req.query.customerId !== undefined){
         console.log("+++++")
-        query.customerId = req.query.customerId
+        query = {customerId :req.query.customerId}
     }
    
     let userToCount={
@@ -42,8 +44,15 @@ service.getCount=async(req,res)=>{
         const getAssetCount = await Asset.getCount(assetToCount);
         const getDeviceCount = await Device.getCount(deviceToCount);
         var getCustomerCount=0;
-        if(!query.customerId)
+        var etLoogedUser = 0;
+        if(!query.customerId){
             getCustomerCount = await CustomerModel.getCount(userToCount);
+            getLoogedUser = await User.getOne({_id:ObjectID(req.query._id)});
+            if(getLoogedUser){
+                var count = getLoogedUser.customerIds?getLoogedUser.customerIds.length:0;
+                getCustomerCount = getCustomerCount+count;
+            }
+        }
 
         let data=[{"allUser":getUserCount,"allAsset":getAssetCount,"allDevice":getDeviceCount, "allCustomer":getCustomerCount}];
         logger.info('get all user');

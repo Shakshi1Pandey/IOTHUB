@@ -19,7 +19,7 @@ AutoIncrement.initialize(mongoose);
 const AssetSchema = mongoose.Schema({
     customerId : {type: String },
     assetId : {type: Number },
-    assetTypeId:{type: String },
+    assetTypeId:{type: mongoose.Schema.ObjectId },
     assetName:{type: String },
     serialNo: {type: String },
     country:{type:String},
@@ -53,37 +53,37 @@ let AssetModel = mongoose.model('asset', AssetSchema);
 
 AssetModel.getAll = (dataToFind) => {
 	console.log(dataToFind,"dataToFind")
-    // return AssetModel.aggregate([
-    //     { $match: dataToFind.query},
-    //     {
-    //       $lookup:{
-    //         from:"assettype",
-    //         localField:"assetTypeId",
-    //         foreignField:"_id",
-    //         as:"assetType_docs"
-    //       }
+    return AssetModel.aggregate([
+        { $match: dataToFind.query},
+        {
+          $lookup:{
+            from:"assettype",
+            localField:"assetTypeId",
+            foreignField:"_id",
+            as:"assetType_docs"
+          }
 
-    //     },
-    //     { 
-    //       $unwind:"$assetType_docs"
-    //     },
-    //     {
-    //         $project:{
-    //             assetId : 1,
-    //             assetTypeId:1,
-    //             assetTypeName:"$assetType_docs.assetTypeName",
-    //             assetName:1,
-    //             serialNo: 1,
-    //             country:1,
-    //             city:1,
-    //             state:1,
-    //             area:1,
-    //             address:1,
-    //             status:1
+        },
+        { 
+          $unwind:"$assetType_docs"
+        },
+        {
+            $project:{
+                assetId : 1,
+                assetTypeId:1,
+                assetTypeName:"$assetType_docs.assetTypeName",
+                assetName:1,
+                serialNo: 1,
+                country:1,
+                city:1,
+                state:1,
+                area:1,
+                address:1,
+                status:1
 
-    //         }
-    //     }
-    // ]);
+            }
+        }
+    ]);
     return AssetModel.find(dataToFind.query,dataToFind.projection);
 
 }

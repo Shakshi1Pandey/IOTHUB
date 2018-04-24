@@ -12,6 +12,8 @@ import logger from '../core/logger/app.logger'
 import msg from '../core/message/error.msg.js'
 import successMsg from '../core/message/success.msg' 
 import utility from '../core/utility.js'
+import ObjectID from "bson-objectid";
+
 
 
 
@@ -40,7 +42,7 @@ service.getAll = async (req,res) =>{
 	try{
 
 		let dataToFind = {
-			query:{$or:[{customerId:req.query.customerId}]}, //add location filter also beacuse of user assigned location, so user can see asset of coustmer of assigned location not outside of location
+			query:{customerId:ObjectID(req.query.customerId)},//{$or:[{customerId:req.query.customerId}]}, //add location filter also beacuse of user assigned location, so user can see asset of coustmer of assigned location not outside of location
 			projection:{}
 		};
 

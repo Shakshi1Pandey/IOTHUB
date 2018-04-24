@@ -47,7 +47,7 @@ service.getCount=async(req,res)=>{
         var etLoogedUser = 0;
         var getLoogedUser;
         if(!query.customerId){
-            getCustomerCount = await CustomerModel.getCount(userToCount);
+            getCustomerCount = await CustomerModel.getCount({createdBy:req.query._id});
             getLoogedUser = await User.getOne({_id:ObjectID(req.query._id)});
             if(getLoogedUser){
                 var count = getLoogedUser.customerIds?getLoogedUser.customerIds.length:0;

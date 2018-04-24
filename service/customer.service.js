@@ -33,12 +33,26 @@ service.addCustomer = async (req,res)=>{
 	if(!req.body.customerName){
 		return res.send({success:false, code:500, msg:"CustomerName is missing"})
 	}
+	// if(req.body.email){
+		
+	// }
+	// if(req.body.sms){
+	// 	return res.send({success:false, code:500, msg:"sms is missing"})
+	// }
+	// if(req.body.notification){
+	// 	return res.send({success:false, code:500, msg:"notification is missing"})
+	// }
 	if(!req.body._id){
 		return res.send({success:false, code:500, msg:"Id is missing"})
 	}
 	var objToAdd = CustomerModel({
 		customerName:req.body.customerName,
 		createdBy:req.body._id,
+		alert:{
+			email:req.body.email?true:false,
+			sms:req.body.sms?true:false,
+			notification:req.body.notification?true:false
+		},
 		status:"Active",
 		createdAt:new Date()
 	})

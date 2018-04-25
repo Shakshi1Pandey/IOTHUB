@@ -21,16 +21,21 @@ service.getCount=async(req,res)=>{
             registerBy:req.query._id
         } 
     }
-    
-    if(req.query.customerId !== 'null' && req.query.customerId !== '' && req.query.customerId !== undefined){
-        console.log("+++++")
-        query = {customerId :ObjectID(req.query.customerId)}
-    }
-   
+
     let userToCount={
         query:{parentId:ObjectID(req.query._id) || ""},
         projection:{}
     };
+    
+    if(req.query.customerId !== 'null' && req.query.customerId !== '' && req.query.customerId !== undefined){
+        console.log("+++++")
+        userToCount = {
+            query:{customerIds: { $elemMatch: { $eq: req.query.customerId } }}
+        }
+        query = {customerId :ObjectID(req.query.customerId)}
+    }
+   
+    
     let assetToCount={
         query:query,
         projection:{}

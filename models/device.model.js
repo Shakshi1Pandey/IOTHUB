@@ -84,6 +84,11 @@ DeviceModel.getAll = (customerId) => {
     //return DeviceModel.find({customerId:customerId});
 }
 
+DeviceModel.allDevice = (dataToFind)=>{
+    console.log(dataToFind," = dataToFind")
+    return DeviceModel.find(dataToFind.query);
+}
+
 /**
  *@description [is used for getting one data of devices from db]
  * @return {object}

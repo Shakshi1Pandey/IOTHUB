@@ -14,6 +14,7 @@ const UserSchema = mongoose.Schema({
     name:{type: String },
     roleId: {type: mongoose.Schema.ObjectId},
     address:{type: String },
+    mobile:{type:String, index:{unique:true}},
     sector:{type: String },
     city:{type: String },
     state:{type: String },

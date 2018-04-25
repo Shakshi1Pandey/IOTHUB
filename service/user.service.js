@@ -143,6 +143,7 @@ service.addUser = async (req, res) => {
       customerIds:req.body["customerIds[]"],
       country:req.body.country,
       module:req.body.module,
+      mobile:req.body.mobile,
       status:req.body.status || "Active",
       createAt: new Date(),
       updatedAt: new Date()

@@ -8,6 +8,7 @@
 
 
 import Asset from '../models/asset.model'
+import Device from '../models/device.model'
 import logger from '../core/logger/app.logger' 
 import msg from '../core/message/error.msg.js'
 import successMsg from '../core/message/success.msg' 
@@ -62,6 +63,61 @@ service.getAll = async (req,res) =>{
 	}
 }
 
+/**
+ * @description get all asset that is not associated with device
+ * @param  {[object]}
+ * @param  {[object]}
+ * @return {[object]}
+ */
+service.getAllAsset = async (req,res) =>{
+    var location = {};
+    if(!req.query.customerId){
+        return res.send({"success":false,"code":"500","msg":"customerId is missing"});
+    }
+    if(!req.query._id){
+        return res.send({"success":false,"code":"500","msg":"_id is missing"});
+    }
+    let dataToFind = {
+            query:{customerId:ObjectID(req.query.customerId)},
+            projection:{}
+    };
+    
+    try{
+        const Alldevices = await Device.allDevice(dataToFind);
+        var assetArray = [];
+
+        for(var i = 0; i<Alldevices.length; i++){
+            console.log(typeof Alldevices[i].assetId)
+            
+            assetArray.push(Alldevices[i].assetId)
+        }
+
+        if(req.query.isAssetType){
+            dataToFind.projection = {
+                assetType:1,assetId:1
+            }
+        }
+        var queryToFindAsset = {}
+        if(assetArray.length){
+            queryToFindAsset = {
+                query:{_id:{$nin:assetArray},customerId:ObjectID(req.query.customerId)}
+            }
+        }else{
+            queryToFindAsset = {
+                query:{customerId:ObjectID(req.query.customerId)}
+            }
+        }
+        
+        // console.log(dataToFind);
+        const asset = await Asset.allAsset(queryToFindAsset);
+        logger.info('sending all asset...');
+        return res.send({success:true, code:200, msg:successMsg.allAsset, data:asset});
+    }catch(err){
+        logger.error('Error in getting asset- ' + err);
+        return res.send({success:false, code:500, msg:msg.getAsset, err:err});
+
+    }
+}
 /**
  * @description [calculation before add Device to db and after adding asset ]
  * @param  {[object]}

@@ -88,6 +88,11 @@ AssetModel.getAll = (dataToFind) => {
 
 }
 
+AssetModel.allAsset = (dataToFind)=>{
+     console.log(dataToFind," = dataToFind2222")
+    return AssetModel.find(dataToFind.query);
+}
+
 /**
  *@description [is used for getting one data of asset from db]
  * @return {object}

@@ -20,6 +20,7 @@ class deviceTrackingHistoryUtility {
     console.log(`${socket.name} connected.`);
     socket.on('data', data => {
       var m = data.toString().replace(/[\n\r]*$/, '');
+      console.log(m,'message');
       var l = this.typeCheck(m);
       DeviceFunctionUtility.address(l, function(result) {
         var l = result;

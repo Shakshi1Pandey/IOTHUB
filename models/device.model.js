@@ -1,5 +1,5 @@
 /**
- * @file(device.model.js) With Schema for device model and all the db query function 
+ * @file(device.model.js) With Schema for device model and all the db query function
  * @author Shakshi Pandey <shakshi.kumari@limitlessmobile.com>
  * @version 1.0.0
  * @lastModifed 11-Jan-2018
@@ -14,13 +14,13 @@ import ObjectID from "bson-objectid";
 /**
  * [DeviceSchema is used for device data validating aginst schema]
  * @type {[type]}
- */ 
+ */
 const DeviceSchema = mongoose.Schema({
     customerId : {type: mongoose.Schema.ObjectId },
     brand:{type: String },
     assetId : {type: mongoose.Schema.ObjectId },
     deviceId:{type: String, index:{unique:true}},
-    deviceType:{type: String }, 
+    deviceType:{type: String },
     deviceName:{type: String },
     serialNo: {type: String },
     simno: {type: String },
@@ -66,7 +66,7 @@ DeviceModel.getAll = (customerId) => {
         },
         {
             $project:{
-                customerId : 1, 
+                customerId : 1,
                 brand:1,
                 assetId : 1,
                 assetName:"$asset_docs.assetName",
@@ -98,6 +98,10 @@ DeviceModel.getOne = (deviceToFind) => {
     return DeviceModel.findOne(deviceToFind);
 }
 
+DeviceModel.getAggregation = (query) => {
+    return DeviceModel.aggregate(query);
+}
+
 DeviceModel.getCount =(deviceToCount)=>{
     return DeviceModel.find(deviceToCount.query).count();
 }
@@ -107,7 +111,7 @@ DeviceModel.getCount =(deviceToCount)=>{
  * @return {[object]}
  */
 DeviceModel.addDevice = (deviceToAdd) => {
-    
+
     return deviceToAdd.save();
 }
 

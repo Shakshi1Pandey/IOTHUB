@@ -47,13 +47,13 @@ UserModel.getAll = (dataToFind) => {
     {
       $lookup:{
         from:"role",
-        localField:"roleId", 
+        localField:"roleId",
         foreignField:"_id",
         as:"role_docs"
       }
 
     },
-    { 
+    {
       $unwind:"$role_docs"
     },
     {
@@ -62,10 +62,10 @@ UserModel.getAll = (dataToFind) => {
             userId:1,
             emailId: 1,
             name:1,
-            userTypeId:1 , 
-            customerIds:1,  
-            locations:1,        
-            role:"$role_docs.role",          
+            userTypeId:1 ,
+            customerIds:1,
+            locations:1,
+            role:"$role_docs.role",
             status:1
 
         }
@@ -76,7 +76,11 @@ UserModel.getOne = (userToFind) => {
     console.log(userToFind," = userToFind")
     return UserModel.findOne(userToFind);
 }
- 
+
+UserModel.getAggregation = (query) => {
+    return UserModel.aggregate(query);
+}
+
 UserModel.addUser = (userToAdd) => {
     return userToAdd.save();
 }
@@ -92,7 +96,7 @@ UserModel.removeUser = (userId) => {
 }
 
 UserModel.getCount = (userToCount)=>{
-    
+
     return UserModel.find(userToCount.query).count();
 }
 

@@ -23,7 +23,6 @@ class deviceTrackingHistoryUtility {
       var l = this.typeCheck(m);
       DeviceFunctionUtility.address(l, function(result) {
         var l = result;
-        l.temp = 40;
         if (typeof l === 'object' && typeof l !== 'string') {
           socket.data = { msg: l };
           AlertUtility.tempAlert({ l });

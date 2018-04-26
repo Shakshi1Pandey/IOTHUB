@@ -54,7 +54,7 @@ export class DeviceParserUtility {
       power: s.slice(77, 85),
       mileage: s.slice(85, 86),
       mileageData: s.slice(86, 94),
-      temp: s.slice(94, 98),
+      temp: DeviceFunctionUtility.temp(s.slice(94, 98)),
       createdAt: new Date()
     };
     return p;

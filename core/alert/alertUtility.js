@@ -103,7 +103,7 @@ export class AlertUtility {
               }
             }
           );
-          if (l.temp > modifiedTlvaltResult.assets.maxTemperature) {
+          if (Number(l.temp.split('(')[0]) > modifiedTlvaltResult.assets.maxTemperature) {
             var resData = JSON.stringify({
               fixedMaxTemp: modifiedTlvaltResult.assets.maxTemperature,
               actualMaxTemp: l.temp,
@@ -111,7 +111,7 @@ export class AlertUtility {
             });
             oa(resData);
             this.al({ altval, altopt });
-          } else if (l.temp < modifiedTlvaltResult.assets.minTemperature) {
+          } else if (Number(l.temp.split('(')[0]) < modifiedTlvaltResult.assets.minTemperature) {
             var resData = JSON.stringify({
               fixedMinTemp: modifiedTlvaltResult.assets.minTemperature,
               actualMinTemp: l.temp,

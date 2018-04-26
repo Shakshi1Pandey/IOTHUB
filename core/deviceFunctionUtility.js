@@ -95,7 +95,7 @@ export class DeviceFunctionUtility {
   static temp(t) {
     var array = t.match(/[^\d]+|\d+/g);
     if (array.length === 2) {
-      return array[1][0] + array[1][1] + '.' + array[1][3] + '(°C)';
+      return array[1][0] + array[1][1] + '.' + array[1][2] + '(°C)';
     } else if (array.length === 3) {
       var hres;
       if(array[2].length === 1){

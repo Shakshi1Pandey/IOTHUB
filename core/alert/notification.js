@@ -6,6 +6,7 @@ export default function(server, notify) {
     console.log('Connected');
     setInterval(() => {
       if (typeof notify === 'object') {
+        console.log(notify.udid,'udid');
         s.emit(notify.udid, notify.data);
       }
     }, 3000 + Math.floor(Math.random() * 4000));

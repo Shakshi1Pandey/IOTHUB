@@ -93,41 +93,36 @@ export class DeviceFunctionUtility {
   }
 
   static temp(t) {
-    var array = t.match(/[^\d]+|\d+/g);
-    if (array.length === 2) {
-      return array[1][0] + array[1][1] + '.' + array[1][2] + '(°C)';
-    } else if (array.length === 3) {
-      var hres;
-      if(array[2].length === 1){
-        hres = Number(array[1]) + this.hex(array[2]);
-      } else if (array[2].length === 2) {
-        hres = Number(array[1]) + this.hex(array[2][0]) + this.hex(array[2][1]);
-      } else if (array[2].length === 3) {
-        hres = Number(array[1]) + this.hex(array[2][0]) + this.hex(array[2][1]) + this.hex(array[2][2]);
-      }
-      return `${hres}(°C)`;
-    }
+    var fa = Array.from(t);
+    return `${(strCheck(fa[1]) * 16 * 16 +
+      strCheck(fa[2]) * 16 +
+      strCheck(fa[3])) *
+      0.1}(°C)`;
+  }
+
+  static strCheck(d) {
+    return isNaN(d) === true ? Number(this.hex(d)) : Number(d);
   }
 
   static hex(h) {
     switch (true) {
       case h === 'A':
-        return 1.0;
+        return 10;
         break;
       case h === 'B':
-        return 1.1;
+        return 11;
         break;
       case h === 'C':
-        return 1.2;
+        return 12;
         break;
       case h === 'D':
-        return 1.3;
+        return 13;
         break;
       case h === 'E':
-        return 1.4;
+        return 14;
         break;
       case h === 'F':
-        return 1.5;
+        return 15;
         break;
       default:
         return 0;

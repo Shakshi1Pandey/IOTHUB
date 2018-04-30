@@ -7,7 +7,7 @@ export class DeviceFunctionUtility {
     var options = {
       provider: 'google',
       httpAdapter: 'https',
-      apiKey: ' AIzaSyA6oeTBjzkaluuFGMJFgdEWoGfElxbfcCk',
+      apiKey: 'AIzaSyCyRxs9RowIrh5eFmQ4ApbkEEveno53OrY',
       formatter: 'json'
     };
     var geocoder = NodeGeocoder(options);

@@ -94,9 +94,9 @@ export class DeviceFunctionUtility {
 
   static temp(t) {
     var fa = Array.from(t);
-    return `${(strCheck(fa[1]) * 16 * 16 +
-      strCheck(fa[2]) * 16 +
-      strCheck(fa[3])) *
+    return `${(this.strCheck(fa[1]) * 16 * 16 +
+      this.strCheck(fa[2]) * 16 +
+      this.strCheck(fa[3])) *
       0.1}(°C)`;
   }
 
